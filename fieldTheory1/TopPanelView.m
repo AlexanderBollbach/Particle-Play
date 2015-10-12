@@ -14,7 +14,7 @@
      if (self = [super initWithFrame:frame]) {
           
           
-          CGFloat playPauseButtonWidth = CGRectGetWidth(self.bounds) * (.05);
+          CGFloat playPauseButtonWidth = CGRectGetWidth(self.bounds) * (.2);
           CGFloat playPauseButtonHeight = CGRectGetHeight(self.bounds) * (0.5);
           CGFloat playPauseButtonX = 0 + CGRectGetWidth(self.bounds)*(.05);
           CGFloat playPauseButtonY = 0 + CGRectGetHeight(self.bounds)/2-playPauseButtonHeight/2;
@@ -24,7 +24,7 @@
 
           CGFloat resetButtonWidth = CGRectGetWidth(self.bounds) * (.05);
           CGFloat resetButtonHeight = CGRectGetHeight(self.bounds) * (0.5);
-          CGFloat resetButtonX = 0 + CGRectGetWidth(self.bounds)*(.05) + 25;
+          CGFloat resetButtonX = 0 + CGRectGetWidth(self.bounds)*(.05) + 125;
           CGFloat resetButtonY = 0 + CGRectGetHeight(self.bounds)/2-resetButtonHeight/2;
           CGRect resetButtonFrame = CGRectMake(resetButtonX, resetButtonY, resetButtonWidth, resetButtonHeight);
           
@@ -32,7 +32,7 @@
           
           CGFloat tempoSliderWidth = CGRectGetWidth(self.bounds) * (.5);
           CGFloat tempoSliderHeight = CGRectGetHeight(self.bounds) * (0.5);
-          CGFloat tempoSliderX = 0 + CGRectGetWidth(self.bounds)*(.05) + 50;
+          CGFloat tempoSliderX = 0 + CGRectGetWidth(self.bounds)*(.05) + 150;
           CGFloat tempoSliderY = 0 + CGRectGetHeight(self.bounds)/2-tempoSliderHeight/2;
           CGRect tempoSliderFrame = CGRectMake(tempoSliderX, tempoSliderY, tempoSliderWidth, tempoSliderHeight);
           

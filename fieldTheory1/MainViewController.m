@@ -75,7 +75,7 @@
      self.topPanelView = [[TopPanelView alloc] initWithFrame:CGRectMake(0,
                                                                         0,
                                                                         CGRectGetWidth(self.view.bounds),
-                                                                        CGRectGetHeight(self.view.bounds)/15)];
+                                                                        CGRectGetHeight(self.view.bounds)/10)];
      self.topPanelView.backgroundColor = [UIColor flatSTLightBlueColor];
      [self.topPanelView.tempoSlider addTarget:self action:@selector(handleSlider:) forControlEvents:UIControlEventValueChanged];
      [self.topPanelView.resetButton addTarget:self action:@selector(resetButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -156,7 +156,7 @@
      [self.view setNeedsDisplay];
      
      for (OrbModel *model in preset) {
-          const CGFloat orbSize = model.isMaster ? 100.0f : 40.0f;
+          const CGFloat orbSize = model.isMaster ? 100.0f : 80.0f;
           CGRect bounds = CGRectMake(0.0f, 0.0f, orbSize, orbSize);
           OrbView *orb = [[OrbView alloc] initWithFrame:bounds];
           orb.center = CGPointMake(model.center.x, model.center.y);
