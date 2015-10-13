@@ -7,14 +7,13 @@
 //
 
 #import "ControlsViewController.h"
-#import "ControlsCollectionViewCell.h"
 #import "OrbModel.h"
 #import "OrbManager.h"
 #import "UIColor+ColorAdditions.h"
+#import "SequencerView.h"
 
-@interface ControlsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ControlsCellViewDelegate>
-@property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) UICollectionViewFlowLayout *collectionViewFlowLayout;
+@interface ControlsViewController () <SequencerViewDelegate, UIScrollViewDelegate>
+@property (nonatomic,strong) SequencerView *sequencerView;
 @end
 
 @implementation ControlsViewController
@@ -22,54 +21,123 @@
 - (void)viewDidLoad {
      [super viewDidLoad];
      
-     _collectionViewFlowLayout = [UICollectionViewFlowLayout new];
-     _collectionViewFlowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-     [_collectionViewFlowLayout setMinimumInteritemSpacing:0.0f];
-     [_collectionViewFlowLayout setMinimumLineSpacing:0.0f];
-     
-     _collectionView = [UICollectionView.alloc initWithFrame:self.view.frame
-                                        collectionViewLayout:_collectionViewFlowLayout];
-     [_collectionView setDelegate:self];
-     [_collectionView setDataSource:self];
-     [_collectionView registerClass:[ControlsCollectionViewCell class] forCellWithReuseIdentifier:@"uicvCell"];
-     _collectionView.backgroundColor = [UIColor flatSTDarkBlueColor];
-     _collectionView.showsHorizontalScrollIndicator = NO;
-     _collectionView.pagingEnabled = YES;
-     [self.view addSubview:_collectionView];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
      [super viewWillAppear:animated];
-     _collectionView.frame = self.view.bounds;
-     _collectionViewFlowLayout.itemSize = self.view.bounds.size;
+     
+     
+     
+     CGFloat sequencerViewOriginY = self.view.frame.size.height/5;
+     
+     
+     
+     self.sequencerView = [[SequencerView alloc] initWithFrame:CGRectMake(0,
+                                                                                    sequencerViewOriginY,
+                                                                                    self.view.frame.size.width,
+                                                                                    CGRectGetHeight(self.view.bounds) - sequencerViewOriginY)];
+     
+     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,
+                                                                               0,
+                                                                               CGRectGetWidth(self.view.bounds),
+                                                                               sequencerViewOriginY)];
+     
+     scrollView.backgroundColor = [UIColor greenColor];
+     
+     
+     
+     UILabel *labeView1 = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                                    0,
+                                                                    CGRectGetWidth(scrollView.frame),
+                                                                    CGRectGetHeight(scrollView.frame))];
+     
+     UILabel *labeView2 = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(scrollView.frame),
+                                                                    0,
+                                                                    CGRectGetWidth(scrollView.frame),
+                                                                    CGRectGetHeight(scrollView.frame))];
+     
+     UILabel *labeView3 = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(scrollView.frame)*2,
+                                                                    0,
+                                                                    CGRectGetWidth(scrollView.frame),
+                                                                    CGRectGetHeight(scrollView.frame))];
+     
+     UILabel *labeView4 = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(scrollView.frame)*3,
+                                                                    0,
+                                                                    CGRectGetWidth(scrollView.frame),
+                                                                    CGRectGetHeight(scrollView.frame))];
+
+     
+     
+     scrollView.pagingEnabled = YES;
+     scrollView.delegate = self;
+     scrollView.contentSize = CGSizeMake(CGRectGetWidth(scrollView.frame)*4,
+                                         CGRectGetHeight(scrollView.frame));
+     
+     
+     labeView1.text = @"one";
+     labeView2.text = @"two";
+     labeView3.text = @"three";
+     labeView4.text = @"four";
+
+     
+     labeView1.textAlignment = NSTextAlignmentCenter;
+     labeView2.textAlignment = NSTextAlignmentCenter;
+     labeView3.textAlignment = NSTextAlignmentCenter;
+     labeView4.textAlignment = NSTextAlignmentCenter;
+
+     [scrollView addSubview:labeView1];
+     [scrollView addSubview:labeView2];
+     [scrollView addSubview:labeView3];
+     [scrollView addSubview:labeView4];
+
+     
+     [self.view addSubview:self.sequencerView];
+     [self.view addSubview:scrollView];
+     
+     OrbModel *someOrb = [[OrbManager sharedOrbManager] getOrbWithID:0];
+     [self.sequencerView loadOrb:someOrb];
+     self.view.backgroundColor = [UIColor redColor];
+     
+     self.sequencerView.delegate = self;
+
 }
 
-- (void)seqTickedWithColumn:(int)column orbId:(int)orbID selected:(BOOL)selected {
-     for (OrbModel *orb in [OrbManager sharedOrbManager].orbModels) {
-          if (orb.idNum == orbID) {
-               [orb.sequence replaceObjectAtIndex:(int)column withObject:[NSNumber numberWithBool:selected]];
-          }
+- (void)seqTickedWithOrbID:(int)orbID andGridNum:(int)gridNum selected:(BOOL)selected {
+     OrbModel *someOrb = [[OrbManager sharedOrbManager] getOrbWithID:orbID];
+     [someOrb.sequence replaceObjectAtIndex:(int)gridNum withObject:[NSNumber numberWithBool:selected]];
+     
+}
+
+
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+     
+     CGFloat pageWidth = scrollView.frame.size.width;
+     int fractionalPage = scrollView.contentOffset.x / pageWidth;
+     OrbModel *thisOrb;
+     switch (fractionalPage) {
+          case 0:
+             thisOrb = [[OrbManager sharedOrbManager] getOrbWithID:0];
+               break;
+          case 1:
+               thisOrb = [[OrbManager sharedOrbManager] getOrbWithID:1];
+
+               break;
+          case 2:
+               thisOrb = [[OrbManager sharedOrbManager] getOrbWithID:2];
+
+               break;
+          case 3:
+               thisOrb = [[OrbManager sharedOrbManager] getOrbWithID:3];
+
+               break;
+               
+          default:
+               break;
      }
+     [self.sequencerView loadOrb:thisOrb];
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-     return [[OrbManager sharedOrbManager].orbModels count];
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-     ControlsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"uicvCell" forIndexPath:indexPath];
-     
-     OrbModel *model = [[OrbManager sharedOrbManager].orbModels objectAtIndex:indexPath.row];
-     
-     cell.orbID = model.idNum;
-     cell.orbName.text = model.name;
-     cell.delegate = self;
-     
-     [cell layoutSeqWithSeq:model.sequence];
-     
-     return cell;
-}
 
 @end

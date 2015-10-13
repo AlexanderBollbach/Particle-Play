@@ -25,4 +25,13 @@
      return self;
 }
 
+
+
+-(OrbModel *)getOrbWithID:(int)orbID {
+     
+    OrbModel *chosenOrb = [self.orbModels objectAtIndex:orbID];
+     return chosenOrb;
+     
+}
+
 @end

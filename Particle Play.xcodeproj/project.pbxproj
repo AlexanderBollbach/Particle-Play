@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2907595A1BCC9670007AA8C4 /* Sequencer.m in Sources */ = {isa = PBXBuildFile; fileRef = 290759591BCC9670007AA8C4 /* Sequencer.m */; };
 		290A28741B937F2900FA736D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 290A28731B937F2900FA736D /* AVFoundation.framework */; };
 		291D35781B7E9DC800898F13 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 291D35771B7E9DC800898F13 /* main.m */; };
 		291D357B1B7E9DC800898F13 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 291D357A1B7E9DC800898F13 /* AppDelegate.m */; };
 		291D357E1B7E9DC800898F13 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 291D357D1B7E9DC800898F13 /* MainViewController.m */; };
-		2928A36D1BBC3D3300BEE906 /* AUSamplePlayer2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2928A36C1BBC3D3300BEE906 /* AUSamplePlayer2.m */; };
+		2928A36D1BBC3D3300BEE906 /* AUSamplePlayer2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2928A36C1BBC3D3300BEE906 /* AUSamplePlayer2.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2928A3701BBC45A300BEE906 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2928A36F1BBC45A300BEE906 /* MainView.m */; };
 		292FC5531BA660790095EB3B /* myFunction.c in Sources */ = {isa = PBXBuildFile; fileRef = 292FC5511BA660790095EB3B /* myFunction.c */; };
 		292FC59B1BA78F690095EB3B /* CustomSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 292FC59A1BA78F690095EB3B /* CustomSlider.m */; };
@@ -24,7 +25,7 @@
 		296863911BB09DEE003AEF88 /* SimpleDrums.aupreset in Resources */ = {isa = PBXBuildFile; fileRef = 296863901BB09DEE003AEF88 /* SimpleDrums.aupreset */; };
 		296863F71BB38B8B003AEF88 /* UIButton+reset.m in Sources */ = {isa = PBXBuildFile; fileRef = 296863F41BB38B8B003AEF88 /* UIButton+reset.m */; };
 		296B003C1BBF5D5A00FA865F /* ControlsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 296B003B1BBF5D5A00FA865F /* ControlsViewController.m */; };
-		296B003F1BC0B11100FA865F /* ControlsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 296B003E1BC0B11100FA865F /* ControlsCollectionViewCell.m */; };
+		297C139C1BCC7E47003F1740 /* SequencerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 297C139B1BCC7E47003F1740 /* SequencerView.m */; };
 		297FE6691B8E7565004E82D3 /* PresetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 297FE6681B8E7565004E82D3 /* PresetsViewController.m */; };
 		298080351B86620600C00FD8 /* OrbView.m in Sources */ = {isa = PBXBuildFile; fileRef = 298080341B86620600C00FD8 /* OrbView.m */; };
 		299B1D141BC827C600CB6DBC /* PlayPauseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 299B1D131BC827C600CB6DBC /* PlayPauseButton.m */; };
@@ -56,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		290759581BCC9670007AA8C4 /* Sequencer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sequencer.h; sourceTree = "<group>"; };
+		290759591BCC9670007AA8C4 /* Sequencer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sequencer.m; sourceTree = "<group>"; };
 		290A28731B937F2900FA736D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		291D35731B7E9DC800898F13 /* Particle Play.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Particle Play.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		291D35771B7E9DC800898F13 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -85,8 +88,8 @@
 		296863F41BB38B8B003AEF88 /* UIButton+reset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+reset.m"; sourceTree = "<group>"; };
 		296B003A1BBF5D5A00FA865F /* ControlsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlsViewController.h; sourceTree = "<group>"; };
 		296B003B1BBF5D5A00FA865F /* ControlsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlsViewController.m; sourceTree = "<group>"; };
-		296B003D1BC0B11100FA865F /* ControlsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlsCollectionViewCell.h; sourceTree = "<group>"; };
-		296B003E1BC0B11100FA865F /* ControlsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlsCollectionViewCell.m; sourceTree = "<group>"; };
+		297C139A1BCC7E47003F1740 /* SequencerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequencerView.h; sourceTree = "<group>"; };
+		297C139B1BCC7E47003F1740 /* SequencerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SequencerView.m; sourceTree = "<group>"; };
 		297FE6671B8E7565004E82D3 /* PresetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresetsViewController.h; sourceTree = "<group>"; };
 		297FE6681B8E7565004E82D3 /* PresetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresetsViewController.m; sourceTree = "<group>"; };
 		298080331B86620600C00FD8 /* OrbView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrbView.h; sourceTree = "<group>"; };
@@ -207,14 +210,14 @@
 				292FC59A1BA78F690095EB3B /* CustomSlider.m */,
 				2928A36E1BBC45A300BEE906 /* MainView.h */,
 				2928A36F1BBC45A300BEE906 /* MainView.m */,
-				296B003D1BC0B11100FA865F /* ControlsCollectionViewCell.h */,
-				296B003E1BC0B11100FA865F /* ControlsCollectionViewCell.m */,
 				299B1D121BC827C600CB6DBC /* PlayPauseButton.h */,
 				299B1D131BC827C600CB6DBC /* PlayPauseButton.m */,
 				299B1D181BC8819000CB6DBC /* ResetButton.h */,
 				299B1D191BC8819000CB6DBC /* ResetButton.m */,
 				299B1D151BC8283D00CB6DBC /* TopPanelView.h */,
 				299B1D161BC8283D00CB6DBC /* TopPanelView.m */,
+				297C139A1BCC7E47003F1740 /* SequencerView.h */,
+				297C139B1BCC7E47003F1740 /* SequencerView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -228,6 +231,8 @@
 				29F4B1521B95E6740093D28E /* OrbManager.m */,
 				2928A36B1BBC3D3300BEE906 /* AUSamplePlayer2.h */,
 				2928A36C1BBC3D3300BEE906 /* AUSamplePlayer2.m */,
+				290759581BCC9670007AA8C4 /* Sequencer.h */,
+				290759591BCC9670007AA8C4 /* Sequencer.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -339,7 +344,7 @@
 		291D356B1B7E9DC800898F13 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = alexanderbollbach;
 				TargetAttributes = {
 					291D35721B7E9DC800898F13 = {
@@ -412,7 +417,6 @@
 			files = (
 				298080351B86620600C00FD8 /* OrbView.m in Sources */,
 				291D357E1B7E9DC800898F13 /* MainViewController.m in Sources */,
-				296B003F1BC0B11100FA865F /* ControlsCollectionViewCell.m in Sources */,
 				292FC59B1BA78F690095EB3B /* CustomSlider.m in Sources */,
 				291D357B1B7E9DC800898F13 /* AppDelegate.m in Sources */,
 				296B003C1BBF5D5A00FA865F /* ControlsViewController.m in Sources */,
@@ -424,7 +428,9 @@
 				297FE6691B8E7565004E82D3 /* PresetsViewController.m in Sources */,
 				2928A36D1BBC3D3300BEE906 /* AUSamplePlayer2.m in Sources */,
 				299B1D1A1BC8819000CB6DBC /* ResetButton.m in Sources */,
+				2907595A1BCC9670007AA8C4 /* Sequencer.m in Sources */,
 				2961A06F1B955B8700CE6D23 /* OrbModel.m in Sources */,
+				297C139C1BCC7E47003F1740 /* SequencerView.m in Sources */,
 				299B1D141BC827C600CB6DBC /* PlayPauseButton.m in Sources */,
 				296863F71BB38B8B003AEF88 /* UIButton+reset.m in Sources */,
 				291D35781B7E9DC800898F13 /* main.m in Sources */,
@@ -489,7 +495,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos9.0;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -527,7 +533,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos9.0;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};

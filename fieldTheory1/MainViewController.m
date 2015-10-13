@@ -18,10 +18,11 @@
 #import "UIColor+ColorAdditions.h"
 #import "AUSamplePlayer2.h"
 #import "TopPanelView.h"
+#import "Sequencer.h"
 
 
 
-@interface MainViewController()
+@interface MainViewController() <sequencerDelegate>
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) BOOL isControlPopoverOpen;
 @property (nonatomic, assign) BOOL isPresetsPopoverOpen;
@@ -32,11 +33,7 @@
 @end
 
 @implementation MainViewController {
-     float tempoTransform;
-     float tempoTransformNew;
-     int count;
-     int tempo;
-     int seqCounter;
+
      __weak MainView *_weakMainView;
      UIVisualEffectView *_blur;
 }
@@ -44,12 +41,13 @@
 -(instancetype)init {
      if (self = [super init]) {
           
-          tempoTransform = 1;
-          tempoTransformNew = 1;
-          count = 0;
-          
           _isControlPopoverOpen = YES;
           _isPresetsPopoverOpen = YES;
+          
+          [[Sequencer sharedSequencer] startSequencer];
+          
+          [Sequencer sharedSequencer].delegate = self;
+          
      }
      return self;
 }
@@ -84,12 +82,12 @@
 
      
      // start "seq"
-     [self _startTimer];
+    // [self _startTimer];
 }
 
 -(void)resetButton:(PlayPauseButton*)sender {
      sender.selected = !sender.selected;
-     count = 0;
+// TODO: time jump
 }
 
 -(void)playPauseButton:(PlayPauseButton*)sender {
@@ -99,12 +97,14 @@
           [self.topPanelView.playPauseButton animateTriToSquare];
      } else {
           [self.topPanelView.playPauseButton animateSquareToTri];
-          [self _startTimer];
+          //[self _startTimer];
      }
 }
 
 -(void)handleSlider:(CustomSlider*)sender {
-     tempoTransformNew = interpolate(0, 100, 2, 0, sender.amount, 1);
+    // change SEQ tempo
+     
+     // tempoTransformNew = interpolate(0, 100, 2, 0, sender.amount, 1);
      
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -119,16 +119,12 @@
      return interpolate(0.0f, 500.0f, 0.0f, 100.0f, sqrt(dx*dx + dy*dy), -1.0f);
 }
 
-- (void)sequencer:(id)sender {
-     
-     if (tempoTransformNew != tempoTransform) {
-          [self _startTimer];
-          tempoTransform = tempoTransformNew;
-     }
-     seqCounter = count++;
-     int sixteenth = ((seqCounter)%16);
+
+
+
+-(void)didTickWithCount:(int)count {
      for (OrbView* orb in _weakMainView.orbs) {
-          if ([[orb.orbModelRef.sequence objectAtIndex:sixteenth] boolValue]) {
+          if ([[orb.orbModelRef.sequence objectAtIndex:count] boolValue]) {
                [orb.sampler sendNoteOnEvent:orb.orbModelRef.midiNote velocity:127];
                [orb.sampler sendReverbWetDry:[self _anchorOrbDistanceToOrb:orb]];
                [orb.sampler sendDelayWetDry:0];
@@ -221,7 +217,7 @@
      [self.view addSubview:_controlViewController.view];
      [_controlViewController didMoveToParentViewController:self];
      
-     NSLog(@"%@",NSStringFromCGRect(_controlViewController.view.bounds));
+  //   NSLog(@"%@",NSStringFromCGRect(_controlViewController.view.bounds));
      [UIView animateWithDuration:0.2 animations:^{
           CGRect frame = _controlViewController.view.frame;
           frame.origin.y = CGRectGetHeight(self.view.bounds) - CGRectGetHeight(_controlViewController.view.bounds);
@@ -281,22 +277,21 @@
 
 #pragma mark - UIResponder
 
--(void)_startTimer {
-     
-     if (self.timer) {
-          [self.timer invalidate];
-          self.timer = nil;
-     }
-     self.timer = [NSTimer scheduledTimerWithTimeInterval:(0.08 * tempoTransformNew)
-                                                   target:self
-                                                 selector:@selector(sequencer:)
-                                                 userInfo:nil
-                                                  repeats:YES];
-     [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
-   //  [NSThread detachNewThreadSelector:@selector(sequencer:) toTarget:self withObject:nil];
-     NSLog(@"%@", self.timer);
-
-}
+//-(void)_startTimer {
+//     
+//     if (self.timer) {
+//          [self.timer invalidate];
+//          self.timer = nil;
+//     }
+//     self.timer = [NSTimer scheduledTimerWithTimeInterval:(0.08 * tempoTransformNew)
+//                                                   target:self
+//                                                 selector:@selector(sequencer:)
+//                                                 userInfo:nil
+//                                                  repeats:YES];
+//     [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+////     NSLog(@"%@", self.timer);
+//
+//}
 
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event

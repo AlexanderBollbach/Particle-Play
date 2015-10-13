@@ -132,12 +132,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fieldTheory1/MainViewController.m"
-            timestampString = "466131788.483483"
+            timestampString = "466393545.374292"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "298"
-            endingLineNumber = "298"
-            landmarkName = "-_startTimer"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "-didTickWithCount:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "fieldTheory1/SequencerView.m"
+            timestampString = "466394163.239199"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "-animateWithCount:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

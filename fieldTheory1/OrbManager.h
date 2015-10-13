@@ -7,8 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "OrbModel.h"
 
 @interface OrbManager : NSObject
 @property(nonatomic,strong)NSMutableArray* orbModels;
+
+
+-(OrbModel *)getOrbWithID:(int)orbID;
 + (OrbManager*)sharedOrbManager;
 @end
