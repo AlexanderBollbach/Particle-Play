@@ -42,6 +42,8 @@
           //Sound
           NSString *path = [[NSBundle mainBundle] pathForResource:@"SimpleDrums" ofType:@"aupreset"];
           self.sampler =  [[AUSamplePlayer2 alloc]initWithPresetPath:path];
+          
+
      }
      return self;
 }
@@ -85,6 +87,13 @@
      scale.autoreverses = YES;
      scale.duration = 0.1;
      [self.layer addAnimation:scale forKey:scale.keyPath];
+}
+
+-(void)setIcon {
+     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.orbModelRef.name]];
+     imageView.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds) - 35, CGRectGetHeight(self.bounds) - 35);
+     imageView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+     [self addSubview:imageView];
 }
 
 @end

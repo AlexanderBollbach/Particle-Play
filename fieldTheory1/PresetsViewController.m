@@ -2,6 +2,7 @@
 #import "PresetsViewController.h"
 #import "OrbManager.h"
 #import "AppDelegate.h"
+#import "UIColor+ColorAdditions.h"
 
 @interface PresetsViewController ()
 
@@ -18,6 +19,7 @@
 
 - (void)viewDidLoad {
      [super viewDidLoad];
+     self.view.backgroundColor = [UIColor flatSTLightBlueColor];
 }
 
 - (void)setupViews {
@@ -32,14 +34,14 @@
      self.tableView.delegate = self;
      self.tableView.dataSource = self;
      self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-     self.tableView.backgroundColor = [UIColor lightGrayColor];
+     self.tableView.backgroundColor = [UIColor clearColor];
      [self.view addSubview:self.tableView];
      
      UIView *lowerView = [[UIView alloc] initWithFrame:CGRectMake(0,
                                                                   viewPartition,
                                                                   CGRectGetWidth(self.view.bounds),
                                                                   CGRectGetHeight(self.view.bounds) - viewPartition)];
-     lowerView.backgroundColor = [UIColor darkGrayColor];
+     lowerView.backgroundColor = [UIColor clearColor];
      
      self.savePresetButton = [UIButton buttonWithType:UIButtonTypeSystem];
      [self.savePresetButton setTitle:@"save" forState:UIControlStateNormal];
@@ -133,14 +135,6 @@
      }
      return tempLabel;
 }
-
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//     if (section == 0) {
-//          return @"Stock";
-//     } else {
-//          return @"Custom";
-//     }
-//}
 
 - (void)savePreset {
      UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"SAVE PRESET"

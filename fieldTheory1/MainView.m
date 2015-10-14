@@ -14,7 +14,6 @@
 
 @implementation MainView
 
-
 -(instancetype)initWithFrame:(CGRect)frame {
      if (self = [super initWithFrame:frame]) {
           self.orbs = [NSMutableArray new];

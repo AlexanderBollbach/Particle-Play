@@ -19,6 +19,8 @@
 + (Sequencer*)sharedSequencer;
 
 -(void)startSequencer;
+@property (nonatomic,assign) NSInteger sequencerCounter;
+@property (nonatomic,assign) float tempoNew;
 
 
 @end

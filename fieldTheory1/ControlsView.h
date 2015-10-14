@@ -11,8 +11,16 @@
 #import "CustomSlider.h"
 #import "ResetButton.h"
 
-@interface TopPanelView : UIView
+@class ControlsView;
+
+@protocol ControlsViewDelegate <NSObject>
+-(void)didClickWithTag:(int)tag;
+-(void)sliderChangedWithValue:(int)value;
+@end
+
+@interface ControlsView : UIView
 @property (nonatomic,strong) PlayPauseButton *playPauseButton;
 @property (nonatomic,strong) ResetButton *resetButton;
 @property (nonatomic,strong) CustomSlider *tempoSlider;
+@property (nonatomic,strong) id<ControlsViewDelegate> delegate;
 @end

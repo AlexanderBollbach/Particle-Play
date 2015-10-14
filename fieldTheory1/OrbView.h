@@ -19,4 +19,6 @@
 @property (nonatomic, strong) AUSamplePlayer2 *sampler;
 @property (nonatomic, assign) BOOL isMaster;
 - (void)performAnimation;
+-(void)setIcon;
+
 @end

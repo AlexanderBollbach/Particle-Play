@@ -29,7 +29,7 @@
 		297FE6691B8E7565004E82D3 /* PresetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 297FE6681B8E7565004E82D3 /* PresetsViewController.m */; };
 		298080351B86620600C00FD8 /* OrbView.m in Sources */ = {isa = PBXBuildFile; fileRef = 298080341B86620600C00FD8 /* OrbView.m */; };
 		299B1D141BC827C600CB6DBC /* PlayPauseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 299B1D131BC827C600CB6DBC /* PlayPauseButton.m */; };
-		299B1D171BC8283D00CB6DBC /* TopPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 299B1D161BC8283D00CB6DBC /* TopPanelView.m */; };
+		299B1D171BC8283D00CB6DBC /* ControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 299B1D161BC8283D00CB6DBC /* ControlsView.m */; };
 		299B1D1A1BC8819000CB6DBC /* ResetButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 299B1D191BC8819000CB6DBC /* ResetButton.m */; };
 		29AE8D701BACA6C20056DE60 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29AE8D6F1BACA6C20056DE60 /* Images.xcassets */; };
 		29D7E7251BAB7BAE00C779FE /* 808Bell.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29D7E7241BAB7BAE00C779FE /* 808Bell.wav */; };
@@ -96,8 +96,8 @@
 		298080341B86620600C00FD8 /* OrbView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrbView.m; sourceTree = "<group>"; };
 		299B1D121BC827C600CB6DBC /* PlayPauseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayPauseButton.h; sourceTree = "<group>"; };
 		299B1D131BC827C600CB6DBC /* PlayPauseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayPauseButton.m; sourceTree = "<group>"; };
-		299B1D151BC8283D00CB6DBC /* TopPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopPanelView.h; sourceTree = "<group>"; };
-		299B1D161BC8283D00CB6DBC /* TopPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopPanelView.m; sourceTree = "<group>"; };
+		299B1D151BC8283D00CB6DBC /* ControlsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlsView.h; sourceTree = "<group>"; };
+		299B1D161BC8283D00CB6DBC /* ControlsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlsView.m; sourceTree = "<group>"; };
 		299B1D181BC8819000CB6DBC /* ResetButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetButton.h; sourceTree = "<group>"; };
 		299B1D191BC8819000CB6DBC /* ResetButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetButton.m; sourceTree = "<group>"; };
 		29AE8D6F1BACA6C20056DE60 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -214,8 +214,8 @@
 				299B1D131BC827C600CB6DBC /* PlayPauseButton.m */,
 				299B1D181BC8819000CB6DBC /* ResetButton.h */,
 				299B1D191BC8819000CB6DBC /* ResetButton.m */,
-				299B1D151BC8283D00CB6DBC /* TopPanelView.h */,
-				299B1D161BC8283D00CB6DBC /* TopPanelView.m */,
+				299B1D151BC8283D00CB6DBC /* ControlsView.h */,
+				299B1D161BC8283D00CB6DBC /* ControlsView.m */,
 				297C139A1BCC7E47003F1740 /* SequencerView.h */,
 				297C139B1BCC7E47003F1740 /* SequencerView.m */,
 			);
@@ -424,7 +424,7 @@
 				29F4B1531B95E6740093D28E /* OrbManager.m in Sources */,
 				381A3F0B1BC5D80800D0CB58 /* UIColor+ColorAdditions.m in Sources */,
 				292FC5531BA660790095EB3B /* myFunction.c in Sources */,
-				299B1D171BC8283D00CB6DBC /* TopPanelView.m in Sources */,
+				299B1D171BC8283D00CB6DBC /* ControlsView.m in Sources */,
 				297FE6691B8E7565004E82D3 /* PresetsViewController.m in Sources */,
 				2928A36D1BBC3D3300BEE906 /* AUSamplePlayer2.m in Sources */,
 				299B1D1A1BC8819000CB6DBC /* ResetButton.m in Sources */,

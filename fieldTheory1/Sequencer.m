@@ -8,19 +8,14 @@
 
 #import "Sequencer.h"
 
-
 @interface Sequencer()
 @property (nonatomic,strong) NSTimer *timer;
 @end
 
-
 @implementation Sequencer {
      float tempoTransform;
-     float tempoTransformNew;
      int count;
-     int sequencerCounter;
 }
-
 
 + (Sequencer*)sharedSequencer {
      static Sequencer *sequencer = nil;
@@ -32,12 +27,13 @@
      });
      return sequencer;
 }
+
 -(instancetype)init {
      if (self = [super init]) {
           tempoTransform = 1;
-          tempoTransformNew = 1;
+          self.tempoNew = 1;
           count = 0;
-          sequencerCounter = 0;
+          self.sequencerCounter = 0;
           
      }
      return self;
@@ -49,7 +45,7 @@
           [self.timer invalidate];
           self.timer = nil;
      }
-     self.timer = [NSTimer scheduledTimerWithTimeInterval:(0.08 * tempoTransformNew)
+     self.timer = [NSTimer scheduledTimerWithTimeInterval:(0.6 * self.tempoNew)
                                                    target:self
                                                  selector:@selector(sequencer:)
                                                  userInfo:nil
@@ -57,20 +53,20 @@
      [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
 }
 
-
-
 - (void)sequencer:(id)sender {
      
-     if (tempoTransformNew != tempoTransform) {
+     if (self.tempoNew != tempoTransform) {
           [self startSequencer];
-          tempoTransform = tempoTransformNew;
+          tempoTransform = self.tempoNew;
      }
-     sequencerCounter++;
-     int tick = ((sequencerCounter)%16);
+     int tick = ((self.sequencerCounter)%16);
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"didTick"
+                                                         object:self
+                                                       userInfo:@{@"count": [NSNumber numberWithInt:tick]}];
      if (self.delegate) {
           [self.delegate didTickWithCount:tick];
      }
-     
+     self.sequencerCounter++;
 }
 
 

@@ -52,20 +52,20 @@ NSString * const ABUserDefaultsPresetsCustomKey = @"ABUserDefaultsPresetsCustomK
      NSMutableArray *presetsTwo = [NSMutableArray new];
      
      //Preset number one
-     OrbModel *kick = [[OrbModel alloc] init];
-     kick.name = @"Kick";
-     kick.idNum = 0;
-     kick.sizeValue = 0.5;
-     kick.midiNote = 36;
-     kick.center = CGPointMake(10.0f, 50.0f);
-     kick.sequence = [@[@true,@false,@false,@false,
+     OrbModel *bass = [[OrbModel alloc] init];
+     bass.name = @"bass";
+     bass.idNum = 0;
+     bass.sizeValue = 0.5;
+     bass.midiNote = 36;
+     bass.center = CGPointMake(10.0f, 50.0f);
+     bass.sequence = [@[@true,@false,@false,@false,
                          @false,@false,@false,@false,
                          @true,@false,@false,@false,
                          @false,@false,@false,@false] mutableCopy];
-     [presetsOne addObject:kick];
+     [presetsOne addObject:bass];
      
-     OrbModel* snare = [[OrbModel alloc] init];
-     snare.name = @"Snare";
+     OrbModel *snare = [[OrbModel alloc] init];
+     snare.name = @"snare";
      snare.idNum = 1;
      snare.sizeValue = 0.5;
      snare.midiNote = 37;
@@ -76,8 +76,8 @@ NSString * const ABUserDefaultsPresetsCustomKey = @"ABUserDefaultsPresetsCustomK
                           @false,@false,@false,@false]mutableCopy];
      [presetsOne addObject:snare];
      
-     OrbModel* hihat = [[OrbModel alloc] init];
-     hihat.name = @"Hi-Hat";
+     OrbModel *hihat = [[OrbModel alloc] init];
+     hihat.name = @"hihat";
      hihat.sizeValue = 0.5;
      hihat.idNum = 2;
      hihat.midiNote = 38;
@@ -88,17 +88,7 @@ NSString * const ABUserDefaultsPresetsCustomKey = @"ABUserDefaultsPresetsCustomK
                           @false,@false,@false,@false] mutableCopy];
      [presetsOne addObject:hihat];
      
-     OrbModel* openHihat = [[OrbModel alloc] init];
-     openHihat.name = @"openHihat";
-     openHihat.idNum = 3;
-     openHihat.sizeValue = 0.5;
-     openHihat.midiNote = 39;
-     openHihat.center = CGPointMake(200.0f, 120.0f);
-     openHihat.sequence = [@[@true,@true,@true,@true,
-                              @false,@false,@false,@false,
-                              @true,@false,@false,@false,
-                              @false,@false,@false,@false] mutableCopy];
-     [presetsOne addObject:openHihat];
+    
      
      OrbModel* master = [[OrbModel alloc]init];
      master.name = @"Master";
@@ -112,20 +102,20 @@ NSString * const ABUserDefaultsPresetsCustomKey = @"ABUserDefaultsPresetsCustomK
      [presetsOne addObject:master];
      
      //Preset number two
-     kick = [[OrbModel alloc]init];
-     kick.name = @"Kick";
-     kick.idNum = 0;
-     kick.sizeValue = 0.5;
-     kick.midiNote = 36;
-     kick.center = CGPointMake(10.0f, 100.0f);
-     kick.sequence = [@[@true,@true,@false,@true,
+     bass = [[OrbModel alloc]init];
+     bass.name = @"bass";
+     bass.idNum = 0;
+     bass.sizeValue = 0.5;
+     bass.midiNote = 36;
+     bass.center = CGPointMake(10.0f, 100.0f);
+     bass.sequence = [@[@true,@true,@false,@true,
                          @false,@false,@false,@false,
                          @true,@false,@false,@false,
                          @false,@false,@false,@false]mutableCopy];
-     [presetsTwo addObject:kick];
+     [presetsTwo addObject:bass];
      
      snare = [[OrbModel alloc] init];
-     snare.name = @"Snare";
+     snare.name = @"snare";
      snare.idNum = 1;
      snare.sizeValue = 0.5;
      snare.midiNote = 37;
@@ -137,7 +127,7 @@ NSString * const ABUserDefaultsPresetsCustomKey = @"ABUserDefaultsPresetsCustomK
      [presetsTwo addObject:snare];
      
      hihat = [[OrbModel alloc] init];
-     hihat.name = @"Hi-Hat";
+     hihat.name = @"hihat";
      hihat.sizeValue = 0.5;
      hihat.idNum = 2;
      hihat.midiNote = 38;
@@ -148,17 +138,6 @@ NSString * const ABUserDefaultsPresetsCustomKey = @"ABUserDefaultsPresetsCustomK
                           @false,@false,@false,@false] mutableCopy];
      [presetsTwo addObject:hihat];
      
-     openHihat = [[OrbModel alloc] init];
-     openHihat.name = @"Open Hihat";
-     openHihat.idNum = 3;
-     openHihat.sizeValue = 0.5;
-     openHihat.midiNote = 39;
-     openHihat.center = CGPointMake(200.0f, 200.0f);
-     openHihat.sequence = [@[@true,@true,@false,@true,
-                              @false,@false,@false,@false,
-                              @true,@false,@false,@false,
-                              @true,@false,@true,@false] mutableCopy];
-     [presetsTwo addObject:openHihat];
      
      master = [[OrbModel alloc] init];
      master.name = @"Master";

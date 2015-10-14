@@ -10,43 +10,42 @@
 #import "OrbView.h"
 #import "AppDelegate.h"
 #import "OrbModel.h"
-#import "CustomSlider.h"
 #import "myFunction.h"
 #import "MainView.h"
 #import "ControlsViewController.h"
 #import "PresetsViewController.h"
 #import "UIColor+ColorAdditions.h"
 #import "AUSamplePlayer2.h"
-#import "TopPanelView.h"
+#import "ControlsView.h"
 #import "Sequencer.h"
-
+#import "ControlsViewController.h"
 
 
 @interface MainViewController() <sequencerDelegate>
 @property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, assign) BOOL isControlPopoverOpen;
+@property (nonatomic, assign) BOOL isControlsPopoverOpen;
 @property (nonatomic, assign) BOOL isPresetsPopoverOpen;
-@property (nonatomic, strong) CustomSlider *customSlider;
-@property (nonatomic, strong) ControlsViewController *controlViewController;
+@property (nonatomic, strong) ControlsViewController *controlsViewController;
 @property (nonatomic, strong) PresetsViewController *presetsViewController;
-@property (nonatomic, strong) TopPanelView *topPanelView;
 @end
 
 @implementation MainViewController {
-
      __weak MainView *_weakMainView;
      UIVisualEffectView *_blur;
+     CGFloat controlsSnapPoint1;
+          CGFloat controlsSnapPoint2;
+
 }
 
 -(instancetype)init {
      if (self = [super init]) {
           
-          _isControlPopoverOpen = YES;
+          _isControlsPopoverOpen = YES;
           _isPresetsPopoverOpen = YES;
-          
           [[Sequencer sharedSequencer] startSequencer];
-          
           [Sequencer sharedSequencer].delegate = self;
+
+          
           
      }
      return self;
@@ -61,7 +60,6 @@
 - (void)viewDidLoad {
      [super viewDidLoad];
      
-     
      // load initial preset
      NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:ABUserDefaultsPresetsKey];
      NSMutableDictionary *masterDict = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -69,55 +67,159 @@
      NSArray *preset = [presets objectForKey:@"Preset2"];
      [self loadStockPreset:preset];
 
-     // top UI
-     self.topPanelView = [[TopPanelView alloc] initWithFrame:CGRectMake(0,
-                                                                        0,
-                                                                        CGRectGetWidth(self.view.bounds),
-                                                                        CGRectGetHeight(self.view.bounds)/10)];
-     self.topPanelView.backgroundColor = [UIColor flatSTLightBlueColor];
-     [self.topPanelView.tempoSlider addTarget:self action:@selector(handleSlider:) forControlEvents:UIControlEventValueChanged];
-     [self.topPanelView.resetButton addTarget:self action:@selector(resetButton:) forControlEvents:UIControlEventTouchUpInside];
-     [self.topPanelView.playPauseButton addTarget:self action:@selector(playPauseButton:) forControlEvents:UIControlEventTouchUpInside];
-     [self.view addSubview:self.topPanelView];
-
      
-     // start "seq"
-    // [self _startTimer];
+     // initialize controls View Controller
+     CGSize size = CGSizeMake(CGRectGetWidth(self.view.bounds),
+                              CGRectGetHeight(self.view.bounds) - 150.0);
+     CGRect mybounds = CGRectMake(0,
+                                  CGRectGetHeight(self.view.bounds),
+                                  size.width,
+                                  size.height);
+     self.controlsViewController = [ControlsViewController new];
+   
+     mybounds.origin.y = controlsSnapPoint1;
+     
+     self.controlsViewController.view.frame = mybounds;
+     controlsSnapPoint1 = CGRectGetHeight(self.view.bounds) - CGRectGetHeight(mybounds)/4;
+     controlsSnapPoint2 = CGRectGetHeight(self.view.bounds) - CGRectGetHeight(self.controlsViewController.view.frame);
+     [self addChildViewController:self.controlsViewController];
+     [self.view addSubview:self.controlsViewController.view];
+     [self.controlsViewController didMoveToParentViewController:self];
+     
+     // initialize Presets View Controller
+     CGSize sizePresets = CGSizeMake(CGRectGetWidth(self.view.bounds)/2.5,
+                              CGRectGetHeight(self.view.bounds));
+     CGRect myboundsPresets = CGRectMake(CGRectGetWidth(self.view.bounds),
+                                  0,
+                                  sizePresets.width,
+                                  sizePresets.height);
+     self.presetsViewController = [PresetsViewController new];
+     self.presetsViewController.view.frame = myboundsPresets;
+     
+     [self addChildViewController:self.presetsViewController];
+     [self.view addSubview:self.presetsViewController.view];
+     [self.presetsViewController setupViews];
+     [self.presetsViewController didMoveToParentViewController:self];
+    
+     
+     // Open presets gesture
+     UIScreenEdgePanGestureRecognizer *rightEdge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleRightEdge:)];
+     rightEdge.edges = UIRectEdgeRight;
+     rightEdge.delegate = self;
+     [self.view addGestureRecognizer:rightEdge];
+     
+     // close presets Gesture
+     UIPanGestureRecognizer *closePresets = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePresetsPan:)];
+     [self.presetsViewController.view addGestureRecognizer:closePresets];
+     closePresets.delegate = self;
+
+
+     // move controls Gesture
+     UIPanGestureRecognizer *controlsGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleControlsPan:)];
+     [self.controlsViewController.view addGestureRecognizer:controlsGesture];
+     controlsGesture.delegate = self;
 }
 
--(void)resetButton:(PlayPauseButton*)sender {
-     sender.selected = !sender.selected;
-// TODO: time jump
+
+
+#pragma mark --- presets gestures
+
+-(void)handlePresetsPan:(UIPanGestureRecognizer*)gesture {
+     CGPoint translation = [gesture translationInView:self.view];
+     CGFloat presetsMidPoint = CGRectGetWidth(self.view.bounds) - CGRectGetWidth(self.presetsViewController.view.bounds)/2;
+     CGFloat presetsPosition = self.presetsViewController.view.frame.origin.x;
+     switch (gesture.state) {
+          case UIGestureRecognizerStateBegan:
+               
+               break;
+          case UIGestureRecognizerStateChanged:
+               if (presetsPosition < presetsMidPoint) {
+                    self.presetsViewController.view.center = CGPointMake(self.presetsViewController.view.center.x + translation.x,
+                                                                         self.presetsViewController.view.center.y);
+                    [gesture setTranslation:CGPointZero inView:self.presetsViewController.view];
+                    
+               } else {
+                    [self dismissPresetsViewController];
+               }
+               break;
+          case UIGestureRecognizerStateEnded:
+               if (presetsPosition < presetsMidPoint) {
+                    [self presentPresetsViewController];
+               } else {
+                    [self dismissPresetsViewController];
+               }
+               break;
+               
+          default:
+               break;
+     }
+     
 }
 
--(void)playPauseButton:(PlayPauseButton*)sender {
-     sender.selected = !sender.selected;
-     if (sender.selected) {
-          [self.timer invalidate];
-          [self.topPanelView.playPauseButton animateTriToSquare];
-     } else {
-          [self.topPanelView.playPauseButton animateSquareToTri];
-          //[self _startTimer];
+
+-(void)handleControlsPan:(UIPanGestureRecognizer*)gesture {
+     CGPoint translation = [gesture translationInView:self.view];
+  //   CGFloat controlsSnapPoint = CGRectGetHeight(self.view.bounds) - CGRectGetHeight(self.controlsViewController.view.bounds)/4;
+  //   CGFloat controlsPosition = self.controlsViewController.view.frame.origin.y;
+     switch (gesture.state) {
+          case UIGestureRecognizerStateBegan:
+               break;
+          case UIGestureRecognizerStateChanged:
+               NSLog(@"%f", [gesture velocityInView:self.view].y);
+               if ([gesture velocityInView:self.view].y < 0 && gesture.view.frame.origin.y < controlsSnapPoint2 + 50) {
+                    [self snapControlsToNearestPointFromPoint:self.controlsViewController.view.frame.origin];
+               } else {
+                    self.controlsViewController.view.center = CGPointMake(self.controlsViewController.view.center.x,
+                                                                          self.controlsViewController.view.center.y + translation.y);
+                    [gesture setTranslation:CGPointZero inView:self.controlsViewController.view];
+               }
+               break;
+          case UIGestureRecognizerStateEnded:
+                                  [self snapControlsToNearestPointFromPoint:self.controlsViewController.view.frame.origin];
+
+               break;
+               
+          default:
+               break;
+     }
+     
+}
+
+
+- (void)handleRightEdge:(UIScreenEdgePanGestureRecognizer *)gesture {
+     CGPoint translation = [gesture translationInView:self.view];
+     CGFloat presetsMidPoint = CGRectGetWidth(self.view.bounds) - CGRectGetWidth(self.presetsViewController.view.bounds)/2;
+     CGFloat presetsPosition = self.presetsViewController.view.frame.origin.x;
+     switch (gesture.state) {
+          case UIGestureRecognizerStateBegan:
+               break;
+          case UIGestureRecognizerStateChanged:
+               if (presetsPosition > presetsMidPoint) {
+                    self.presetsViewController.view.center = CGPointMake(self.presetsViewController.view.center.x + translation.x, self.presetsViewController.view.center.y);
+                    [gesture setTranslation:CGPointZero inView:self.view];
+
+               } else {
+
+                    [self presentPresetsViewController];
+               }
+               break;
+          case UIGestureRecognizerStateEnded:
+               if (presetsPosition < presetsMidPoint) {
+                    [self presentPresetsViewController];
+               } else {
+                    [self dismissPresetsViewController];
+               }
+               break;
+          default:
+               break;
      }
 }
 
--(void)handleSlider:(CustomSlider*)sender {
-    // change SEQ tempo
-     
-     // tempoTransformNew = interpolate(0, 100, 2, 0, sender.amount, 1);
-     
-}
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-     [self.view setNeedsDisplay];
-}
 
-- (CGFloat)_anchorOrbDistanceToOrb:(OrbView *)orb {
-     const CGPoint anchorPoint = _weakMainView.anchorOrb.center;
-     const CGPoint orbPoint = orb.center;
-     const CGFloat dx = (anchorPoint.x - orbPoint.x);
-     const CGFloat dy = (anchorPoint.y - orbPoint.y);
-     return interpolate(0.0f, 500.0f, 0.0f, 100.0f, sqrt(dx*dx + dy*dy), -1.0f);
-}
+
+
+
+
 
 
 
@@ -136,10 +238,79 @@
 }
 
 
+
+
+- (void)snapControlsToNearestPointFromPoint:(CGPoint)point {
+
+     float dist1 = fabs(point.y - controlsSnapPoint1);
+     float dist2 = fabs(point.y - controlsSnapPoint2);
+     
+     float nearer;
+     if (dist1 < dist2) {
+          nearer = controlsSnapPoint1;
+     } else {
+          nearer = controlsSnapPoint2;
+     }
+     
+     [UIView animateWithDuration:0.2 animations:^{
+          CGRect frame = self.controlsViewController.view.frame;
+          frame.origin.y = nearer;
+          self.controlsViewController.view.frame = frame;
+     }];
+}
+
+
+
+- (void)dismissPresetsViewController {
+    
+     [UIView animateWithDuration:.200 animations:^{
+          CGRect frame = self.presetsViewController.view.frame;
+          frame.origin.x = self.view.frame.size.width;
+          self.presetsViewController.view.frame = frame;
+     }];
+}
+
+- (void)presentPresetsViewController {
+     
+     [UIView animateWithDuration:.200 animations:^{
+          CGRect frame = self.presetsViewController.view.frame;
+          frame.origin.x = CGRectGetWidth(self.view.bounds)-CGRectGetWidth(self.view.bounds)/2.5;
+          self.presetsViewController.view.frame = frame;
+     }];
+     
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+     if (motion == UIEventSubtypeMotionShake)
+     {
+          for (OrbModel *orb in [OrbManager sharedOrbManager].orbModels) {
+               orb.sequence = [@[@false,@false,@false,@false,
+                                 @false,@false,@false,@false,
+                                 @false,@false,@false,@false,
+                                 @false,@false,@false,@false]mutableCopy];
+          }
+     }
+}
+
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+     [self.view setNeedsDisplay];
+}
+
+- (CGFloat)_anchorOrbDistanceToOrb:(OrbView *)orb {
+     const CGPoint anchorPoint = _weakMainView.anchorOrb.center;
+     const CGPoint orbPoint = orb.center;
+     const CGFloat dx = (anchorPoint.x - orbPoint.x);
+     const CGFloat dy = (anchorPoint.y - orbPoint.y);
+     return interpolate(0.0f, 500.0f, 0.0f, 100.0f, sqrt(dx*dx + dy*dy), -1.0f);
+}
+
+
 -(void)loadStockPreset:(NSArray*)preset {
      
      [[[OrbManager sharedOrbManager] orbModels] removeAllObjects];
-
+     
      _weakMainView.anchorOrb = nil;
      [_weakMainView.orbs removeAllObjects];
      
@@ -157,9 +328,10 @@
           OrbView *orb = [[OrbView alloc] initWithFrame:bounds];
           orb.center = CGPointMake(model.center.x, model.center.y);
           orb.orbModelRef = model;
+          [orb setIcon];
           orb.isMaster = model.isMaster;
           orb.backgroundColor = model.isMaster ? [UIColor flatSTLightBlueColor] : [UIColor flatSTEmeraldColor];
-          [orb addTarget:self action:@selector(toggleControlsPopover:) forControlEvents:UIControlEventTouchUpInside];
+          //   [orb addTarget:self action:@selector(toggleControlsPopover:) forControlEvents:UIControlEventTouchUpInside];
           [orb addObserver:self forKeyPath:@"center" options:NSKeyValueObservingOptionNew context:nil];
           [self.view addSubview:orb];
           
@@ -172,138 +344,4 @@
      }
 }
 
-- (void)toggleControlsPopover:(OrbView*)sender {
-     if (sender.isMaster) {
-          self.isPresetsPopoverOpen = !self.isPresetsPopoverOpen;
-     } else {
-          self.isControlPopoverOpen = !self.isControlPopoverOpen;
-     }
-}
-
-- (void)setIsControlPopoverOpen:(BOOL)isControlPopoverOpen {
-     
-     if (_isControlPopoverOpen == isControlPopoverOpen) {
-          return;
-     }
-     _isControlPopoverOpen = isControlPopoverOpen;
-     if (_isControlPopoverOpen) {
-          [self dismissControlsViewController];
-     } else {
-          [self presentControlsViewController];
-     }
-}
-
-- (void)setIsPresetsPopoverOpen:(BOOL)isPresetsPopoverOpen {
-     
-     if (_isPresetsPopoverOpen == isPresetsPopoverOpen) {
-          return;
-     }
-     _isPresetsPopoverOpen = isPresetsPopoverOpen;
-     if (_isPresetsPopoverOpen) {
-          [self dismissPresetsViewController];
-     } else {
-          [self presentPresetsViewController];
-     }
-}
-
-- (void)presentControlsViewController {
-     
-     CGSize size = CGSizeMake(CGRectGetWidth(self.view.bounds),  CGRectGetWidth(self.view.bounds) - 100.0);
-     CGRect mybounds = CGRectMake(0.0, CGRectGetHeight(self.view.bounds), size.width, size.height);
-     _controlViewController = [ControlsViewController new];
-     _controlViewController.view.frame = mybounds;
-
-     [self addChildViewController:_controlViewController];
-     [self.view addSubview:_controlViewController.view];
-     [_controlViewController didMoveToParentViewController:self];
-     
-  //   NSLog(@"%@",NSStringFromCGRect(_controlViewController.view.bounds));
-     [UIView animateWithDuration:0.2 animations:^{
-          CGRect frame = _controlViewController.view.frame;
-          frame.origin.y = CGRectGetHeight(self.view.bounds) - CGRectGetHeight(_controlViewController.view.bounds);
-          _controlViewController.view.frame = frame;
-     }];
-}
-
-- (void)presentPresetsViewController {
-     
-     CGSize size = CGSizeMake(
-                              CGRectGetWidth(self.view.bounds)/2.5,
-                              CGRectGetHeight(self.view.bounds));
-     CGRect mybounds = CGRectMake(
-                                  CGRectGetWidth(self.view.bounds),
-                                  0,
-                                  size.width,
-                                  size.height);
-     _presetsViewController = [PresetsViewController new];
-     _presetsViewController.view.frame = mybounds;
-     
-     [self addChildViewController:_presetsViewController];
-     [self.view addSubview:_presetsViewController.view];
-     [_presetsViewController setupViews];
-     [_presetsViewController didMoveToParentViewController:self];
-     
-     [UIView animateWithDuration:.200 animations:^{
-          CGRect frame = _presetsViewController.view.frame;
-          frame.origin.x = CGRectGetWidth(self.view.bounds)-CGRectGetWidth(self.view.bounds)/2.5;
-          _presetsViewController.view.frame = frame;
-     }];
-     
-}
-
-- (void)dismissControlsViewController {
-
-     [UIView animateWithDuration:.200 animations:^{
-          CGRect frame = _controlViewController.view.frame;
-          frame.origin.y = self.view.frame.size.height + CGRectGetHeight(self.view.bounds)/2.5;
-          _controlViewController.view.frame = frame;
-        } completion:^(BOOL finished) {
-             [_controlViewController.view removeFromSuperview];
-             [_controlViewController removeFromParentViewController];
-        }];
-}
-
-- (void)dismissPresetsViewController {
-    
-     [UIView animateWithDuration:.200 animations:^{
-          CGRect frame = _presetsViewController.view.frame;
-          frame.origin.x = self.view.frame.size.width;
-          _presetsViewController.view.frame = frame;
-     } completion:^(BOOL finished) {
-          [_presetsViewController.view removeFromSuperview];
-          [_presetsViewController removeFromParentViewController];
-     }];
-}
-
-#pragma mark - UIResponder
-
-//-(void)_startTimer {
-//     
-//     if (self.timer) {
-//          [self.timer invalidate];
-//          self.timer = nil;
-//     }
-//     self.timer = [NSTimer scheduledTimerWithTimeInterval:(0.08 * tempoTransformNew)
-//                                                   target:self
-//                                                 selector:@selector(sequencer:)
-//                                                 userInfo:nil
-//                                                  repeats:YES];
-//     [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
-////     NSLog(@"%@", self.timer);
-//
-//}
-
-
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-     if (motion == UIEventSubtypeMotionShake)
-     {
-          for (OrbModel *orb in [OrbManager sharedOrbManager].orbModels) {
-               orb.sequence = [@[@false,@false,@false,@false,
-                                 @false,@false,@false,@false,
-                                 @false,@false,@false,@false,
-                                 @false,@false,@false,@false]mutableCopy];
-          }
-     }
-}
 @end
