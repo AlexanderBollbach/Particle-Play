@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "OrbView.h"
 
+
 @interface MainView : UIView
 @property (nonatomic,strong) NSMutableArray *orbs;
 @property (nonatomic,strong) OrbView *anchorOrb;
+@property (nonatomic,assign) CGFloat dashConstant;
 @end

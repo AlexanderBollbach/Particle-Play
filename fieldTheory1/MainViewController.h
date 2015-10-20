@@ -10,14 +10,18 @@
 #import <QuartzCore/QuartzCore.h>
 #import "OrbManager.h"
 
+
 @protocol seqDelegate <NSObject>
 - (void)animatePlayheadWithIndex:(NSInteger)index;
 @end
 
 @interface MainViewController : UIViewController<UIGestureRecognizerDelegate>
+
 @property(nonatomic,strong) OrbManager* orbModelMaster;
 @property (nonatomic,weak) id <seqDelegate> seqDelegate;
 
 -(void)loadStockPreset:(NSArray*)preset;
+-(void)toggleControls:(BOOL)toggle;
+
 @end
 

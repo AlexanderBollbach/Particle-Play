@@ -13,70 +13,79 @@
 -(instancetype)initWithFrame:(CGRect)frame {
      if (self = [super initWithFrame:frame]) {
           
-          CGFloat row1X = CGRectGetHeight(self.bounds)/4*1 - 20;
-          CGFloat row2x = CGRectGetHeight(self.bounds)/4*2;
+          CGRect row1 = self.bounds;
+          row1.size.height /= 4;
           
-          CGFloat playPauseButtonWidth = CGRectGetWidth(self.bounds) * (.2);
-          CGFloat playPauseButtonHeight = CGRectGetHeight(self.bounds) * (0.25);
-          CGFloat playPauseButtonX = 0 + CGRectGetWidth(self.bounds)*(.05);
-          CGFloat playPauseButtonY = row1X;
+          CGRect row2 = row1;
+          row2.origin.y = row1.size.height;
+          row2.size.height = self.bounds.size.height - row2.size.height;
+          
+          CGRect row1L_frame = row1;
+          row1L_frame.size.width /= 2;
+          
+          CGRect row1R_frame = row1L_frame;
+          row1R_frame.origin.x += row1R_frame.size.width;
+          
+          CGRect row1R_A_frame = row1R_frame;
+          row1R_A_frame.size.width /= 2;
+          
+          CGRect row1R_B_frame = row1R_A_frame;
+          row1R_B_frame.origin.x += row1R_B_frame.size.width;
+          
+          // row 1
+          self.playPauseButton = [[PlayPauseButton alloc] initWithFrame:CGRectInset(row1L_frame, 5, 5)];
+          [self.playPauseButton addTarget:self action:@selector(handleEvent:) forControlEvents:UIControlEventTouchUpInside];
 
-        CGRect playPauseButtonFrame = CGRectMake(playPauseButtonX, playPauseButtonY, playPauseButtonWidth, playPauseButtonHeight);
-          
-
-          CGFloat resetButtonOffset = 15;
-          
-          for (int x = 0; x < 4; x++) {
-               CGFloat resetButtonWidth = CGRectGetWidth(self.bounds)/4 - 5;
-               CGFloat resetButtonHeight = CGRectGetHeight(self.bounds) - row2x;
-               CGFloat resetButtonX = CGRectGetWidth(self.bounds)/4*x + resetButtonOffset;
-               CGFloat resetButtonY = row2x;
-               CGRect resetButtonFrame = CGRectMake(resetButtonX, resetButtonY, resetButtonWidth, resetButtonHeight);
-
-               ResetButton *resetButton = [[ResetButton alloc] initWithFrame:resetButtonFrame];
-               resetButton.backgroundColor = [UIColor redColor];
-               resetButton.tag = x;
-               [resetButton addTarget:self action:@selector(handleEvent:) forControlEvents:UIControlEventTouchUpInside];
-               [self addSubview:resetButton];
-          }
- 
-          CGFloat tempoSliderWidth = CGRectGetWidth(self.bounds) * (.5);
-          CGFloat tempoSliderHeight = CGRectGetHeight(self.bounds) * (0.25);
-          CGFloat tempoSliderX = 0 + CGRectGetWidth(self.bounds)*(.05) + 150;
-          CGFloat tempoSliderY = row1X;
-          CGRect tempoSliderFrame = CGRectMake(tempoSliderX, tempoSliderY, tempoSliderWidth, tempoSliderHeight);
-          
-          self.playPauseButton = [[PlayPauseButton alloc] initWithFrame:playPauseButtonFrame];
-          //[self.playPauseButton setNeedsDisplay];
-          self.tempoSlider = [[CustomSlider alloc] initWithFrame:tempoSliderFrame];
+         // [self handleEvent:self.playPauseButton];
+          self.playPauseButton.selected = YES;
+          [self.playPauseButton animateTriToSquare];
+          self.tempoSlider = [[CustomSlider alloc] initWithFrame:CGRectInset(row1R_A_frame, 5, 5)];
           [self.tempoSlider addTarget:self action:@selector(handleEvent:) forControlEvents:UIControlEventValueChanged];
           
+          self.expandButton = [UIButton buttonWithType:UIButtonTypeCustom];
+          self.expandButton.frame = row1R_B_frame;
+          [self.expandButton setImage:[UIImage imageNamed:@"carrot"] forState:UIControlStateNormal];
+          [self addSubview:self.expandButton];
+          [self.expandButton addTarget:self action:@selector(handleExpandButton:) forControlEvents:UIControlEventTouchUpInside];
+          
+          
+          // row2
+          self.hotCuesView = [[HotCuesView alloc] initWithFrame:row2];
+          self.hotCuesView.backgroundColor = [UIColor clearColor];
           
           [self addSubview:self.tempoSlider];
           [self addSubview:self.playPauseButton];
-       
+          [self addSubview:self.hotCuesView];
           
           self.backgroundColor = [UIColor clearColor];
      }
      return self;
 }
 
-
+-(void)handleExpandButton:(UIButton*)sender {
+     sender.selected = !sender.selected;
+     [self.delegate toggleExpand:sender.selected];
+     NSLog(@"%@", sender.tintColor);
+}
 
 -(void)handleEvent:(id)sender {
-     
-     if ([sender isKindOfClass:[UIButton class]]) {
-          UIButton *theButton = sender;
-          theButton.selected = !theButton.selected;
-          if (self.delegate) {
-               [self.delegate didClickWithTag:(int)theButton.tag];
-          }
-     }
      if ([sender isKindOfClass:[CustomSlider class]]) {
           CustomSlider *theSlider = sender;
           theSlider.selected = !theSlider.selected;
           if (self.delegate) {
                [self.delegate sliderChangedWithValue:(int)theSlider.amount];
+          }
+     }
+     if ([sender isKindOfClass:[PlayPauseButton class]]) {
+          PlayPauseButton *theButton = sender;
+          theButton.selected = !theButton.selected;
+          if (theButton.selected) {
+               [theButton animateTriToSquare];
+          } else {
+               [theButton animateSquareToTri];
+          }
+          if (self.delegate) {
+               [self.delegate playedPaused:theButton.selected];
           }
      }
      

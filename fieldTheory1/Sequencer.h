@@ -9,18 +9,18 @@
 #import <Foundation/Foundation.h>
 
 @protocol sequencerDelegate <NSObject>
--(void)didTickWithCount:(int)count;
+- (void)didTickWithCount:(int)count;
 @end
 
 @interface Sequencer : NSObject
 
 @property (nonatomic,strong) id<sequencerDelegate> delegate;
-
-+ (Sequencer*)sharedSequencer;
-
--(void)startSequencer;
 @property (nonatomic,assign) NSInteger sequencerCounter;
 @property (nonatomic,assign) float tempoNew;
 
++ (Sequencer*)sharedSequencer;
+
+- (void)startSequencer;
+- (void)stopSequencer;
 
 @end

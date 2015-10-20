@@ -32,21 +32,17 @@
 @implementation MainViewController {
      __weak MainView *_weakMainView;
      UIVisualEffectView *_blur;
-     CGFloat controlsSnapPoint1;
-          CGFloat controlsSnapPoint2;
+     CGFloat controlsClosedPos;
+     CGFloat controlsOpenPos;
 
 }
 
 -(instancetype)init {
      if (self = [super init]) {
-          
           _isControlsPopoverOpen = YES;
           _isPresetsPopoverOpen = YES;
-          [[Sequencer sharedSequencer] startSequencer];
+          [[Sequencer sharedSequencer] stopSequencer];
           [Sequencer sharedSequencer].delegate = self;
-
-          
-          
      }
      return self;
 }
@@ -59,7 +55,7 @@
 
 - (void)viewDidLoad {
      [super viewDidLoad];
-     
+
      // load initial preset
      NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:ABUserDefaultsPresetsKey];
      NSMutableDictionary *masterDict = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -72,19 +68,33 @@
      CGSize size = CGSizeMake(CGRectGetWidth(self.view.bounds),
                               CGRectGetHeight(self.view.bounds) - 150.0);
      CGRect mybounds = CGRectMake(0,
-                                  CGRectGetHeight(self.view.bounds),
+                                  0,
                                   size.width,
                                   size.height);
      self.controlsViewController = [ControlsViewController new];
-   
-     mybounds.origin.y = controlsSnapPoint1;
-     
      self.controlsViewController.view.frame = mybounds;
-     controlsSnapPoint1 = CGRectGetHeight(self.view.bounds) - CGRectGetHeight(mybounds)/4;
-     controlsSnapPoint2 = CGRectGetHeight(self.view.bounds) - CGRectGetHeight(self.controlsViewController.view.frame);
+     self.controlsViewController.mainViewController = self;
+     //  add VC
      [self addChildViewController:self.controlsViewController];
      [self.view addSubview:self.controlsViewController.view];
      [self.controlsViewController didMoveToParentViewController:self];
+     
+     
+     
+     
+     
+     // get controls closed position
+     controlsClosedPos = self.controlsViewController.view.bounds.size.height / 8;
+     controlsClosedPos = self.view.bounds.size.height - controlsClosedPos;
+     controlsOpenPos = self.view.bounds.size.height - self.controlsViewController.view.frame.size.height;
+     
+     CGRect setControlsVCFrame = self.controlsViewController.view.frame;
+     setControlsVCFrame.origin.y = controlsClosedPos;
+     self.controlsViewController.view.frame = setControlsVCFrame;
+     
+     
+     
+     
      
      // initialize Presets View Controller
      CGSize sizePresets = CGSizeMake(CGRectGetWidth(self.view.bounds)/2.5,
@@ -96,6 +106,7 @@
      self.presetsViewController = [PresetsViewController new];
      self.presetsViewController.view.frame = myboundsPresets;
      
+     // add VC
      [self addChildViewController:self.presetsViewController];
      [self.view addSubview:self.presetsViewController.view];
      [self.presetsViewController setupViews];
@@ -112,15 +123,23 @@
      UIPanGestureRecognizer *closePresets = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePresetsPan:)];
      [self.presetsViewController.view addGestureRecognizer:closePresets];
      closePresets.delegate = self;
-
-
-     // move controls Gesture
-     UIPanGestureRecognizer *controlsGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleControlsPan:)];
-     [self.controlsViewController.view addGestureRecognizer:controlsGesture];
-     controlsGesture.delegate = self;
 }
 
-
+-(void)toggleControls:(BOOL)toggle {
+     [UIView animateWithDuration:0.5 animations:^{
+          [self.view bringSubviewToFront:self.controlsViewController.view];
+          CGRect frame = self.controlsViewController.view.frame;
+          if (toggle) {
+               self.controlsViewController.controlsView.expandButton.imageView.transform = CGAffineTransformMakeRotation(M_PI);
+               frame.origin.y = controlsOpenPos;
+        
+          } else {
+               self.controlsViewController.controlsView.expandButton.imageView.transform = CGAffineTransformMakeRotation(2*M_PI);
+               frame.origin.y = controlsClosedPos;
+          }
+          self.controlsViewController.view.frame = frame;
+     }];
+}
 
 #pragma mark --- presets gestures
 
@@ -130,7 +149,6 @@
      CGFloat presetsPosition = self.presetsViewController.view.frame.origin.x;
      switch (gesture.state) {
           case UIGestureRecognizerStateBegan:
-               
                break;
           case UIGestureRecognizerStateChanged:
                if (presetsPosition < presetsMidPoint) {
@@ -155,36 +173,6 @@
      }
      
 }
-
-
--(void)handleControlsPan:(UIPanGestureRecognizer*)gesture {
-     CGPoint translation = [gesture translationInView:self.view];
-  //   CGFloat controlsSnapPoint = CGRectGetHeight(self.view.bounds) - CGRectGetHeight(self.controlsViewController.view.bounds)/4;
-  //   CGFloat controlsPosition = self.controlsViewController.view.frame.origin.y;
-     switch (gesture.state) {
-          case UIGestureRecognizerStateBegan:
-               break;
-          case UIGestureRecognizerStateChanged:
-               NSLog(@"%f", [gesture velocityInView:self.view].y);
-               if ([gesture velocityInView:self.view].y < 0 && gesture.view.frame.origin.y < controlsSnapPoint2 + 50) {
-                    [self snapControlsToNearestPointFromPoint:self.controlsViewController.view.frame.origin];
-               } else {
-                    self.controlsViewController.view.center = CGPointMake(self.controlsViewController.view.center.x,
-                                                                          self.controlsViewController.view.center.y + translation.y);
-                    [gesture setTranslation:CGPointZero inView:self.controlsViewController.view];
-               }
-               break;
-          case UIGestureRecognizerStateEnded:
-                                  [self snapControlsToNearestPointFromPoint:self.controlsViewController.view.frame.origin];
-
-               break;
-               
-          default:
-               break;
-     }
-     
-}
-
 
 - (void)handleRightEdge:(UIScreenEdgePanGestureRecognizer *)gesture {
      CGPoint translation = [gesture translationInView:self.view];
@@ -237,32 +225,7 @@
      }
 }
 
-
-
-
-- (void)snapControlsToNearestPointFromPoint:(CGPoint)point {
-
-     float dist1 = fabs(point.y - controlsSnapPoint1);
-     float dist2 = fabs(point.y - controlsSnapPoint2);
-     
-     float nearer;
-     if (dist1 < dist2) {
-          nearer = controlsSnapPoint1;
-     } else {
-          nearer = controlsSnapPoint2;
-     }
-     
-     [UIView animateWithDuration:0.2 animations:^{
-          CGRect frame = self.controlsViewController.view.frame;
-          frame.origin.y = nearer;
-          self.controlsViewController.view.frame = frame;
-     }];
-}
-
-
-
 - (void)dismissPresetsViewController {
-    
      [UIView animateWithDuration:.200 animations:^{
           CGRect frame = self.presetsViewController.view.frame;
           frame.origin.x = self.view.frame.size.width;
@@ -303,7 +266,13 @@
      const CGPoint orbPoint = orb.center;
      const CGFloat dx = (anchorPoint.x - orbPoint.x);
      const CGFloat dy = (anchorPoint.y - orbPoint.y);
-     return interpolate(0.0f, 500.0f, 0.0f, 100.0f, sqrt(dx*dx + dy*dy), -1.0f);
+     float dist = interpolate(0.0f, 500.0f, 0.0f, 100.0f, sqrt(dx*dx + dy*dy), -1.0f);
+     float dashDist = interpolate(0.0f, 500.0f, 2.0f, 15.0f, sqrt(dx*dx + dy*dy), 0);
+
+     _weakMainView.dashConstant = dashDist;
+     return dist;
+     
+     
 }
 
 

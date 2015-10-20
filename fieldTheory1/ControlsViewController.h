@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MainViewController.h"
+//#import "ControlsView.h"
+@class ControlsView;
 
 @interface ControlsViewController : UIViewController
+@property (nonatomic,strong) MainViewController *mainViewController;
+@property (nonatomic,strong) ControlsView *controlsView;
 
 @end

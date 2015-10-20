@@ -25,8 +25,8 @@
 
 - (void)drawRect:(CGRect)rect {
      
-     CGFloat dash[2] = { 6.0f, 6.0f };
-     
+     CGFloat dash[2] = { self.dashConstant, self.dashConstant };
+
      CGContextRef context = UIGraphicsGetCurrentContext();
      for (OrbView *orb in self.orbs) {
           CGContextMoveToPoint(context, orb.center.x,orb.center.y);

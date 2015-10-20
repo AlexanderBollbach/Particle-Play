@@ -24,14 +24,15 @@
 		2968638F1BB09C5C003AEF88 /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = 2968638E1BB09C5C003AEF88 /* Sounds */; };
 		296863911BB09DEE003AEF88 /* SimpleDrums.aupreset in Resources */ = {isa = PBXBuildFile; fileRef = 296863901BB09DEE003AEF88 /* SimpleDrums.aupreset */; };
 		296863F71BB38B8B003AEF88 /* UIButton+reset.m in Sources */ = {isa = PBXBuildFile; fileRef = 296863F41BB38B8B003AEF88 /* UIButton+reset.m */; };
+		29690B431BD0859D007E5265 /* HotCuesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29690B421BD0859D007E5265 /* HotCuesView.m */; };
 		296B003C1BBF5D5A00FA865F /* ControlsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 296B003B1BBF5D5A00FA865F /* ControlsViewController.m */; };
 		297C139C1BCC7E47003F1740 /* SequencerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 297C139B1BCC7E47003F1740 /* SequencerView.m */; };
 		297FE6691B8E7565004E82D3 /* PresetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 297FE6681B8E7565004E82D3 /* PresetsViewController.m */; };
 		298080351B86620600C00FD8 /* OrbView.m in Sources */ = {isa = PBXBuildFile; fileRef = 298080341B86620600C00FD8 /* OrbView.m */; };
 		299B1D141BC827C600CB6DBC /* PlayPauseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 299B1D131BC827C600CB6DBC /* PlayPauseButton.m */; };
 		299B1D171BC8283D00CB6DBC /* ControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 299B1D161BC8283D00CB6DBC /* ControlsView.m */; };
-		299B1D1A1BC8819000CB6DBC /* ResetButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 299B1D191BC8819000CB6DBC /* ResetButton.m */; };
 		29AE8D701BACA6C20056DE60 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29AE8D6F1BACA6C20056DE60 /* Images.xcassets */; };
+		29C96EEE1BD20DA600889810 /* File in Resources */ = {isa = PBXBuildFile; fileRef = 29C96EED1BD20DA600889810 /* File */; };
 		29D7E7251BAB7BAE00C779FE /* 808Bell.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29D7E7241BAB7BAE00C779FE /* 808Bell.wav */; };
 		29D7E7271BAB7BC500C779FE /* 808Hihat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29D7E7261BAB7BC500C779FE /* 808Hihat.wav */; };
 		29D7E7291BAB7BD900C779FE /* 808woodBlock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29D7E7281BAB7BD900C779FE /* 808woodBlock.wav */; };
@@ -60,14 +61,14 @@
 		290759581BCC9670007AA8C4 /* Sequencer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sequencer.h; sourceTree = "<group>"; };
 		290759591BCC9670007AA8C4 /* Sequencer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sequencer.m; sourceTree = "<group>"; };
 		290A28731B937F2900FA736D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		291D35731B7E9DC800898F13 /* Particle Play.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Particle Play.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		291D35731B7E9DC800898F13 /* Particle Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Particle Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		291D35771B7E9DC800898F13 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		291D35791B7E9DC800898F13 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		291D357A1B7E9DC800898F13 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		291D357C1B7E9DC800898F13 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		291D357D1B7E9DC800898F13 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		291D35871B7E9DC800898F13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		291D358C1B7E9DC800898F13 /* Particle Play.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Particle Play.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		291D358C1B7E9DC800898F13 /* Particle Player.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Particle Player.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2928A36B1BBC3D3300BEE906 /* AUSamplePlayer2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUSamplePlayer2.h; sourceTree = "<group>"; };
 		2928A36C1BBC3D3300BEE906 /* AUSamplePlayer2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AUSamplePlayer2.m; sourceTree = "<group>"; };
 		2928A36E1BBC45A300BEE906 /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
@@ -86,6 +87,8 @@
 		296863901BB09DEE003AEF88 /* SimpleDrums.aupreset */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SimpleDrums.aupreset; sourceTree = "<group>"; };
 		296863F31BB38B8B003AEF88 /* UIButton+reset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+reset.h"; sourceTree = "<group>"; };
 		296863F41BB38B8B003AEF88 /* UIButton+reset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+reset.m"; sourceTree = "<group>"; };
+		29690B411BD0859D007E5265 /* HotCuesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotCuesView.h; sourceTree = "<group>"; };
+		29690B421BD0859D007E5265 /* HotCuesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotCuesView.m; sourceTree = "<group>"; };
 		296B003A1BBF5D5A00FA865F /* ControlsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlsViewController.h; sourceTree = "<group>"; };
 		296B003B1BBF5D5A00FA865F /* ControlsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlsViewController.m; sourceTree = "<group>"; };
 		297C139A1BCC7E47003F1740 /* SequencerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequencerView.h; sourceTree = "<group>"; };
@@ -98,9 +101,8 @@
 		299B1D131BC827C600CB6DBC /* PlayPauseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayPauseButton.m; sourceTree = "<group>"; };
 		299B1D151BC8283D00CB6DBC /* ControlsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlsView.h; sourceTree = "<group>"; };
 		299B1D161BC8283D00CB6DBC /* ControlsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlsView.m; sourceTree = "<group>"; };
-		299B1D181BC8819000CB6DBC /* ResetButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetButton.h; sourceTree = "<group>"; };
-		299B1D191BC8819000CB6DBC /* ResetButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetButton.m; sourceTree = "<group>"; };
 		29AE8D6F1BACA6C20056DE60 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		29C96EED1BD20DA600889810 /* File */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = File; path = fieldTheory1/File; sourceTree = "<group>"; };
 		29D7E7241BAB7BAE00C779FE /* 808Bell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808Bell.wav; sourceTree = "<group>"; };
 		29D7E7261BAB7BC500C779FE /* 808Hihat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808Hihat.wav; sourceTree = "<group>"; };
 		29D7E7281BAB7BD900C779FE /* 808woodBlock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808woodBlock.wav; sourceTree = "<group>"; };
@@ -140,7 +142,8 @@
 		291D356A1B7E9DC800898F13 = {
 			isa = PBXGroup;
 			children = (
-				291D35751B7E9DC800898F13 /* Particle Play */,
+				29C96EED1BD20DA600889810 /* File */,
+				291D35751B7E9DC800898F13 /* Particle Player */,
 				291D35741B7E9DC800898F13 /* Products */,
 				29D7E7361BAB7C7300C779FE /* Frameworks */,
 			);
@@ -150,13 +153,13 @@
 		291D35741B7E9DC800898F13 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				291D35731B7E9DC800898F13 /* Particle Play.app */,
-				291D358C1B7E9DC800898F13 /* Particle Play.xctest */,
+				291D35731B7E9DC800898F13 /* Particle Player.app */,
+				291D358C1B7E9DC800898F13 /* Particle Player.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		291D35751B7E9DC800898F13 /* Particle Play */ = {
+		291D35751B7E9DC800898F13 /* Particle Player */ = {
 			isa = PBXGroup;
 			children = (
 				291D35791B7E9DC800898F13 /* AppDelegate.h */,
@@ -166,7 +169,7 @@
 				293E8B041B91137C000C9BA0 /* View */,
 				293E8B011B911362000C9BA0 /* Controller */,
 			);
-			name = "Particle Play";
+			name = "Particle Player";
 			path = fieldTheory1;
 			sourceTree = "<group>";
 		};
@@ -193,10 +196,10 @@
 			children = (
 				291D357C1B7E9DC800898F13 /* MainViewController.h */,
 				291D357D1B7E9DC800898F13 /* MainViewController.m */,
-				297FE6671B8E7565004E82D3 /* PresetsViewController.h */,
-				297FE6681B8E7565004E82D3 /* PresetsViewController.m */,
 				296B003A1BBF5D5A00FA865F /* ControlsViewController.h */,
 				296B003B1BBF5D5A00FA865F /* ControlsViewController.m */,
+				297FE6671B8E7565004E82D3 /* PresetsViewController.h */,
+				297FE6681B8E7565004E82D3 /* PresetsViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -206,14 +209,9 @@
 			children = (
 				298080331B86620600C00FD8 /* OrbView.h */,
 				298080341B86620600C00FD8 /* OrbView.m */,
-				292FC5991BA78F690095EB3B /* CustomSlider.h */,
-				292FC59A1BA78F690095EB3B /* CustomSlider.m */,
+				29CDF2F01BD5713D00FA54CA /* ControlsSubViews */,
 				2928A36E1BBC45A300BEE906 /* MainView.h */,
 				2928A36F1BBC45A300BEE906 /* MainView.m */,
-				299B1D121BC827C600CB6DBC /* PlayPauseButton.h */,
-				299B1D131BC827C600CB6DBC /* PlayPauseButton.m */,
-				299B1D181BC8819000CB6DBC /* ResetButton.h */,
-				299B1D191BC8819000CB6DBC /* ResetButton.m */,
 				299B1D151BC8283D00CB6DBC /* ControlsView.h */,
 				299B1D161BC8283D00CB6DBC /* ControlsView.m */,
 				297C139A1BCC7E47003F1740 /* SequencerView.h */,
@@ -235,6 +233,27 @@
 				290759591BCC9670007AA8C4 /* Sequencer.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		29CDF2F01BD5713D00FA54CA /* ControlsSubViews */ = {
+			isa = PBXGroup;
+			children = (
+				29CDF2F11BD5715700FA54CA /* Control Elements */,
+			);
+			name = ControlsSubViews;
+			sourceTree = "<group>";
+		};
+		29CDF2F11BD5715700FA54CA /* Control Elements */ = {
+			isa = PBXGroup;
+			children = (
+				29690B411BD0859D007E5265 /* HotCuesView.h */,
+				29690B421BD0859D007E5265 /* HotCuesView.m */,
+				292FC5991BA78F690095EB3B /* CustomSlider.h */,
+				292FC59A1BA78F690095EB3B /* CustomSlider.m */,
+				299B1D121BC827C600CB6DBC /* PlayPauseButton.h */,
+				299B1D131BC827C600CB6DBC /* PlayPauseButton.m */,
+			);
+			name = "Control Elements";
 			sourceTree = "<group>";
 		};
 		29D7E7211BAB7B9E00C779FE /* 808s */ = {
@@ -303,9 +322,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		291D35721B7E9DC800898F13 /* Particle Play */ = {
+		291D35721B7E9DC800898F13 /* Particle Player */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 291D35A01B7E9DC900898F13 /* Build configuration list for PBXNativeTarget "Particle Play" */;
+			buildConfigurationList = 291D35A01B7E9DC900898F13 /* Build configuration list for PBXNativeTarget "Particle Player" */;
 			buildPhases = (
 				291D356F1B7E9DC800898F13 /* Sources */,
 				291D35701B7E9DC800898F13 /* Frameworks */,
@@ -315,14 +334,14 @@
 			);
 			dependencies = (
 			);
-			name = "Particle Play";
+			name = "Particle Player";
 			productName = fieldTheory1;
-			productReference = 291D35731B7E9DC800898F13 /* Particle Play.app */;
+			productReference = 291D35731B7E9DC800898F13 /* Particle Player.app */;
 			productType = "com.apple.product-type.application";
 		};
-		291D358B1B7E9DC800898F13 /* Particle PlayTests */ = {
+		291D358B1B7E9DC800898F13 /* Particle PlayerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 291D35A31B7E9DC900898F13 /* Build configuration list for PBXNativeTarget "Particle PlayTests" */;
+			buildConfigurationList = 291D35A31B7E9DC900898F13 /* Build configuration list for PBXNativeTarget "Particle PlayerTests" */;
 			buildPhases = (
 				291D35881B7E9DC800898F13 /* Sources */,
 				291D35891B7E9DC800898F13 /* Frameworks */,
@@ -333,9 +352,9 @@
 			dependencies = (
 				291D358E1B7E9DC800898F13 /* PBXTargetDependency */,
 			);
-			name = "Particle PlayTests";
+			name = "Particle PlayerTests";
 			productName = fieldTheory1Tests;
-			productReference = 291D358C1B7E9DC800898F13 /* Particle Play.xctest */;
+			productReference = 291D358C1B7E9DC800898F13 /* Particle Player.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -358,7 +377,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 291D356E1B7E9DC800898F13 /* Build configuration list for PBXProject "Particle Play" */;
+			buildConfigurationList = 291D356E1B7E9DC800898F13 /* Build configuration list for PBXProject "Particle Player" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -371,8 +390,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				291D35721B7E9DC800898F13 /* Particle Play */,
-				291D358B1B7E9DC800898F13 /* Particle PlayTests */,
+				291D35721B7E9DC800898F13 /* Particle Player */,
+				291D358B1B7E9DC800898F13 /* Particle PlayerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -382,6 +401,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29C96EEE1BD20DA600889810 /* File in Resources */,
 				296863911BB09DEE003AEF88 /* SimpleDrums.aupreset in Resources */,
 				2968638F1BB09C5C003AEF88 /* Sounds in Resources */,
 				295B6D8C1BB9D39B00797EB3 /* Dots and Lines.ttf in Resources */,
@@ -421,13 +441,13 @@
 				291D357B1B7E9DC800898F13 /* AppDelegate.m in Sources */,
 				296B003C1BBF5D5A00FA865F /* ControlsViewController.m in Sources */,
 				2928A3701BBC45A300BEE906 /* MainView.m in Sources */,
+				29690B431BD0859D007E5265 /* HotCuesView.m in Sources */,
 				29F4B1531B95E6740093D28E /* OrbManager.m in Sources */,
 				381A3F0B1BC5D80800D0CB58 /* UIColor+ColorAdditions.m in Sources */,
 				292FC5531BA660790095EB3B /* myFunction.c in Sources */,
 				299B1D171BC8283D00CB6DBC /* ControlsView.m in Sources */,
 				297FE6691B8E7565004E82D3 /* PresetsViewController.m in Sources */,
 				2928A36D1BBC3D3300BEE906 /* AUSamplePlayer2.m in Sources */,
-				299B1D1A1BC8819000CB6DBC /* ResetButton.m in Sources */,
 				2907595A1BCC9670007AA8C4 /* Sequencer.m in Sources */,
 				2961A06F1B955B8700CE6D23 /* OrbModel.m in Sources */,
 				297C139C1BCC7E47003F1740 /* SequencerView.m in Sources */,
@@ -449,7 +469,7 @@
 /* Begin PBXTargetDependency section */
 		291D358E1B7E9DC800898F13 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 291D35721B7E9DC800898F13 /* Particle Play */;
+			target = 291D35721B7E9DC800898F13 /* Particle Player */;
 			targetProxy = 291D358D1B7E9DC800898F13 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -553,7 +573,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = test.fieldTheory1c;
-				PRODUCT_NAME = "Particle Play";
+				PRODUCT_NAME = "Particle Player";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -573,7 +593,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = test.fieldTheory1c;
-				PRODUCT_NAME = "Particle Play";
+				PRODUCT_NAME = "Particle Player";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -587,8 +607,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = test.fieldTheory1Tests;
-				PRODUCT_NAME = "Particle Play";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Particle Play.app/Particle Play";
+				PRODUCT_NAME = "Particle Player";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Particle Player.app/Particle Player";
 			};
 			name = Debug;
 		};
@@ -600,15 +620,15 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = test.fieldTheory1Tests;
-				PRODUCT_NAME = "Particle Play";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Particle Play.app/Particle Play";
+				PRODUCT_NAME = "Particle Player";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Particle Player.app/Particle Player";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		291D356E1B7E9DC800898F13 /* Build configuration list for PBXProject "Particle Play" */ = {
+		291D356E1B7E9DC800898F13 /* Build configuration list for PBXProject "Particle Player" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				291D359E1B7E9DC900898F13 /* Debug */,
@@ -617,7 +637,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		291D35A01B7E9DC900898F13 /* Build configuration list for PBXNativeTarget "Particle Play" */ = {
+		291D35A01B7E9DC900898F13 /* Build configuration list for PBXNativeTarget "Particle Player" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				291D35A11B7E9DC900898F13 /* Debug */,
@@ -626,7 +646,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		291D35A31B7E9DC900898F13 /* Build configuration list for PBXNativeTarget "Particle PlayTests" */ = {
+		291D35A31B7E9DC900898F13 /* Build configuration list for PBXNativeTarget "Particle PlayerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				291D35A41B7E9DC900898F13 /* Debug */,

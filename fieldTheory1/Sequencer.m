@@ -39,11 +39,16 @@
      return self;
 }
 
+
+- (void)stopSequencer {
+     [self.timer invalidate];
+     self.timer = nil;
+}
+
 -(void)startSequencer {
      
      if (self.timer) {
-          [self.timer invalidate];
-          self.timer = nil;
+          [self stopSequencer];
      }
      self.timer = [NSTimer scheduledTimerWithTimeInterval:(0.6 * self.tempoNew)
                                                    target:self

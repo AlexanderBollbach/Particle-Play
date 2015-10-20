@@ -12,14 +12,18 @@
 
 @protocol SequencerViewDelegate <NSObject>
 - (void)seqTickedWithOrbID:(int)orbID andGridNum:(int)gridNum selected:(BOOL)selected;
+- (void)loadOrbWithTag:(NSInteger)tag;
 @end
 
 
 @interface SequencerView : UIView
 @property (nonatomic, weak) id<SequencerViewDelegate> delegate;
 @property (nonatomic,assign) int orbID;
+@property (nonatomic,strong) UIView *seqContainerView;
+
+
 -(void)loadOrb:(OrbModel*)orb;
 -(void)animateWithCount:(int)count;
--(void)initSequencerBG;
+-(void)setupSequencerViews;
 
 @end

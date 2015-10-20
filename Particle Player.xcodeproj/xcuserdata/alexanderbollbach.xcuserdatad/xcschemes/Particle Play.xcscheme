@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "291D35721B7E9DC800898F13"
-               BuildableName = "Particle Play.app"
-               BlueprintName = "Particle Play"
-               ReferencedContainer = "container:Particle Play.xcodeproj">
+               BuildableName = "Particle Player.app"
+               BlueprintName = "Particle Player"
+               ReferencedContainer = "container:Particle Player.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "291D35721B7E9DC800898F13"
-            BuildableName = "Particle Play.app"
-            BlueprintName = "Particle Play"
-            ReferencedContainer = "container:Particle Play.xcodeproj">
+            BuildableName = "Particle Player.app"
+            BlueprintName = "Particle Player"
+            ReferencedContainer = "container:Particle Player.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "291D35721B7E9DC800898F13"
-            BuildableName = "Particle Play.app"
-            BlueprintName = "Particle Play"
-            ReferencedContainer = "container:Particle Play.xcodeproj">
+            BuildableName = "Particle Player.app"
+            BlueprintName = "Particle Player"
+            ReferencedContainer = "container:Particle Player.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "291D35721B7E9DC800898F13"
-            BuildableName = "Particle Play.app"
-            BlueprintName = "Particle Play"
-            ReferencedContainer = "container:Particle Play.xcodeproj">
+            BuildableName = "Particle Player.app"
+            BlueprintName = "Particle Player"
+            ReferencedContainer = "container:Particle Player.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
