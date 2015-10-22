@@ -7,13 +7,12 @@
 //
 
 #import "PlayPauseButton.h"
+#import "Theme.h"
 
 @implementation PlayPauseButton
 -(instancetype)initWithFrame:(CGRect)frame {
      if (self = [super initWithFrame:frame]) {
-          
-          
-          
+     
           self.playPauseLayer = [CAShapeLayer layer];
           [self.layer addSublayer:self.playPauseLayer];
           
@@ -28,10 +27,12 @@
           CGFloat point3X = 0;
           CGFloat point3Y = CGRectGetHeight(self.bounds);
           CGPoint point3 = CGPointMake(point3X, point3Y);
+          
           [self.playPath moveToPoint:point1];
           [self.playPath addLineToPoint:point2];
           [self.playPath addLineToPoint:point3];
           [self.playPath addLineToPoint:point1];
+          
           // pause path
           CGPoint point1b = CGPointMake(0,0);
           CGFloat point2Xb = CGRectGetWidth(self.bounds);
@@ -50,18 +51,16 @@
           [self.pausePath addLineToPoint:point4b];
           [self.pausePath addLineToPoint:point1b];
 
-          
           self.playPauseLayer.path = self.playPath.CGPath;
-          self.playPauseLayer.strokeColor = [UIColor whiteColor].CGColor;
+       //   self.playPauseLayer.strokeColor = [UIColor whiteColor].CGColor;
           self.playPauseLayer.fillColor = [UIColor whiteColor].CGColor;
-          
-     //     self.backgroundColor = [UIColor whiteColor];
-     
+//          self.playPauseLayer.strokeColor = [Theme sharedTheme].bordersColor.CGColor;
+//          self.playPauseLayer.lineWidth =
+          self.playPauseLayer.strokeColor = [Theme sharedTheme].bordersColor.CGColor;
+          self.playPauseLayer.lineWidth = [Theme sharedTheme].borderWidth;
      }
      return self;
 }
-
-
 
 - (void)animateTriToSquare {
      CABasicAnimation *basicAni = [CABasicAnimation animationWithKeyPath:@"path"];
@@ -72,7 +71,6 @@
      basicAni.fillMode = kCAFillModeForwards;
      [self.playPauseLayer addAnimation:basicAni forKey:nil];
 }
-
 
 - (void)animateSquareToTri {
      CABasicAnimation *basicAni = [CABasicAnimation animationWithKeyPath:@"path"];

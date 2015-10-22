@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MainViewController.h"
-//#import "ControlsView.h"
-@class ControlsView;
+#import "ControlsView.h"
+#import "Theme.h"
 
 @interface ControlsViewController : UIViewController
 @property (nonatomic,strong) MainViewController *mainViewController;

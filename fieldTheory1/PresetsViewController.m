@@ -11,7 +11,6 @@
 @property(nonatomic,strong)UIButton* clearPresetButton;
 @property(nonatomic,strong)UITableView* tableView;
 
-
 @end
 
 @implementation PresetsViewController

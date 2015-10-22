@@ -16,30 +16,24 @@
 #import "PresetsViewController.h"
 #import "UIColor+ColorAdditions.h"
 #import "AUSamplePlayer2.h"
-#import "ControlsView.h"
 #import "Sequencer.h"
 #import "ControlsViewController.h"
-
+#import "Theme.h"
 
 @interface MainViewController() <sequencerDelegate>
-@property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, assign) BOOL isControlsPopoverOpen;
+@property (nonatomic,strong) MainView *mainView;
 @property (nonatomic, assign) BOOL isPresetsPopoverOpen;
 @property (nonatomic, strong) ControlsViewController *controlsViewController;
 @property (nonatomic, strong) PresetsViewController *presetsViewController;
 @end
 
 @implementation MainViewController {
-     __weak MainView *_weakMainView;
-     UIVisualEffectView *_blur;
      CGFloat controlsClosedPos;
      CGFloat controlsOpenPos;
-
 }
 
 -(instancetype)init {
      if (self = [super init]) {
-          _isControlsPopoverOpen = YES;
           _isPresetsPopoverOpen = YES;
           [[Sequencer sharedSequencer] stopSequencer];
           [Sequencer sharedSequencer].delegate = self;
@@ -47,15 +41,15 @@
      return self;
 }
 
-- (void)loadView {
-     self.view = [[MainView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-     _weakMainView = (MainView*)self.view;
-     _weakMainView.backgroundColor = [UIColor flatSTDarkBlueColor];
-}
 
 - (void)viewDidLoad {
+     
      [super viewDidLoad];
-
+     
+     self.mainView = [[MainView alloc] initWithFrame:self.view.bounds];
+     [self.view addSubview:self.mainView];
+     self.view.backgroundColor = [Theme sharedTheme].mainViewBackgroundColor;
+     
      // load initial preset
      NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:ABUserDefaultsPresetsKey];
      NSMutableDictionary *masterDict = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -63,25 +57,13 @@
      NSArray *preset = [presets objectForKey:@"Preset2"];
      [self loadStockPreset:preset];
 
-     
-     // initialize controls View Controller
-     CGSize size = CGSizeMake(CGRectGetWidth(self.view.bounds),
-                              CGRectGetHeight(self.view.bounds) - 150.0);
-     CGRect mybounds = CGRectMake(0,
-                                  0,
-                                  size.width,
-                                  size.height);
      self.controlsViewController = [ControlsViewController new];
-     self.controlsViewController.view.frame = mybounds;
      self.controlsViewController.mainViewController = self;
+     
      //  add VC
      [self addChildViewController:self.controlsViewController];
      [self.view addSubview:self.controlsViewController.view];
      [self.controlsViewController didMoveToParentViewController:self];
-     
-     
-     
-     
      
      // get controls closed position
      controlsClosedPos = self.controlsViewController.view.bounds.size.height / 8;
@@ -89,12 +71,8 @@
      controlsOpenPos = self.view.bounds.size.height - self.controlsViewController.view.frame.size.height;
      
      CGRect setControlsVCFrame = self.controlsViewController.view.frame;
-     setControlsVCFrame.origin.y = controlsClosedPos;
+     setControlsVCFrame.origin.y = controlsClosedPos; 
      self.controlsViewController.view.frame = setControlsVCFrame;
-     
-     
-     
-     
      
      // initialize Presets View Controller
      CGSize sizePresets = CGSizeMake(CGRectGetWidth(self.view.bounds)/2.5,
@@ -112,7 +90,6 @@
      [self.presetsViewController setupViews];
      [self.presetsViewController didMoveToParentViewController:self];
     
-     
      // Open presets gesture
      UIScreenEdgePanGestureRecognizer *rightEdge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleRightEdge:)];
      rightEdge.edges = UIRectEdgeRight;
@@ -123,18 +100,19 @@
      UIPanGestureRecognizer *closePresets = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePresetsPan:)];
      [self.presetsViewController.view addGestureRecognizer:closePresets];
      closePresets.delegate = self;
+     
 }
 
 -(void)toggleControls:(BOOL)toggle {
-     [UIView animateWithDuration:0.5 animations:^{
+     [UIView animateWithDuration:0.15 animations:^{
           [self.view bringSubviewToFront:self.controlsViewController.view];
           CGRect frame = self.controlsViewController.view.frame;
           if (toggle) {
-               self.controlsViewController.controlsView.expandButton.imageView.transform = CGAffineTransformMakeRotation(M_PI);
+               self.controlsViewController.controlsView.cockPitView.expandButton.imageView.transform = CGAffineTransformMakeRotation(M_PI);
                frame.origin.y = controlsOpenPos;
         
           } else {
-               self.controlsViewController.controlsView.expandButton.imageView.transform = CGAffineTransformMakeRotation(2*M_PI);
+               self.controlsViewController.controlsView.cockPitView.expandButton.imageView.transform = CGAffineTransformMakeRotation(2*M_PI);
                frame.origin.y = controlsClosedPos;
           }
           self.controlsViewController.view.frame = frame;
@@ -203,17 +181,8 @@
      }
 }
 
-
-
-
-
-
-
-
-
-
 -(void)didTickWithCount:(int)count {
-     for (OrbView* orb in _weakMainView.orbs) {
+     for (OrbView* orb in self.mainView.orbs) {
           if ([[orb.orbModelRef.sequence objectAtIndex:count] boolValue]) {
                [orb.sampler sendNoteOnEvent:orb.orbModelRef.midiNote velocity:127];
                [orb.sampler sendReverbWetDry:[self _anchorOrbDistanceToOrb:orb]];
@@ -258,21 +227,7 @@
 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-     [self.view setNeedsDisplay];
-}
-
-- (CGFloat)_anchorOrbDistanceToOrb:(OrbView *)orb {
-     const CGPoint anchorPoint = _weakMainView.anchorOrb.center;
-     const CGPoint orbPoint = orb.center;
-     const CGFloat dx = (anchorPoint.x - orbPoint.x);
-     const CGFloat dy = (anchorPoint.y - orbPoint.y);
-     float dist = interpolate(0.0f, 500.0f, 0.0f, 100.0f, sqrt(dx*dx + dy*dy), -1.0f);
-     float dashDist = interpolate(0.0f, 500.0f, 2.0f, 15.0f, sqrt(dx*dx + dy*dy), 0);
-
-     _weakMainView.dashConstant = dashDist;
-     return dist;
-     
-     
+     [self.mainView setNeedsDisplay];
 }
 
 
@@ -280,10 +235,10 @@
      
      [[[OrbManager sharedOrbManager] orbModels] removeAllObjects];
      
-     _weakMainView.anchorOrb = nil;
-     [_weakMainView.orbs removeAllObjects];
+     self.mainView.anchorOrb = nil;
+     [self.mainView.orbs removeAllObjects];
      
-     for (UIView *subview in _weakMainView.subviews) {
+     for (UIView *subview in self.mainView.subviews) {
           if ([subview isKindOfClass:[OrbView class]]) {
                [subview removeObserver:self forKeyPath:@"center"];
                [subview removeFromSuperview];
@@ -299,18 +254,29 @@
           orb.orbModelRef = model;
           [orb setIcon];
           orb.isMaster = model.isMaster;
-          orb.backgroundColor = model.isMaster ? [UIColor flatSTLightBlueColor] : [UIColor flatSTEmeraldColor];
-          //   [orb addTarget:self action:@selector(toggleControlsPopover:) forControlEvents:UIControlEventTouchUpInside];
+          orb.backgroundColor = model.isMaster ? [Theme sharedTheme].orbMasterColor :  [Theme sharedTheme].orbColor;
           [orb addObserver:self forKeyPath:@"center" options:NSKeyValueObservingOptionNew context:nil];
           [self.view addSubview:orb];
           
           [[[OrbManager sharedOrbManager] orbModels] addObject:model];
           if (model.isMaster) {
-               _weakMainView.anchorOrb = orb;
+               self.mainView.anchorOrb = orb;
           } else {
-               [_weakMainView.orbs addObject:orb];
+               [self.mainView.orbs addObject:orb];
           }
      }
+}
+
+- (CGFloat)_anchorOrbDistanceToOrb:(OrbView *)orb {
+     const CGPoint anchorPoint = self.mainView.anchorOrb.center;
+     const CGPoint orbPoint = orb.center;
+     const CGFloat dx = (anchorPoint.x - orbPoint.x);
+     const CGFloat dy = (anchorPoint.y - orbPoint.y);
+     float dist = interpolate(0.0f, 500.0f, 0.0f, 100.0f, sqrt(dx*dx + dy*dy), -1.0f);
+     float dashDist = interpolate(0.0f, 500.0f, 2.0f, 15.0f, sqrt(dx*dx + dy*dy), 0);
+     
+     self.mainView.dashConstant = dashDist;
+     return dist;
 }
 
 @end

@@ -10,50 +10,47 @@
 #import "OrbModel.h"
 #import "OrbManager.h"
 #import "UIColor+ColorAdditions.h"
-#import "SequencerView.h"
 #import "myFunction.h"
-#import "ControlsView.h"
 
-@interface ControlsViewController () <SequencerViewDelegate, ControlsViewDelegate, HotCuesViewDelegate>
-@property (nonatomic,strong) SequencerView *sequencerView;
+@interface ControlsViewController () <SequencerViewDelegate, CockPitViewDelegate>
 @end
 
 @implementation ControlsViewController
 
--(void)viewDidLoad {
-     [super viewDidLoad];
-     self.view.backgroundColor = [UIColor flatSTLightBlueColor];
+-(void)loadView {
+     CGRect bounds = [UIScreen mainScreen].bounds;
+     bounds.size.height /= 1.25;
+     self.view = [[UIView alloc] initWithFrame:bounds];
 }
 
--(void)toggleExpand:(BOOL)toggle {
-     [self.mainViewController toggleControls:toggle];
+-(void)viewDidLoad {
+     [super viewDidLoad];
+     self.view.backgroundColor = [Theme sharedTheme].controlsViewBackground;
+     self.controlsView = [[ControlsView alloc] initWithFrame:self.view.bounds];
+     [self.view addSubview:self.controlsView];
 }
+
+
+
+
 
 - (void)viewWillAppear:(BOOL)animated {
      [super viewWillAppear:animated];
-     
-     CGRect row1 = self.view.bounds;
-     row1.size.height /= 2;
-     
-     CGRect row2 = row1;
-     row2.origin.y = row2.size.height;
 
-     self.controlsView = [[ControlsView alloc] initWithFrame:row1];
-     self.controlsView.delegate = self;
-     
-
-     
-     self.sequencerView = [[SequencerView alloc] initWithFrame:row2];
-     self.sequencerView.delegate = self;
-
-     [self.view addSubview:self.controlsView];
-     [self.view addSubview:self.sequencerView];
-
-     self.controlsView.hotCuesView.delegate = self;
+     self.controlsView.sequencerView.delegate = self;
+     self.controlsView.cockPitView.delegate = self;
 
      OrbModel *someOrb = [[OrbManager sharedOrbManager] getOrbWithID:0];
-     [self.sequencerView setupSequencerViews];
-     [self.sequencerView loadOrb:someOrb];
+     [self.controlsView.sequencerView setupSequencerViews];
+     [self.controlsView.sequencerView loadOrb:someOrb];
+
+}
+
+
+#pragma mark -- handle controls & sequencer
+
+- (void)toggleExpand:(BOOL)toggle {
+     [self.mainViewController toggleControls:toggle];
 }
 
 - (void)seqTickedWithOrbID:(int)orbID andGridNum:(int)gridNum selected:(BOOL)selected {
@@ -64,31 +61,31 @@
 -(void)loadOrbWithTag:(NSInteger)tag {
      NSInteger orbID = tag;
      OrbModel *someOrb = [[OrbManager sharedOrbManager] getOrbWithID:(int)orbID];
-     [self.sequencerView loadOrb:someOrb];
+     [self.controlsView.sequencerView loadOrb:someOrb];
 }
 
--(void)didClickWithTag:(int)tag {
-     switch (tag) {
-          case 0:
-               [Sequencer sharedSequencer].sequencerCounter = 0;
-               break;
-          case 1:
-               [Sequencer sharedSequencer].sequencerCounter = 4;
-               break;
-          case 2:
-               [Sequencer sharedSequencer].sequencerCounter = 8;
-               break;
-          case 3:
-               [Sequencer sharedSequencer].sequencerCounter = 12;
-               break;
-          default:
-               break;
-     }
-}
+// hot cues TODO
 
--(void)doSomethingWithTag:(NSInteger)tag {
-     [Sequencer sharedSequencer].sequencerCounter = tag;
-}
+//
+//-(void)didClickWithTag:(int)tag {
+//     switch (tag) {
+//          case 0:
+//               [Sequencer sharedSequencer].sequencerCounter = 0;
+//               break;
+//          case 1:
+//               [Sequencer sharedSequencer].sequencerCounter = 4;
+//               break;
+//          case 2:
+//               [Sequencer sharedSequencer].sequencerCounter = 8;
+//               break;
+//          case 3:
+//               [Sequencer sharedSequencer].sequencerCounter = 12;
+//               break;
+//          default:
+//               break;
+//     }
+//}
+
 
 -(void)sliderChangedWithValue:(int)value {
      float interpolated = interpolate(0, 200, 1, -0.5, value, 1);

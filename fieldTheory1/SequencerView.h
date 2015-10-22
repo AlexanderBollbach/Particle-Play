@@ -19,7 +19,7 @@
 @interface SequencerView : UIView
 @property (nonatomic, weak) id<SequencerViewDelegate> delegate;
 @property (nonatomic,assign) int orbID;
-@property (nonatomic,strong) UIView *seqContainerView;
+@property (nonatomic,strong) UIView *gridView;
 
 
 -(void)loadOrb:(OrbModel*)orb;

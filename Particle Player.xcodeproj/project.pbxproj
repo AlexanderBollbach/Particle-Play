@@ -29,6 +29,9 @@
 		297C139C1BCC7E47003F1740 /* SequencerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 297C139B1BCC7E47003F1740 /* SequencerView.m */; };
 		297FE6691B8E7565004E82D3 /* PresetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 297FE6681B8E7565004E82D3 /* PresetsViewController.m */; };
 		298080351B86620600C00FD8 /* OrbView.m in Sources */ = {isa = PBXBuildFile; fileRef = 298080341B86620600C00FD8 /* OrbView.m */; };
+		2995E72B1BD7DFA500853807 /* CockPitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2995E72A1BD7DFA500853807 /* CockPitView.m */; };
+		2995E7301BD81D5E00853807 /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 2995E72F1BD81D5E00853807 /* Theme.m */; };
+		2995E7331BD830E600853807 /* SampleSelectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2995E7321BD830E600853807 /* SampleSelectButton.m */; };
 		299B1D141BC827C600CB6DBC /* PlayPauseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 299B1D131BC827C600CB6DBC /* PlayPauseButton.m */; };
 		299B1D171BC8283D00CB6DBC /* ControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 299B1D161BC8283D00CB6DBC /* ControlsView.m */; };
 		29AE8D701BACA6C20056DE60 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29AE8D6F1BACA6C20056DE60 /* Images.xcassets */; };
@@ -97,6 +100,12 @@
 		297FE6681B8E7565004E82D3 /* PresetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresetsViewController.m; sourceTree = "<group>"; };
 		298080331B86620600C00FD8 /* OrbView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrbView.h; sourceTree = "<group>"; };
 		298080341B86620600C00FD8 /* OrbView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrbView.m; sourceTree = "<group>"; };
+		2995E7291BD7DFA500853807 /* CockPitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CockPitView.h; sourceTree = "<group>"; };
+		2995E72A1BD7DFA500853807 /* CockPitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CockPitView.m; sourceTree = "<group>"; };
+		2995E72E1BD81D5E00853807 /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
+		2995E72F1BD81D5E00853807 /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
+		2995E7311BD830E600853807 /* SampleSelectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleSelectButton.h; sourceTree = "<group>"; };
+		2995E7321BD830E600853807 /* SampleSelectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleSelectButton.m; sourceTree = "<group>"; };
 		299B1D121BC827C600CB6DBC /* PlayPauseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayPauseButton.h; sourceTree = "<group>"; };
 		299B1D131BC827C600CB6DBC /* PlayPauseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayPauseButton.m; sourceTree = "<group>"; };
 		299B1D151BC8283D00CB6DBC /* ControlsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlsView.h; sourceTree = "<group>"; };
@@ -164,6 +173,7 @@
 			children = (
 				291D35791B7E9DC800898F13 /* AppDelegate.h */,
 				291D357A1B7E9DC800898F13 /* AppDelegate.m */,
+				381A3F061BC5C25F00D0CB58 /* Categories */,
 				291D35761B7E9DC800898F13 /* Supporting Files */,
 				293E8B051B911390000C9BA0 /* Model */,
 				293E8B041B91137C000C9BA0 /* View */,
@@ -179,7 +189,6 @@
 				292FC5521BA660790095EB3B /* myFunction.h */,
 				292FC5511BA660790095EB3B /* myFunction.c */,
 				2968638E1BB09C5C003AEF88 /* Sounds */,
-				381A3F061BC5C25F00D0CB58 /* Categories */,
 				381A3F031BC5C20100D0CB58 /* Fonts */,
 				29D7E7211BAB7B9E00C779FE /* 808s */,
 				381A3F071BC5C26E00D0CB58 /* Presets */,
@@ -207,15 +216,9 @@
 		293E8B041B91137C000C9BA0 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				298080331B86620600C00FD8 /* OrbView.h */,
-				298080341B86620600C00FD8 /* OrbView.m */,
+				2995E72C1BD7E18500853807 /* MainView + Orbs */,
 				29CDF2F01BD5713D00FA54CA /* ControlsSubViews */,
-				2928A36E1BBC45A300BEE906 /* MainView.h */,
-				2928A36F1BBC45A300BEE906 /* MainView.m */,
-				299B1D151BC8283D00CB6DBC /* ControlsView.h */,
-				299B1D161BC8283D00CB6DBC /* ControlsView.m */,
-				297C139A1BCC7E47003F1740 /* SequencerView.h */,
-				297C139B1BCC7E47003F1740 /* SequencerView.m */,
+				2995E72D1BD7E1A000853807 /* Controls Views */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -223,6 +226,8 @@
 		293E8B051B911390000C9BA0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2995E72E1BD81D5E00853807 /* Theme.h */,
+				2995E72F1BD81D5E00853807 /* Theme.m */,
 				2961A06D1B955B8700CE6D23 /* OrbModel.h */,
 				2961A06E1B955B8700CE6D23 /* OrbModel.m */,
 				29F4B1511B95E6740093D28E /* OrbManager.h */,
@@ -233,6 +238,30 @@
 				290759591BCC9670007AA8C4 /* Sequencer.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		2995E72C1BD7E18500853807 /* MainView + Orbs */ = {
+			isa = PBXGroup;
+			children = (
+				2928A36E1BBC45A300BEE906 /* MainView.h */,
+				2928A36F1BBC45A300BEE906 /* MainView.m */,
+				298080331B86620600C00FD8 /* OrbView.h */,
+				298080341B86620600C00FD8 /* OrbView.m */,
+			);
+			name = "MainView + Orbs";
+			sourceTree = "<group>";
+		};
+		2995E72D1BD7E1A000853807 /* Controls Views */ = {
+			isa = PBXGroup;
+			children = (
+				299B1D151BC8283D00CB6DBC /* ControlsView.h */,
+				299B1D161BC8283D00CB6DBC /* ControlsView.m */,
+				2995E7291BD7DFA500853807 /* CockPitView.h */,
+				2995E72A1BD7DFA500853807 /* CockPitView.m */,
+				297C139A1BCC7E47003F1740 /* SequencerView.h */,
+				297C139B1BCC7E47003F1740 /* SequencerView.m */,
+			);
+			name = "Controls Views";
 			sourceTree = "<group>";
 		};
 		29CDF2F01BD5713D00FA54CA /* ControlsSubViews */ = {
@@ -252,6 +281,8 @@
 				292FC59A1BA78F690095EB3B /* CustomSlider.m */,
 				299B1D121BC827C600CB6DBC /* PlayPauseButton.h */,
 				299B1D131BC827C600CB6DBC /* PlayPauseButton.m */,
+				2995E7311BD830E600853807 /* SampleSelectButton.h */,
+				2995E7321BD830E600853807 /* SampleSelectButton.m */,
 			);
 			name = "Control Elements";
 			sourceTree = "<group>";
@@ -435,6 +466,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2995E7301BD81D5E00853807 /* Theme.m in Sources */,
+				2995E7331BD830E600853807 /* SampleSelectButton.m in Sources */,
 				298080351B86620600C00FD8 /* OrbView.m in Sources */,
 				291D357E1B7E9DC800898F13 /* MainViewController.m in Sources */,
 				292FC59B1BA78F690095EB3B /* CustomSlider.m in Sources */,
@@ -447,6 +480,7 @@
 				292FC5531BA660790095EB3B /* myFunction.c in Sources */,
 				299B1D171BC8283D00CB6DBC /* ControlsView.m in Sources */,
 				297FE6691B8E7565004E82D3 /* PresetsViewController.m in Sources */,
+				2995E72B1BD7DFA500853807 /* CockPitView.m in Sources */,
 				2928A36D1BBC3D3300BEE906 /* AUSamplePlayer2.m in Sources */,
 				2907595A1BCC9670007AA8C4 /* Sequencer.m in Sources */,
 				2961A06F1B955B8700CE6D23 /* OrbModel.m in Sources */,

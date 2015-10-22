@@ -20,9 +20,7 @@ NSString * const ABUserDefaultsPresetsCustomKey = @"ABUserDefaultsPresetsCustomK
 
 @implementation AppDelegate
 
-+ (AppDelegate *)sharedDelegate {
-     return (AppDelegate *)[[UIApplication sharedApplication] delegate];
-}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
      
@@ -164,7 +162,9 @@ NSString * const ABUserDefaultsPresetsCustomKey = @"ABUserDefaultsPresetsCustomK
      [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:masterDict]
                                                forKey:ABUserDefaultsPresetsKey];
 }
-
++ (AppDelegate *)sharedDelegate {
+     return (AppDelegate *)[[UIApplication sharedApplication] delegate];
+}
 @end
 
 
