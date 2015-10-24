@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CockPitView.h"
+#import "TransportView.h"
 #import "SequencerView.h"
 
 @interface ControlsView : UIView
-@property (nonatomic,strong) CockPitView *cockPitView;
+@property (nonatomic,strong) TransportView *transportView;
 @property (nonatomic,strong) SequencerView *sequencerView;
 @end

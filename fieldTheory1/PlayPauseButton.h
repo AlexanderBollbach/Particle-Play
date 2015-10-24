@@ -14,8 +14,8 @@
 @property (nonatomic,strong) UIBezierPath *playPath;
 @property (nonatomic,strong) UIBezierPath *pausePath;
 
--(void)animateTriToSquare;
--(void)animateSquareToTri;
+-(void)animatePlayToPause;
+-(void)animatePauseToPlay;
 
 
 @end

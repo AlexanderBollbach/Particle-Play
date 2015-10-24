@@ -15,10 +15,9 @@
 @property (nonatomic,strong) UIColor *orbColor;
 @property (nonatomic,strong) UIColor *orbMasterColor;
 @property (nonatomic,strong) UIColor *mainViewBackgroundColor;
-@property (nonatomic,strong) UIColor *gridSelectedColor;
+@property (nonatomic,strong) UIColor *mainFillColor;
 @property (nonatomic,strong) UIColor *bordersColor;
 @property (nonatomic,assign) CGFloat borderWidth;
-
-
+@property (nonatomic,assign) CGFloat relativeDivisorForHeightOfControlsView;
 + (Theme*)sharedTheme;
 @end

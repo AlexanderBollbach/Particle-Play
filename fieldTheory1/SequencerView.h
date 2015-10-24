@@ -24,6 +24,5 @@
 
 -(void)loadOrb:(OrbModel*)orb;
 -(void)animateWithCount:(int)count;
--(void)setupSequencerViews;
 
 @end

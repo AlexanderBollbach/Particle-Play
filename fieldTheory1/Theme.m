@@ -24,11 +24,12 @@
      if (self = [super init]) {
           self.controlsViewBackground = [UIColor flatConcreteColor];
           self.orbMasterColor = [UIColor flatSTLightBlueColor];
-          self.orbColor = [UIColor flatEmeraldColor];
+          self.orbColor = [UIColor flatSTTripleColor];
           self.mainViewBackgroundColor = [UIColor flatSTDarkNavyColor];
-          self.gridSelectedColor = [UIColor whiteColor];
-          self.bordersColor = [UIColor blackColor];
-          self.borderWidth = 1;
+          self.mainFillColor = [UIColor purpleColor];
+          self.bordersColor = [UIColor whiteColor];
+          self.borderWidth = 0.8;
+          self.relativeDivisorForHeightOfControlsView = 2.0f;
      }
      return self;
 }

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "OrbManager.h"
+#import "MainView.h"
 
 
 @protocol seqDelegate <NSObject>
@@ -19,6 +20,7 @@
 
 @property(nonatomic,strong) OrbManager* orbModelMaster;
 @property (nonatomic,weak) id <seqDelegate> seqDelegate;
+@property (nonatomic,strong) MainView *mainView;
 
 -(void)loadStockPreset:(NSArray*)preset;
 -(void)toggleControls:(BOOL)toggle;

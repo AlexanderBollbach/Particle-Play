@@ -14,8 +14,6 @@
 - (instancetype)initWithFrame:(CGRect)frame {
      if (self = [super initWithFrame:frame]) {
           self.layer.borderColor = [Theme sharedTheme].bordersColor.CGColor;
-          self.layer.borderWidth = [Theme sharedTheme].borderWidth;
-          self.tintColor = [UIColor orangeColor];
      }
      return self;
 }
@@ -25,5 +23,37 @@
     // NSLog(@"highligted %d", highlighted);
 
 }
+
+
+-(void)setSelected:(BOOL)selected {
+
+     if (selected) {
+          self.layer.borderWidth = [Theme sharedTheme].borderWidth;
+     } else {
+          self.layer.borderWidth = 0;
+     }
+
+}
+
+
+-(void)drawRect:(CGRect)rect {
+     CGContextRef context = UIGraphicsGetCurrentContext();
+     CGContextMoveToPoint(context, 0,0);
+  
+
+     if (self.selected) {
+//          CGContextAddLineToPoint(context,CGRectGetWidth(self.bounds),0);
+//          CGContextAddLineToPoint(context,CGRectGetWidth(self.bounds),CGRectGetHeight(self.bounds));
+//
+//          CGContextSetLineWidth(context, 2.0f);
+//          [[Theme sharedTheme].bordersColor setStroke];
+//          CGContextStrokePath(context);
+          
+          
+          
+     } else {
+          
+     }
+     }
 
 @end

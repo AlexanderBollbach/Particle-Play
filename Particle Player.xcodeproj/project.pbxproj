@@ -20,6 +20,8 @@
 		293A01E11B9E293900E9D75C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293A01E01B9E293900E9D75C /* QuartzCore.framework */; };
 		295B6D851BB996DD00797EB3 /* Dotnation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 295B6D841BB996DD00797EB3 /* Dotnation.ttf */; };
 		295B6D8C1BB9D39B00797EB3 /* Dots and Lines.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 295B6D8B1BB9D18000797EB3 /* Dots and Lines.ttf */; };
+		295B74291BD9CEA8003B4AE8 /* SequencerGridButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 295B74281BD9CEA8003B4AE8 /* SequencerGridButton.m */; };
+		295B742C1BD9F93D003B4AE8 /* ExpandButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 295B742B1BD9F93D003B4AE8 /* ExpandButton.m */; };
 		2961A06F1B955B8700CE6D23 /* OrbModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2961A06E1B955B8700CE6D23 /* OrbModel.m */; };
 		2968638F1BB09C5C003AEF88 /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = 2968638E1BB09C5C003AEF88 /* Sounds */; };
 		296863911BB09DEE003AEF88 /* SimpleDrums.aupreset in Resources */ = {isa = PBXBuildFile; fileRef = 296863901BB09DEE003AEF88 /* SimpleDrums.aupreset */; };
@@ -29,7 +31,7 @@
 		297C139C1BCC7E47003F1740 /* SequencerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 297C139B1BCC7E47003F1740 /* SequencerView.m */; };
 		297FE6691B8E7565004E82D3 /* PresetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 297FE6681B8E7565004E82D3 /* PresetsViewController.m */; };
 		298080351B86620600C00FD8 /* OrbView.m in Sources */ = {isa = PBXBuildFile; fileRef = 298080341B86620600C00FD8 /* OrbView.m */; };
-		2995E72B1BD7DFA500853807 /* CockPitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2995E72A1BD7DFA500853807 /* CockPitView.m */; };
+		2995E72B1BD7DFA500853807 /* TransportView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2995E72A1BD7DFA500853807 /* TransportView.m */; };
 		2995E7301BD81D5E00853807 /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 2995E72F1BD81D5E00853807 /* Theme.m */; };
 		2995E7331BD830E600853807 /* SampleSelectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2995E7321BD830E600853807 /* SampleSelectButton.m */; };
 		299B1D141BC827C600CB6DBC /* PlayPauseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 299B1D131BC827C600CB6DBC /* PlayPauseButton.m */; };
@@ -84,6 +86,10 @@
 		293A01E01B9E293900E9D75C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		295B6D841BB996DD00797EB3 /* Dotnation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Dotnation.ttf; sourceTree = "<group>"; };
 		295B6D8B1BB9D18000797EB3 /* Dots and Lines.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dots and Lines.ttf"; sourceTree = "<group>"; };
+		295B74271BD9CEA8003B4AE8 /* SequencerGridButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequencerGridButton.h; sourceTree = "<group>"; };
+		295B74281BD9CEA8003B4AE8 /* SequencerGridButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SequencerGridButton.m; sourceTree = "<group>"; };
+		295B742A1BD9F93D003B4AE8 /* ExpandButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpandButton.h; sourceTree = "<group>"; };
+		295B742B1BD9F93D003B4AE8 /* ExpandButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpandButton.m; sourceTree = "<group>"; };
 		2961A06D1B955B8700CE6D23 /* OrbModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrbModel.h; sourceTree = "<group>"; };
 		2961A06E1B955B8700CE6D23 /* OrbModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrbModel.m; sourceTree = "<group>"; };
 		2968638E1BB09C5C003AEF88 /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
@@ -100,8 +106,8 @@
 		297FE6681B8E7565004E82D3 /* PresetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresetsViewController.m; sourceTree = "<group>"; };
 		298080331B86620600C00FD8 /* OrbView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrbView.h; sourceTree = "<group>"; };
 		298080341B86620600C00FD8 /* OrbView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrbView.m; sourceTree = "<group>"; };
-		2995E7291BD7DFA500853807 /* CockPitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CockPitView.h; sourceTree = "<group>"; };
-		2995E72A1BD7DFA500853807 /* CockPitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CockPitView.m; sourceTree = "<group>"; };
+		2995E7291BD7DFA500853807 /* TransportView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportView.h; sourceTree = "<group>"; };
+		2995E72A1BD7DFA500853807 /* TransportView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportView.m; sourceTree = "<group>"; };
 		2995E72E1BD81D5E00853807 /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
 		2995E72F1BD81D5E00853807 /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
 		2995E7311BD830E600853807 /* SampleSelectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleSelectButton.h; sourceTree = "<group>"; };
@@ -217,8 +223,6 @@
 			isa = PBXGroup;
 			children = (
 				2995E72C1BD7E18500853807 /* MainView + Orbs */,
-				29CDF2F01BD5713D00FA54CA /* ControlsSubViews */,
-				2995E72D1BD7E1A000853807 /* Controls Views */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -247,6 +251,7 @@
 				2928A36F1BBC45A300BEE906 /* MainView.m */,
 				298080331B86620600C00FD8 /* OrbView.h */,
 				298080341B86620600C00FD8 /* OrbView.m */,
+				2995E72D1BD7E1A000853807 /* Controls Views */,
 			);
 			name = "MainView + Orbs";
 			sourceTree = "<group>";
@@ -254,10 +259,11 @@
 		2995E72D1BD7E1A000853807 /* Controls Views */ = {
 			isa = PBXGroup;
 			children = (
+				29CDF2F01BD5713D00FA54CA /* ControlsSubViews */,
 				299B1D151BC8283D00CB6DBC /* ControlsView.h */,
 				299B1D161BC8283D00CB6DBC /* ControlsView.m */,
-				2995E7291BD7DFA500853807 /* CockPitView.h */,
-				2995E72A1BD7DFA500853807 /* CockPitView.m */,
+				2995E7291BD7DFA500853807 /* TransportView.h */,
+				2995E72A1BD7DFA500853807 /* TransportView.m */,
 				297C139A1BCC7E47003F1740 /* SequencerView.h */,
 				297C139B1BCC7E47003F1740 /* SequencerView.m */,
 			);
@@ -283,6 +289,10 @@
 				299B1D131BC827C600CB6DBC /* PlayPauseButton.m */,
 				2995E7311BD830E600853807 /* SampleSelectButton.h */,
 				2995E7321BD830E600853807 /* SampleSelectButton.m */,
+				295B74271BD9CEA8003B4AE8 /* SequencerGridButton.h */,
+				295B74281BD9CEA8003B4AE8 /* SequencerGridButton.m */,
+				295B742A1BD9F93D003B4AE8 /* ExpandButton.h */,
+				295B742B1BD9F93D003B4AE8 /* ExpandButton.m */,
 			);
 			name = "Control Elements";
 			sourceTree = "<group>";
@@ -470,6 +480,7 @@
 				2995E7331BD830E600853807 /* SampleSelectButton.m in Sources */,
 				298080351B86620600C00FD8 /* OrbView.m in Sources */,
 				291D357E1B7E9DC800898F13 /* MainViewController.m in Sources */,
+				295B74291BD9CEA8003B4AE8 /* SequencerGridButton.m in Sources */,
 				292FC59B1BA78F690095EB3B /* CustomSlider.m in Sources */,
 				291D357B1B7E9DC800898F13 /* AppDelegate.m in Sources */,
 				296B003C1BBF5D5A00FA865F /* ControlsViewController.m in Sources */,
@@ -480,12 +491,13 @@
 				292FC5531BA660790095EB3B /* myFunction.c in Sources */,
 				299B1D171BC8283D00CB6DBC /* ControlsView.m in Sources */,
 				297FE6691B8E7565004E82D3 /* PresetsViewController.m in Sources */,
-				2995E72B1BD7DFA500853807 /* CockPitView.m in Sources */,
+				2995E72B1BD7DFA500853807 /* TransportView.m in Sources */,
 				2928A36D1BBC3D3300BEE906 /* AUSamplePlayer2.m in Sources */,
 				2907595A1BCC9670007AA8C4 /* Sequencer.m in Sources */,
 				2961A06F1B955B8700CE6D23 /* OrbModel.m in Sources */,
 				297C139C1BCC7E47003F1740 /* SequencerView.m in Sources */,
 				299B1D141BC827C600CB6DBC /* PlayPauseButton.m in Sources */,
+				295B742C1BD9F93D003B4AE8 /* ExpandButton.m in Sources */,
 				296863F71BB38B8B003AEF88 /* UIButton+reset.m in Sources */,
 				291D35781B7E9DC800898F13 /* main.m in Sources */,
 			);

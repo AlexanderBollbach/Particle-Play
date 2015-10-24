@@ -11,40 +11,40 @@
 #import "OrbManager.h"
 #import "UIColor+ColorAdditions.h"
 #import "myFunction.h"
+#import "Theme.h"
 
-@interface ControlsViewController () <SequencerViewDelegate, CockPitViewDelegate>
+@interface ControlsViewController () <SequencerViewDelegate, TransportViewDelegate>
 @end
 
 @implementation ControlsViewController
 
--(void)loadView {
+- (void)loadView {
      CGRect bounds = [UIScreen mainScreen].bounds;
-     bounds.size.height /= 1.25;
+     bounds.size.height /= [Theme sharedTheme].relativeDivisorForHeightOfControlsView;
      self.view = [[UIView alloc] initWithFrame:bounds];
 }
 
--(void)viewDidLoad {
+- (void)viewDidLoad {
      [super viewDidLoad];
-     self.view.backgroundColor = [Theme sharedTheme].controlsViewBackground;
+     
      self.controlsView = [[ControlsView alloc] initWithFrame:self.view.bounds];
-     [self.view addSubview:self.controlsView];
-}
-
-
-
-
-
-- (void)viewWillAppear:(BOOL)animated {
-     [super viewWillAppear:animated];
-
      self.controlsView.sequencerView.delegate = self;
-     self.controlsView.cockPitView.delegate = self;
-
+     self.controlsView.transportView.delegate = self;
+     
+     self.view = self.controlsView;
+     
+     // load initial orb as Kick
      OrbModel *someOrb = [[OrbManager sharedOrbManager] getOrbWithID:0];
-     [self.controlsView.sequencerView setupSequencerViews];
+//     [self.controlsView.sequencerView setupSequencerViews];
      [self.controlsView.sequencerView loadOrb:someOrb];
-
+    // [self.view addSubview:self.controlsView];
 }
+
+
+- (void)loadOrbWithTag:(NSInteger)tag {
+     [self.controlsView.sequencerView loadOrb:[[OrbManager sharedOrbManager]getOrbWithID:(int)tag]];
+}
+
 
 
 #pragma mark -- handle controls & sequencer
@@ -58,45 +58,32 @@
      [someOrb.sequence replaceObjectAtIndex:(int)gridNum withObject:[NSNumber numberWithBool:selected]];
 }
 
--(void)loadOrbWithTag:(NSInteger)tag {
-     NSInteger orbID = tag;
-     OrbModel *someOrb = [[OrbManager sharedOrbManager] getOrbWithID:(int)orbID];
-     [self.controlsView.sequencerView loadOrb:someOrb];
-}
-
-// hot cues TODO
-
-//
-//-(void)didClickWithTag:(int)tag {
-//     switch (tag) {
-//          case 0:
-//               [Sequencer sharedSequencer].sequencerCounter = 0;
-//               break;
-//          case 1:
-//               [Sequencer sharedSequencer].sequencerCounter = 4;
-//               break;
-//          case 2:
-//               [Sequencer sharedSequencer].sequencerCounter = 8;
-//               break;
-//          case 3:
-//               [Sequencer sharedSequencer].sequencerCounter = 12;
-//               break;
-//          default:
-//               break;
-//     }
+//-(void)loadOrbWithTag:(NSInteger)tag {
+//     NSInteger orbID = tag;
+//     OrbModel *someOrb = [[OrbManager sharedOrbManager] getOrbWithID:(int)orbID];
+//     [self.controlsView.sequencerView loadOrb:someOrb];
 //}
-
 
 -(void)sliderChangedWithValue:(int)value {
      float interpolated = interpolate(0, 200, 1, -0.5, value, 1);
+     
+          float forPhaseShift = interpolate(0, 200, 0, 5, value, 1);
+     
+     self.mainViewController.mainView.phaseShift = forPhaseShift;
+     
      [Sequencer sharedSequencer].tempoNew = interpolated;
 }
 
 - (void)playedPaused:(BOOL)play_pause {
      if (play_pause) {
-          [[Sequencer sharedSequencer] stopSequencer];
-     } else {
+
+
+          self.mainViewController.mainView.isPlaying = YES;
+          
           [[Sequencer sharedSequencer] startSequencer];
+     } else {
+          self.mainViewController.mainView.isPlaying = NO;
+          [[Sequencer sharedSequencer] stopSequencer];
      }
 }
 

@@ -14,4 +14,9 @@
 @property (nonatomic,strong) NSMutableArray *orbs;
 @property (nonatomic,strong) OrbView *anchorOrb;
 @property (nonatomic,assign) CGFloat dashConstant;
+@property (nonatomic,assign) CGFloat dashConstant2;
+@property (nonatomic,assign) BOOL isPlaying;
+@property (nonatomic,assign) float phaseShift;
+
+
 @end
