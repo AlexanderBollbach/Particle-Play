@@ -76,12 +76,12 @@
 
 - (void)playedPaused:(BOOL)play_pause {
      if (play_pause) {
-
-
+          [self.mainViewController.mainView.spaceView.emitterLayer setValue:[NSNumber numberWithFloat:10] forKey:@"emitterCells.particle.birthrate"];
           self.mainViewController.mainView.isPlaying = YES;
           
           [[Sequencer sharedSequencer] startSequencer];
      } else {
+          [self.mainViewController.mainView.spaceView.emitterLayer setValue:[NSNumber numberWithFloat:0] forKey:@"emitterCells.particle.birthrate"];
           self.mainViewController.mainView.isPlaying = NO;
           [[Sequencer sharedSequencer] stopSequencer];
      }

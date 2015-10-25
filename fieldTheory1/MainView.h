@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "OrbView.h"
+#import "SpaceView.h"
 
 
 @interface MainView : UIView
@@ -17,6 +18,6 @@
 @property (nonatomic,assign) CGFloat dashConstant2;
 @property (nonatomic,assign) BOOL isPlaying;
 @property (nonatomic,assign) float phaseShift;
-
+@property (nonatomic,strong) SpaceView *spaceView;
 
 @end

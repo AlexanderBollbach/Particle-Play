@@ -26,7 +26,7 @@
           self.orbMasterColor = [UIColor flatSTLightBlueColor];
           self.orbColor = [UIColor flatSTTripleColor];
           self.mainViewBackgroundColor = [UIColor flatSTDarkNavyColor];
-          self.mainFillColor = [UIColor purpleColor];
+          self.mainFillColor = [UIColor flatSTLightBlueColor];
           self.bordersColor = [UIColor whiteColor];
           self.borderWidth = 0.8;
           self.relativeDivisorForHeightOfControlsView = 2.0f;

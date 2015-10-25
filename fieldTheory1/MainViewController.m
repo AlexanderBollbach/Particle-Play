@@ -18,6 +18,7 @@
 #import "Sequencer.h"
 #import "ControlsViewController.h"
 #import "Theme.h"
+#import "SpaceView.h"
 
 #define MAINVIEWTRANSFORM 0.58
 
@@ -121,6 +122,13 @@
      [self.controlsViewController.controlsView addGestureRecognizer:controlsPan];
      controlsPan.delegate = self;
      
+     
+     
+     
+
+     
+     
+     
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceivePress:(UIPress *)press {
@@ -169,7 +177,7 @@
                     float currentPoint = self.controlsViewController.controlsView.frame.origin.y;
                     float originalMin = controlsClosedPos;
                     float originalMax = controlsOpenPos;
-                    float amountOfPie = interpolate(originalMax,originalMin, 2, 1, currentPoint, 1);
+          //          float amountOfPie = interpolate(originalMax,originalMin, 2, 1, currentPoint, 1);
                     float amountOfTransformForMainView = interpolate(originalMax,originalMin, MAINVIEWTRANSFORM, 1, currentPoint, 1);
                     
                     float amountOfTransformForMainViewSubViews = interpolate(originalMax,originalMin, 1, MAINVIEWTRANSFORM, currentPoint, 1);
@@ -182,7 +190,7 @@
                     self.controlsViewController.controlsView.transportView.expandButton.wings = wingsScaled;
 
                     [self.controlsViewController.controlsView.transportView.expandButton setNeedsDisplay];
-                    self.controlsViewController.controlsView.transportView.expandButton.imageView.transform = CGAffineTransformMakeRotation(M_PI*amountOfPie);
+                //    self.controlsViewController.controlsView.transportView.expandButton.imageView.transform = CGAffineTransformMakeRotation(M_PI*amountOfPie);
                     self.mainView.transform = CGAffineTransformMakeScale(1, amountOfTransformForMainView);
                     
                     [self.mainView.orbs enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -295,8 +303,7 @@
      const CGFloat dx = (anchorPoint.x - orbPoint.x);
      const CGFloat dy = (anchorPoint.y - orbPoint.y);
      float dist = interpolate(0.0f, 500.0f, 0.0f, 100.0f, sqrt(dx*dx + dy*dy), -1.0f);
-     float dashDist = interpolate(0.0f, 500.0f, 2.0f, 15.0f, sqrt(dx*dx + dy*dy), 0);
-     
+  //   float dashDist = interpolate(0.0f, 500.0f, 2.0f, 15.0f, sqrt(dx*dx + dy*dy), 0);
      //self.mainView.dashConstant = dashDist;
      return dist;
 }
@@ -305,7 +312,7 @@
 
 #pragma mark --- presets gestures
 
--(void)handlePresetsPan:(UIPanGestureRecognizer*)gesture {
+- (void)handlePresetsPan:(UIPanGestureRecognizer*)gesture {
      CGPoint translation = [gesture translationInView:self.view];
      CGFloat presetsMidPoint = CGRectGetWidth(self.view.bounds) - CGRectGetWidth(self.presetsViewController.view.bounds)/2;
      CGFloat presetsPosition = self.presetsViewController.view.frame.origin.x;
@@ -365,7 +372,7 @@
      }
 }
 
--(void)didTickWithCount:(int)count {
+- (void)didTickWithCount:(int)count {
      for (OrbView* orb in self.mainView.orbs) {
           if ([[orb.orbModelRef.sequence objectAtIndex:count] boolValue]) {
                [orb.sampler sendNoteOnEvent:orb.orbModelRef.midiNote velocity:127];

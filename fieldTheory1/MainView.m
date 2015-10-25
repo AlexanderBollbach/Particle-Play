@@ -26,6 +26,10 @@
           [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
           self.isPlaying = NO;
           self.phaseShift = 2;
+          
+          self.spaceView = [[SpaceView alloc] initWithFrame:self.bounds];
+          [self addSubview:self.spaceView];
+    
      }
      
      return self;
