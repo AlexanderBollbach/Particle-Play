@@ -80,11 +80,6 @@
      return self;
 }
 
-//-(void)setSelected:(BOOL)selected {
-//     NSLog(@"%i",selected);
-//
-//}
-
 
 - (void)animatePlayToPause {
      CABasicAnimation *basicAni = [CABasicAnimation animationWithKeyPath:@"path"];

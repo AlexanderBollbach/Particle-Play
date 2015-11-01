@@ -13,7 +13,9 @@
 
 @interface MainView : UIView
 @property (nonatomic,strong) NSMutableArray *orbs;
-@property (nonatomic,strong) OrbView *anchorOrb;
+@property (nonatomic,strong) OrbView *reverbOrb;
+@property (nonatomic,strong) OrbView *hpOrb;
+
 @property (nonatomic,assign) CGFloat dashConstant;
 @property (nonatomic,assign) CGFloat dashConstant2;
 @property (nonatomic,assign) BOOL isPlaying;

@@ -20,7 +20,6 @@
 @property(nonatomic,assign)CGPoint center;
 @property(nonatomic,assign)int midiNote;
 @property(nonatomic,assign)int idNum;
-
-@property(nonatomic,assign) BOOL isMaster;
+@property(nonatomic,assign) BOOL isEffect;
 
 @end

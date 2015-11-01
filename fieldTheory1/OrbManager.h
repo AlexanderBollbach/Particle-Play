@@ -10,9 +10,10 @@
 #import "OrbModel.h"
 
 @interface OrbManager : NSObject
+
 @property(nonatomic,strong)NSMutableArray* orbModels;
 
-
--(OrbModel *)getOrbWithID:(int)orbID;
 + (OrbManager*)sharedOrbManager;
+-(OrbModel *)getOrbWithID:(int)orbID;
+
 @end

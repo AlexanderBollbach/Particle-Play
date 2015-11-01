@@ -11,16 +11,11 @@
 #import "OrbManager.h"
 #import "MainView.h"
 
-
-@protocol seqDelegate <NSObject>
-- (void)animatePlayheadWithIndex:(NSInteger)index;
-@end
-
 @interface MainViewController : UIViewController<UIGestureRecognizerDelegate>
 
 @property(nonatomic,strong) OrbManager* orbModelMaster;
-@property (nonatomic,weak) id <seqDelegate> seqDelegate;
 @property (nonatomic,strong) MainView *mainView;
+@property (nonatomic,strong) UILabel *tempoLabel;
 
 -(void)loadStockPreset:(NSArray*)preset;
 -(void)toggleControls:(BOOL)toggle;

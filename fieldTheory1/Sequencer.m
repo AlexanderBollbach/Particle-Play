@@ -7,75 +7,67 @@
 //
 
 #import "Sequencer.h"
+#import "Theme.h"
 
 @interface Sequencer()
-@property (nonatomic,strong) NSTimer *timer;
 @end
 
-@implementation Sequencer {
-     float tempoTransform;
-     int count;
-}
-
+@implementation Sequencer
 + (Sequencer*)sharedSequencer {
      static Sequencer *sequencer = nil;
      static dispatch_once_t onceToken;
      dispatch_once(&onceToken, ^{
           sequencer = [[self alloc] init];
-          
-          
      });
      return sequencer;
 }
 
 -(instancetype)init {
      if (self = [super init]) {
-          tempoTransform = 1;
-          self.tempoNew = 1;
-          count = 0;
-          self.sequencerCounter = 0;
-          
+          [self spawnSequencerWithTempo:5000];
      }
      return self;
 }
 
 
-- (void)stopSequencer {
-     [self.timer invalidate];
-     self.timer = nil;
+- (void)setTempoWithInterval:(int)interval {
+     [self.superTimer setInterval:interval*1000];
+}
+
+- (void)spawnSequencerWithTempo:(int)tempo {
+     self.superTimer = [[SuperTimer alloc] initWithInterval:tempo :^{
+          [self sequencer];
+     }];
 }
 
 -(void)startSequencer {
-     
-     if (self.timer) {
-          [self stopSequencer];
-     }
-     self.timer = [NSTimer scheduledTimerWithTimeInterval:(0.6 * self.tempoNew)
-                                                   target:self
-                                                 selector:@selector(sequencer:)
-                                                 userInfo:nil
-                                                  repeats:YES];
-     [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    // [self spawnSequencerWithTempo:self.tempo];
 }
 
-- (void)sequencer:(id)sender {
-     
-     if (self.tempoNew != tempoTransform) {
-          [self startSequencer];
-          tempoTransform = self.tempoNew;
-     }
-     int tick = ((self.sequencerCounter)%16);
-     [[NSNotificationCenter defaultCenter] postNotificationName:@"didTick"
-                                                         object:self
-                                                       userInfo:@{@"count": [NSNumber numberWithInt:tick]}];
-     if (self.delegate) {
-          [self.delegate didTickWithCount:tick];
-     }
-     self.sequencerCounter++;
+- (void)pauseSequencer {
+     [self.superTimer pauseTimer];
 }
 
-
-
-
+- (void)sequencer {
+     static int counter = 0;
+     
+     if (self.playing) {
+          counter++;
+          int tick = counter % 16;
+          
+          // crypto mode plays sequence backwards
+          if ([Theme sharedTheme].cryptoMode) {
+               tick = (16 - 1) - tick;
+          }
+          
+          [[NSNotificationCenter defaultCenter] postNotificationName:@"didTick"
+                                                              object:self
+                                                            userInfo:@{@"count": [NSNumber numberWithInt:tick]}];
+          [[NSNotificationCenter defaultCenter] postNotificationName:@"didTickOnMainThread"
+                                                              object:self
+                                                            userInfo:@{@"count": [NSNumber numberWithInt:tick]}];
+     }
+     
+}
 
 @end

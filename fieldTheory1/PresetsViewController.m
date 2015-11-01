@@ -100,15 +100,15 @@
     
      UITableViewCell *selectedCell = [self.tableView cellForRowAtIndexPath:indexPath];
      selectedCell.textLabel.textColor = [UIColor redColor];
-     NSMutableDictionary *decodedDict = [NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:ABUserDefaultsPresetsKey]];
+   //  NSMutableDictionary *decodedDict = [NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:ABUserDefaultsPresetsKey]];
      if (indexPath.section == 0) {
-          NSMutableDictionary *stockDict = [decodedDict objectForKey:ABUserDefaultsPresetsStockKey];
-          NSMutableArray *presetArray = [stockDict objectForKey:selectedCell.textLabel.text];
-          [[AppDelegate sharedDelegate] loadPreset:presetArray];
+     //     NSMutableDictionary *stockDict = [decodedDict objectForKey:ABUserDefaultsPresetsStockKey];
+      //    NSMutableArray *presetArray = [stockDict objectForKey:selectedCell.textLabel.text];
+       //   [[AppDelegate sharedDelegate] loadPreset:presetArray];
      } else {
-          NSMutableDictionary *custom = [decodedDict objectForKey:ABUserDefaultsPresetsCustomKey];
-          NSMutableArray *presetArray = [custom objectForKey:selectedCell.textLabel.text];
-          [[AppDelegate sharedDelegate] loadPreset:presetArray];
+      //    NSMutableDictionary *custom = [decodedDict objectForKey:ABUserDefaultsPresetsCustomKey];
+      //    NSMutableArray *presetArray = [custom objectForKey:selectedCell.textLabel.text];
+        //  [[AppDelegate sharedDelegate] loadPreset:presetArray];
      }
 }
 

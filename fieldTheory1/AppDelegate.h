@@ -18,6 +18,5 @@ extern NSString * const ABUserDefaultsPresetsCustomKey;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 @property (strong, nonatomic) UIWindow *window;
 + (AppDelegate *)sharedDelegate;
-- (void)loadPreset:(NSArray *)preset;
 @end
 

@@ -11,15 +11,11 @@
 
 @implementation SequencerGridButton
 
--(void)setSelected:(BOOL)selected {
-     
-  //   self.selected = !self.selected;
-     
-     if (selected) {
-          self.backgroundColor = [Theme sharedTheme].mainFillColor;
-     } else {
-          self.backgroundColor = [UIColor clearColor];
+- (instancetype)initWithFrame:(CGRect)frame {
+     if (self = [super initWithFrame:frame]) {
+          self.layer.borderColor = [UIColor whiteColor].CGColor;
      }
+     return  self;
 }
 
 @end

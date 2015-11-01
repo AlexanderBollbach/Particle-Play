@@ -11,7 +11,6 @@
 @interface CustomSlider : UIControl
 
 @property (nonatomic,assign) int value;
-
 @property (nonatomic,assign) float fillAmount;
 
 @end

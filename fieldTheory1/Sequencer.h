@@ -7,20 +7,26 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SuperTimer.h"
 
-@protocol sequencerDelegate <NSObject>
+
+@import UIKit;
+
+@protocol SequencerDelegate <NSObject>
 - (void)didTickWithCount:(int)count;
 @end
 
 @interface Sequencer : NSObject
 
-@property (nonatomic,strong) id<sequencerDelegate> delegate;
+@property (nonatomic,strong) id<SequencerDelegate> delegate;
 @property (nonatomic,assign) NSInteger sequencerCounter;
-@property (nonatomic,assign) float tempoNew;
+@property (nonatomic,assign) BOOL playing;
+@property (strong) SuperTimer *superTimer;
 
 + (Sequencer*)sharedSequencer;
-
+- (void)spawnSequencerWithTempo:(int)tempo;
 - (void)startSequencer;
-- (void)stopSequencer;
+- (void)pauseSequencer;
+- (void)setTempoWithInterval:(int)interval;
 
 @end

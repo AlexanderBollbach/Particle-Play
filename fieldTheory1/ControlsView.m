@@ -27,7 +27,7 @@
           self.sequencerView = [[SequencerView alloc] initWithFrame:row2];
           [self addSubview:self.sequencerView];
 
-          self.backgroundColor = [Theme sharedTheme].controlsViewBackground;
+          self.backgroundColor = [Theme sharedTheme].controlsViewBackgroundColor;
  
      }
      return self;

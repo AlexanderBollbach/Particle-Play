@@ -28,33 +28,40 @@
 
      //Create the emitter layer
      self.emitterLayer = [CAEmitterLayer layer];
-     self.emitterLayer.emitterPosition = CGPointMake(0, 0);
+     self.emitterLayer.emitterPosition = self.center;
      
-     self.emitterLayer.emitterMode = kCAEmitterLayerAdditive;
-     self.emitterLayer.emitterShape = kCAEmitterLayerLine;
-     self.emitterLayer.emitterDepth = 2;
-   //  self.emitterLayer.renderMode = kCAEmitterLayerOldestFirst;
+     self.emitterLayer.emitterMode = kCAEmitterLayerLine;
+     self.emitterLayer.emitterShape = kCAEmitterLayerBackToFront;
+     self.emitterLayer.emitterDepth = 8;
+     self.emitterLayer.renderMode = kCAEmitterLayerOldestFirst;
      self.emitterLayer.emitterSize = self.bounds.size;
-     
+     self.emitterLayer.emitterZPosition = 3;
      //Create the emitter cell
      self.emitterCell = [CAEmitterCell emitterCell];
+     self.emitterCell.blueSpeed = 1.5;
      self.emitterCell.emissionLongitude = 2;
-     self.emitterCell.birthRate = 200;
+     self.emitterCell.birthRate = 150;
      self.emitterCell.lifetime = 5;
-     self.emitterCell.lifetimeRange = 1;
-     self.emitterCell.velocity = 80;
-     self.emitterCell.velocityRange = 100;
-     self.emitterCell.emissionRange = 1;
-     self.emitterCell.scaleSpeed = 1; // was 0.3
+     self.emitterCell.lifetimeRange = 3;
+     
+     
+     self.emitterCell.velocity = 500;
+     self.emitterCell.velocityRange = 0;
+
+     self.emitterCell.emissionRange = 3;
+     self.emitterCell.scaleSpeed = 3; // was 0.3
      self.emitterCell.color = [[UIColor colorWithRed:1 green:1 blue:1 alpha:1] CGColor];
      
-     CGSize size = CGSizeMake(0.01,0.1);
+     [self.emitterCell setName:@"test"];
+
+     
+     CGSize size = CGSizeMake(0.11, 0.2);
      UIBezierPath *shape = [UIBezierPath bezierPath];
-     shape.lineJoinStyle = kCGLineJoinMiter;
+     shape.lineJoinStyle = kCGLineJoinBevel;
      [shape moveToPoint: CGPointMake(0, 0)];
      [shape addLineToPoint: CGPointMake(size.width, size.height / 2)];
      [shape addLineToPoint: CGPointMake(0, size.height)];
-     shape.lineWidth = 1;
+     shape.lineWidth = 2;
      [shape closePath];
      
      UIGraphicsBeginImageContextWithOptions(size, false,[UIScreen mainScreen].scale);
@@ -70,7 +77,6 @@
      UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
      UIGraphicsEndImageContext();
      self.emitterCell.contents = (__bridge id)(result.CGImage);
-     self.emitterCell.name = @"particle";
      self.emitterLayer.emitterCells = [NSArray arrayWithObject:self.emitterCell];
      [self.layer addSublayer:self.emitterLayer];
 }

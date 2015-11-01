@@ -17,6 +17,8 @@
       self.fillAmount = 100;
         self.value = 50;
       self.backgroundColor = [UIColor clearColor];
+        self.layer.borderWidth = [Theme sharedTheme].borderWidth;
+        self.layer.borderColor = [Theme sharedTheme].bordersColor.CGColor;
         [self setNeedsDisplay];
 
    }
@@ -30,10 +32,8 @@
 }
 
 -(BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event{
- //  [super continueTrackingWithTouch:touch withEvent:event];
    
    CGPoint lastPoint = [touch locationInView:self];
-
      self.fillAmount = lastPoint.x;
 
      
@@ -43,12 +43,11 @@
                              100,
                              lastPoint.x,
                              1);
-     NSLog(@"%i", self.value);
+   //  NSLog(@"%i", self.value);
    [self sendActionsForControlEvents:UIControlEventValueChanged];
    [self setNeedsDisplay];
      
-     
-     
+
    return YES;
 
 }
@@ -58,8 +57,7 @@
    
    [[[Theme sharedTheme] mainFillColor] setFill];
    UIRectFill(CGRectMake(0.0, 0.0, self.fillAmount, CGRectGetHeight(self.bounds)));
-     self.layer.borderWidth = [Theme sharedTheme].borderWidth;
-   self.layer.borderColor = [Theme sharedTheme].bordersColor.CGColor;
+
    
 }
 

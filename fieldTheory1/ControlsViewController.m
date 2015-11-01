@@ -30,24 +30,27 @@
      self.controlsView = [[ControlsView alloc] initWithFrame:self.view.bounds];
      self.controlsView.sequencerView.delegate = self;
      self.controlsView.transportView.delegate = self;
-     
      self.view = self.controlsView;
      
      // load initial orb as Kick
      OrbModel *someOrb = [[OrbManager sharedOrbManager] getOrbWithID:0];
-//     [self.controlsView.sequencerView setupSequencerViews];
      [self.controlsView.sequencerView loadOrb:someOrb];
-    // [self.view addSubview:self.controlsView];
+     
+      [self.mainViewController.mainView.spaceView.emitterLayer setValue:[NSNumber numberWithFloat:0] forKeyPath:@"emitterCells.test.birthRate"];
+//     [self.mainViewController.mainView.spaceView.emitterLayer setValue:[NSNumber numberWithFloat:100] forKeyPath:@"emitterCells.test.velocity"];
 }
 
 
-- (void)loadOrbWithTag:(NSInteger)tag {
-     [self.controlsView.sequencerView loadOrb:[[OrbManager sharedOrbManager]getOrbWithID:(int)tag]];
-}
+
 
 
 
 #pragma mark -- handle controls & sequencer
+
+- (void)loadOrbWithTag:(NSInteger)tag {
+     OrbModel *orb = [[OrbManager sharedOrbManager]getOrbWithID:(int)tag];
+     [self.controlsView.sequencerView loadOrb:orb];
+}
 
 - (void)toggleExpand:(BOOL)toggle {
      [self.mainViewController toggleControls:toggle];
@@ -55,36 +58,32 @@
 
 - (void)seqTickedWithOrbID:(int)orbID andGridNum:(int)gridNum selected:(BOOL)selected {
      OrbModel *someOrb = [[OrbManager sharedOrbManager] getOrbWithID:orbID];
-     [someOrb.sequence replaceObjectAtIndex:(int)gridNum withObject:[NSNumber numberWithBool:selected]];
+     [someOrb.sequence replaceObjectAtIndex:(int)gridNum-1 withObject:[NSNumber numberWithBool:selected]];
 }
 
-//-(void)loadOrbWithTag:(NSInteger)tag {
-//     NSInteger orbID = tag;
-//     OrbModel *someOrb = [[OrbManager sharedOrbManager] getOrbWithID:(int)orbID];
-//     [self.controlsView.sequencerView loadOrb:someOrb];
-//}
-
 -(void)sliderChangedWithValue:(int)value {
-     float interpolated = interpolate(0, 200, 1, -0.5, value, 1);
-     
-          float forPhaseShift = interpolate(0, 200, 0, 5, value, 1);
-     
+     float forPhaseShift = interpolate(0, 800, 0, 5, value, 1);
      self.mainViewController.mainView.phaseShift = forPhaseShift;
-     
-     [Sequencer sharedSequencer].tempoNew = interpolated;
+     float interpolated = interpolate(0, 100, 9, 2, value, 1);
+     [[Sequencer sharedSequencer] setTempoWithInterval:interpolated];
+     uint64_t interval = [[Sequencer sharedSequencer].superTimer getIntervalSamples];
+     self.mainViewController.tempoLabel.text = [NSString stringWithFormat:@"tempo: %i", (int)interval];
+
+
 }
 
 - (void)playedPaused:(BOOL)play_pause {
-     if (play_pause) {
-          [self.mainViewController.mainView.spaceView.emitterLayer setValue:[NSNumber numberWithFloat:10] forKey:@"emitterCells.particle.birthrate"];
-          self.mainViewController.mainView.isPlaying = YES;
-          
-          [[Sequencer sharedSequencer] startSequencer];
+     self.mainViewController.mainView.isPlaying = play_pause;
+     [Sequencer sharedSequencer].playing = play_pause;
+     [self.mainViewController.mainView setNeedsDisplay];
+
+    NSString *someValue = [self.mainViewController.mainView.spaceView.emitterLayer valueForKeyPath:@"emitterCells.test.birthRate"];
+     if (!play_pause) {
+                  [self.mainViewController.mainView.spaceView.emitterLayer setValue:[NSNumber numberWithFloat:0] forKeyPath:@"emitterCells.test.birthRate"];
      } else {
-          [self.mainViewController.mainView.spaceView.emitterLayer setValue:[NSNumber numberWithFloat:0] forKey:@"emitterCells.particle.birthrate"];
-          self.mainViewController.mainView.isPlaying = NO;
-          [[Sequencer sharedSequencer] stopSequencer];
+                  [self.mainViewController.mainView.spaceView.emitterLayer setValue:[NSNumber numberWithFloat:200] forKeyPath:@"emitterCells.test.birthRate"];
      }
+
 }
 
 @end

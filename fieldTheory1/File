@@ -4,3 +4,6 @@ TODO
 - add some more buttons or options to top controls menu -- maybe link to presets controller with is full screen
 - instead of hot cues button put another grid with each grid portion is a trigger to an entire sequencer??
 - fix tempo.. proportion/range : color : ..
+
+
+-- take some ui cues from Samplr such as the tempo slider that ustilizes whole screen just as long as you touch began in the tempo view

@@ -11,14 +11,27 @@
 #import <QuartzCore/QuartzCore.h>
 
 @class OrbModel;
-@class AUSamplePlayer2;
+@class Sampler;
+@class OrbView;
+
+@protocol OrbViewDelegate <NSObject> // mainviewcontroller
+- (void)orbTappedWithID:(int)ID;
+- (BOOL)isPointTooCloseToOrbs:(CGPoint)point theOrb:(OrbView*)orb;
+@end
 
 @interface OrbView : UIButton <UIGestureRecognizerDelegate>
 @property (nonatomic, weak) OrbModel* orbModelRef;
 @property (nonatomic, strong) CAShapeLayer* orbLayerBase;
-@property (nonatomic, strong) AUSamplePlayer2 *sampler;
-@property (nonatomic, assign) BOOL isMaster;
+@property (nonatomic, strong) Sampler *sampler;
+@property (nonatomic, assign) BOOL isEffect;
+@property (nonatomic, assign) BOOL hasReverb;
+@property (nonatomic,assign) float revAmount;
+@property (nonatomic, assign) BOOL hasHP;
+@property (nonatomic,assign) float hpCutoff;
+@property (nonatomic,strong) id<OrbViewDelegate> delegate;
+
 - (void)performAnimation;
--(void)setIcon;
+- (void)setIcon;
+- (void)loadSampler;
 
 @end

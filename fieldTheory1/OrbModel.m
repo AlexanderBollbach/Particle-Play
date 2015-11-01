@@ -22,12 +22,10 @@
      [aCoder encodeObject:self.sequence forKey:@"sequence"];
      [aCoder encodeObject:[NSValue valueWithCGPoint:self.center] forKey:@"center"];
      [aCoder encodeObject:[NSNumber numberWithFloat:self.sizeValue] forKey:@"sizeValue"];
-     [aCoder encodeObject:[NSNumber numberWithBool:self.isMaster] forKey:@"isMaster"];
-
+     [aCoder encodeObject:[NSNumber numberWithBool:self.isEffect] forKey:@"isEffect"];
      [aCoder encodeObject:[NSNumber numberWithInt:self.idNum] forKey:@"idNum"];
 
 }
-
 
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
      if (self = [super init]) {
@@ -36,7 +34,7 @@
           self.midiNote = [[aDecoder decodeObjectForKey:@"midiNote"] intValue];
           self.center = [[aDecoder decodeObjectForKey:@"center"] CGPointValue];
           self.sizeValue = [[aDecoder decodeObjectForKey:@"sizeValue"] floatValue];
-          self.isMaster = [[aDecoder decodeObjectForKey:@"isMaster"] boolValue];
+          self.isEffect = [[aDecoder decodeObjectForKey:@"isEffect"] boolValue];
           self.idNum = [[aDecoder decodeObjectForKey:@"idNum"] intValue];
 
      }

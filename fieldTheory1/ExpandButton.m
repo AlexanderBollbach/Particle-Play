@@ -25,8 +25,8 @@
      
      CGContextRef context = UIGraphicsGetCurrentContext();
      
-     self.wings *= CGRectGetHeight(self.bounds);
-     self.pivot *= CGRectGetHeight(self.bounds);
+     self.wings *= CGRectGetHeight(self.bounds) * 0.5;
+     self.pivot *= CGRectGetHeight(self.bounds) * 0.5;
      
      CGContextSetLineWidth(context, 5);
      CGContextSetLineCap(context, kCGLineCapButt);
