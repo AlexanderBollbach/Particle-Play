@@ -156,10 +156,13 @@
                     
                     
                     orb.effectAmount = [self distanceFromOrb:orb toOrb:self.mainView.effectsOrb];
+                    if (orb.effectAmount < 0.001) {
+                         orb.effectAmount = 0.0;
+                    }
                   //  NSLog(@"effect Amount %f", orb.effectAmount);
                  //   NSLog(@"hasLP %i", orb.orbModelRef.hasLP);
-                    NSLog(@"effect center: %@", NSStringFromCGPoint(self.mainView.effectsOrb.center));
-//
+                  //  NSLog(@"effect center: %@", NSStringFromCGPoint(self.mainView.effectsOrb.center));
+
                     
                     [orb.sampler setLowPassCutoff:orb.orbModelRef.hasLP ? orb.effectAmount : 0];
                     [orb.sampler setHighPassCutoff:orb.orbModelRef.hasHP ? orb.effectAmount : 0];
@@ -181,16 +184,13 @@
      
        CGPoint orb1Con = [[UIApplication sharedApplication].keyWindow convertPoint:orb1.center fromCoordinateSpace:orb1.superview];
   CGPoint orb2Con = [[UIApplication sharedApplication].keyWindow convertPoint:orb2.center fromCoordinateSpace:orb2.superview];
-     
-      //  NSLog(@"orb from window %@", NSStringFromCGPoint(orbFromWindow));
-
-  //   NSLog(@"orb %@", NSStringFromCGPoint(convertedOrb));
-   //  NSLog(@"master %@", NSStringFromCGPoint(convertedEffectsOrb));
 
      
      float distToEffect = sqrt(fabs(pow(orb2Con.x - orb1Con.x, 2)+fabs(pow(orb2Con.y - orb1Con.y, 2))));
-  //   NSLog(@"%f", distToEffect);
-     float effectAmount = interpolate(85, 220, 1, 0, distToEffect, 1);
+     float effectAmount = interpolate(59.5, 172.5, 1, 0, distToEffect, 1);
+        NSLog(@"dist %f", distToEffect);
+     NSLog(@"amount %f", effectAmount);
+
      return effectAmount;
 }
 

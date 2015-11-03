@@ -23,12 +23,7 @@
           [self loadSynthFromPresetURL:_preset sampler:&_player];
           CheckError (AUGraphStart(_player.graph),"couldn't start graph");
           
-          AudioUnitSetParameter(_player.hpUnit,
-                                kAudioUnitScope_Global,
-                                0,
-                                kHipassParam_CutoffFrequency,
-                                0.5,
-                                0);
+   
           AudioUnitSetParameter(_player.reverbUnit,
                                 kAudioUnitScope_Global,
                                 0,
@@ -41,12 +36,12 @@
                                 kLowPassParam_CutoffFrequency,
                                 20000,
                                 0);
-          AudioUnitSetParameter(_player.hpUnit,
-                                kAudioUnitScope_Global,
-                                0,
-                                kDistortionParam_FinalMix,
-                                0,
-                                0);
+//          AudioUnitSetParameter(_player.hpUnit,
+//                                kAudioUnitScope_Global,
+//                                0,
+//                                kHipassParam_CutoffFrequency,
+//                              20000,
+//                                0);
           AudioUnitSetParameter(_player.dlUnit,
                                 kAudioUnitScope_Global,
                                 0,
@@ -57,7 +52,13 @@
                                 kAudioUnitScope_Global,
                                 0,
                                 kDelayParam_Feedback,
-                                50,
+                                70,
+                                0);
+          AudioUnitSetParameter(_player.dlUnit,
+                                kAudioUnitScope_Global,
+                                0,
+                                kDelayParam_DelayTime,
+                                0.5,
                                 0);
      }
      return self;
@@ -66,12 +67,12 @@
 
 
 - (void)setHighPassCutoff:(AudioUnitParameterValue)value {
-     AudioUnitParameterValue valueInterpolated = interpolate(0, 1, 0, 18000, value, 1);
+     AudioUnitParameterValue valueInterpolated = interpolate(0, 1, 0, 20000, value, 1);
      //   NSLog(@"%f", valueInterpolated);
      AudioUnitSetParameter(_player.hpUnit,
                            kAudioUnitScope_Global,
                            0,
-                           kHighShelfParam_CutOffFrequency,
+                           kHipassParam_CutoffFrequency,
                            valueInterpolated,
                            0);
 }
@@ -132,13 +133,13 @@
      CheckError(AUGraphAddNode(player->graph,
                                &instrumentcd,
                                &instrumentNode), "AUGraphAddNode[kAudioUnitSubType_DLSSynth] failed");
-     AudioComponentDescription reverbcd = { 0 };
-     reverbcd.componentManufacturer = kAudioUnitManufacturer_Apple;
-     reverbcd.componentType = kAudioUnitType_Effect;
-     reverbcd.componentSubType = kAudioUnitSubType_Reverb2;
+     AudioComponentDescription rvcd = { 0 };
+     rvcd.componentManufacturer = kAudioUnitManufacturer_Apple;
+     rvcd.componentType = kAudioUnitType_Effect;
+     rvcd.componentSubType = kAudioUnitSubType_Reverb2;
      AUNode reverbNode;
      CheckError(AUGraphAddNode(player->graph,
-                               &reverbcd,
+                               &rvcd,
                                &reverbNode),"AUGraphAddNode[kAudioUnitSubType_Reverb2] failed");
      AudioComponentDescription hpcd = { 0 };
      hpcd.componentManufacturer = kAudioUnitManufacturer_Apple;
@@ -260,7 +261,7 @@ static void CheckError(OSStatus error, const char *operation)
      
      NSString *presetPath = presetURL;
      const char* presetPathC = [presetPath cStringUsingEncoding:NSUTF8StringEncoding];
-     NSLog (@"presetPathC: %s", presetPathC);
+  //   NSLog (@"presetPathC: %s", presetPathC);
      CFURLRef _presetURL = CFURLCreateFromFileSystemRepresentation(kCFAllocatorDefault,
                                                                    presetPathC,
                                                                    [presetPath length],

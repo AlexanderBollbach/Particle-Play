@@ -13,7 +13,7 @@
 
 #pragma mark - state struct
 typedef struct MyMIDIPlayer {
-     AUGraph		graph;
+     AUGraph graph;
      AudioUnit	instrumentUnit;
      AudioUnit reverbUnit;
      AudioUnit hpUnit;
