@@ -23,11 +23,17 @@
 @property (nonatomic, weak) OrbModel* orbModelRef;
 @property (nonatomic, strong) CAShapeLayer* orbLayerBase;
 @property (nonatomic, strong) Sampler *sampler;
+//@property (nonatomic, assign) BOOL hasRev;
+//@property (nonatomic, assign) BOOL hasHP;
+//@property (nonatomic, assign) BOOL hasLP;
+//@property (nonatomic, assign) BOOL hasDL;
+//@property (nonatomic, assign) BOOL hasFilter;
+//@property (nonatomic,assign) float revAmount;
 @property (nonatomic, assign) BOOL isEffect;
-@property (nonatomic, assign) BOOL hasReverb;
-@property (nonatomic,assign) float revAmount;
-@property (nonatomic, assign) BOOL hasHP;
-@property (nonatomic,assign) float hpCutoff;
+@property (nonatomic,assign) float effectAmount;
+
+//@property (nonatomic, assign) BOOL hasHP;
+//@property (nonatomic,assign) float hpCutoff;
 @property (nonatomic,strong) id<OrbViewDelegate> delegate;
 
 - (void)performAnimation;

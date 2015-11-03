@@ -13,7 +13,7 @@
 #import "myFunction.h"
 #import "Theme.h"
 
-@interface ControlsViewController () <SequencerViewDelegate, TransportViewDelegate>
+@interface ControlsViewController () <SequencerViewDelegate, EffectsViewDelegate>
 @end
 
 @implementation ControlsViewController
@@ -24,33 +24,53 @@
      self.view = [[UIView alloc] initWithFrame:bounds];
 }
 
+
 - (void)viewDidLoad {
      [super viewDidLoad];
      
      self.controlsView = [[ControlsView alloc] initWithFrame:self.view.bounds];
      self.controlsView.sequencerView.delegate = self;
-     self.controlsView.transportView.delegate = self;
+     self.controlsView.effectsView.delegate = self;
      self.view = self.controlsView;
      
      // load initial orb as Kick
-     OrbModel *someOrb = [[OrbManager sharedOrbManager] getOrbWithID:0];
-     [self.controlsView.sequencerView loadOrb:someOrb];
+     OrbModel *kickModelOrb = [[OrbManager sharedOrbManager] getOrbWithID:0];
+     [self.controlsView.sequencerView loadOrbWithID:kickModelOrb.idNum andSequence:kickModelOrb.sequence];
      
-      [self.mainViewController.mainView.spaceView.emitterLayer setValue:[NSNumber numberWithFloat:0] forKeyPath:@"emitterCells.test.birthRate"];
-//     [self.mainViewController.mainView.spaceView.emitterLayer setValue:[NSNumber numberWithFloat:100] forKeyPath:@"emitterCells.test.velocity"];
 }
 
+- (void)toggle:(BOOL)expanded {
+     [self.mainViewController toggleControls:!expanded];
+}
+- (void)setEffectForOrbWithID:(int)orbID effectTag:(int)effectTag selected:(BOOL)selected {
 
-
+     OrbModel *orbModel = [[OrbManager sharedOrbManager] getOrbWithID:orbID];
+     switch (effectTag) {
+          case 1:
+               orbModel.hasRev = selected;
+               break;
+          case 2:
+               orbModel.hasHP = selected;
+               break;
+          case 3:
+               orbModel.hasLP = selected;
+               break;
+          case 4:
+               orbModel.hasDL = selected;
+               break;
+          default:
+               break;
+     }
+}
 
 
 
 #pragma mark -- handle controls & sequencer
 
-- (void)loadOrbWithTag:(NSInteger)tag {
-     OrbModel *orb = [[OrbManager sharedOrbManager]getOrbWithID:(int)tag];
-     [self.controlsView.sequencerView loadOrb:orb];
-}
+//- (void)loadOrbWithTag:(NSInteger)tag {
+//     OrbModel *orb = [[OrbManager sharedOrbManager]getOrbWithID:(int)tag];
+//     [self.controlsView.sequencerView loadOrb:orb];
+//}
 
 - (void)toggleExpand:(BOOL)toggle {
      [self.mainViewController toggleControls:toggle];
@@ -61,29 +81,5 @@
      [someOrb.sequence replaceObjectAtIndex:(int)gridNum-1 withObject:[NSNumber numberWithBool:selected]];
 }
 
--(void)sliderChangedWithValue:(int)value {
-     float forPhaseShift = interpolate(0, 800, 0, 5, value, 1);
-     self.mainViewController.mainView.phaseShift = forPhaseShift;
-     float interpolated = interpolate(0, 100, 9, 2, value, 1);
-     [[Sequencer sharedSequencer] setTempoWithInterval:interpolated];
-     uint64_t interval = [[Sequencer sharedSequencer].superTimer getIntervalSamples];
-     self.mainViewController.tempoLabel.text = [NSString stringWithFormat:@"tempo: %i", (int)interval];
-
-
-}
-
-- (void)playedPaused:(BOOL)play_pause {
-     self.mainViewController.mainView.isPlaying = play_pause;
-     [Sequencer sharedSequencer].playing = play_pause;
-     [self.mainViewController.mainView setNeedsDisplay];
-
-    NSString *someValue = [self.mainViewController.mainView.spaceView.emitterLayer valueForKeyPath:@"emitterCells.test.birthRate"];
-     if (!play_pause) {
-                  [self.mainViewController.mainView.spaceView.emitterLayer setValue:[NSNumber numberWithFloat:0] forKeyPath:@"emitterCells.test.birthRate"];
-     } else {
-                  [self.mainViewController.mainView.spaceView.emitterLayer setValue:[NSNumber numberWithFloat:200] forKeyPath:@"emitterCells.test.birthRate"];
-     }
-
-}
 
 @end

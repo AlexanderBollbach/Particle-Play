@@ -20,9 +20,9 @@
           row2.origin.y = row1.size.height;
           row2.size.height = self.bounds.size.height - row2.size.height;
          
-          self.transportView = [[TransportView alloc] initWithFrame:row1];
-          self.transportView.backgroundColor = [UIColor clearColor];
-          [self addSubview:self.transportView];
+          self.effectsView = [[EffectsView alloc] initWithFrame:row1];
+          self.effectsView.backgroundColor = [UIColor clearColor];
+          [self addSubview:self.effectsView];
 
           self.sequencerView = [[SequencerView alloc] initWithFrame:row2];
           [self addSubview:self.sequencerView];
@@ -33,21 +33,5 @@
      return self;
 }
 
-
-//- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-//     
-//     // Convert the point to the target view's coordinate system.
-//     // The target view isn't necessarily the immediate subview
-//     CGPoint pointForTargetView = [self.cockPitView.expandButton convertPoint:point fromView:self];
-//     NSLog(@"%@", NSStringFromCGPoint(point));
-//     if (CGRectContainsPoint(self.cockPitView.expandButton.bounds, pointForTargetView)) {
-//          
-//          // The target view may have its view hierarchy,
-//          // so call its hitTest method to return the right hit-test view
-//          return [self.cockPitView hitTest:pointForTargetView withEvent:event];
-//     }
-//     
-//     return [super hitTest:point withEvent:event];
-//}
 
 @end

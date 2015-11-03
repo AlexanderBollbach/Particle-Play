@@ -36,17 +36,17 @@
           self.layer.shadowPath = [UIBezierPath bezierPathWithOvalInRect:self.bounds].CGPath;
           
           //gesture
-          self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-          self.panGesture.delegate = self;
-          [self addGestureRecognizer:self.panGesture];
-          
+//          self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+//          self.panGesture.delegate = self;
+//          [self addGestureRecognizer:self.panGesture];
+//          
           
        
           UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(orbTapped:)];
          [self addGestureRecognizer:tap];
           
-          self.hasReverb = NO;
-          self.hasHP = NO;
+         // self.hasReverb = NO;
+         // self.hasHP = NO;
           
      }
      return self;
@@ -82,12 +82,19 @@
 }
 
 - (void)handlePan:(UIPanGestureRecognizer*)sender {
-     CGPoint toPoint = [sender locationInView:self.superview];
-     [self.superview bringSubviewToFront:self];
-     if ([self.delegate isPointTooCloseToOrbs:toPoint theOrb:self]) {
-          self.orbModelRef.center = self.center;
-          self.center = toPoint;
-     }
+    
+//     if ([self.orbModelRef.name isEqualToString:@"effects"]) {
+//          return;
+//     }
+//     
+//     CGPoint toPoint = [sender locationInView:self.superview];
+//     [self.superview bringSubviewToFront:self];
+//     
+//     // close to point always returns true for now
+//     if ([self.delegate isPointTooCloseToOrbs:toPoint theOrb:self]) {
+//          self.orbModelRef.center = self.center;
+//          self.center = toPoint;
+//     }
 }
 
 - (void)performAnimation {

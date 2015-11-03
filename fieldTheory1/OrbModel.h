@@ -22,4 +22,9 @@
 @property(nonatomic,assign)int idNum;
 @property(nonatomic,assign) BOOL isEffect;
 
+@property (nonatomic, assign) BOOL hasRev;
+@property (nonatomic, assign) BOOL hasHP;
+@property (nonatomic, assign) BOOL hasLP;
+@property (nonatomic, assign) BOOL hasDL;
+
 @end

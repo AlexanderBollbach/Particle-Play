@@ -14,8 +14,10 @@
 @property (nonatomic,strong) UIColor *controlsViewBackgroundColor;
 @property (nonatomic,strong) UIColor *orbColor;
 @property (nonatomic,strong) UIColor *orbMasterColor;
-@property (nonatomic,strong) UIColor *orbHPColor;
-@property (nonatomic,strong) UIColor *orbReverbColor;
+//@property (nonatomic,strong) UIColor *orbHPColor;
+//@property (nonatomic,strong) UIColor *orbReverbColor;
+@property (nonatomic,strong) UIColor *effectsOrbColor;
+
 @property (nonatomic,strong) UIColor *mainViewBackgroundColor;
 @property (nonatomic,strong) UIColor *mainFillColor;
 @property (nonatomic,strong) UIColor *bordersColor;

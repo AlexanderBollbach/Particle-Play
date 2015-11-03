@@ -12,7 +12,7 @@
 
 @protocol SequencerViewDelegate <NSObject>
 - (void)seqTickedWithOrbID:(int)orbID andGridNum:(int)gridNum selected:(BOOL)selected;
-- (void)loadOrbWithTag:(NSInteger)tag;
+//- (void)loadOrbWithTag:(NSInteger)tag;
 @end
 
 
@@ -22,7 +22,8 @@
 @property (nonatomic,strong) UIView *gridView;
 
 
--(void)loadOrb:(OrbModel*)orb;
+//-(void)loadOrb:(OrbModel*)orb;
 -(void)animateWithCount:(int)count;
+-(void)loadOrbWithID:(int)orbID andSequence:(NSArray*)sequence;
 
 @end

@@ -22,11 +22,7 @@
 }
 
 -(void)makeParticles {
-  //   CGPoint pt = self.center;
-    // CGPoint pt = [[touches anyObject] locationInView:self];
-    // float multiplier = 0.2f;
 
-     //Create the emitter layer
      self.emitterLayer = [CAEmitterLayer layer];
      self.emitterLayer.emitterPosition = self.center;
      
@@ -36,6 +32,7 @@
      self.emitterLayer.renderMode = kCAEmitterLayerOldestFirst;
      self.emitterLayer.emitterSize = self.bounds.size;
      self.emitterLayer.emitterZPosition = 3;
+     
      //Create the emitter cell
      self.emitterCell = [CAEmitterCell emitterCell];
      self.emitterCell.blueSpeed = 1.5;
@@ -49,8 +46,11 @@
      self.emitterCell.velocityRange = 0;
 
      self.emitterCell.emissionRange = 3;
-     self.emitterCell.scaleSpeed = 3; // was 0.3
-     self.emitterCell.color = [[UIColor colorWithRed:1 green:1 blue:1 alpha:1] CGColor];
+     self.emitterCell.scaleSpeed = 3;
+     self.emitterCell.color = [[UIColor colorWithRed:1
+                                               green:1
+                                                blue:1
+                                               alpha:1] CGColor];
      
      [self.emitterCell setName:@"test"];
 
@@ -59,15 +59,13 @@
      UIBezierPath *shape = [UIBezierPath bezierPath];
      shape.lineJoinStyle = kCGLineJoinBevel;
      [shape moveToPoint: CGPointMake(0, 0)];
-     [shape addLineToPoint: CGPointMake(size.width, size.height / 2)];
+     [shape addLineToPoint: CGPointMake(size.width,
+                                        size.height/2)];
      [shape addLineToPoint: CGPointMake(0, size.height)];
      shape.lineWidth = 2;
      [shape closePath];
      
      UIGraphicsBeginImageContextWithOptions(size, false,[UIScreen mainScreen].scale);
-     // CGContextRef context = UIGraphicsGetCurrentContext();
-     // offset the draw to allow the line thickness to not get clipped
-     //  CGContextTranslateCTM(context, self.lineWidth, self.lineWidth);
      UIColor *strokeColor = [UIColor whiteColor];
      UIColor *fillColor = [UIColor whiteColor];
      [strokeColor setStroke];

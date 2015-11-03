@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TransportView.h"
+#import "EffectsView.h"
 #import "SequencerView.h"
 
 @interface ControlsView : UIView
-@property (nonatomic,strong) TransportView *transportView;
+@property (nonatomic,strong) EffectsView *effectsView;
 @property (nonatomic,strong) SequencerView *sequencerView;
 @end

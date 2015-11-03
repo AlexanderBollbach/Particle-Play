@@ -387,15 +387,15 @@
 	<key>file-references</key>
 	<dict>
 		<key>Sample:268435457</key>
-		<string>/Sounds/Kick-606.aif</string>
+		<string>/Sounds/1.aif</string>
 		<key>Sample:268435458</key>
-		<string>/Sounds/Snare-606.aif</string>
+		<string>/Sounds/2.aif</string>
 		<key>Sample:268435459</key>
-		<string>/Sounds/Hihat-606-Closed.aif</string>
+		<string>/Sounds/hh.wav</string>
 		<key>Sample:268435460</key>
-		<string>/Sounds/808Tom1.wav</string>
+		<string>/Sounds/oh.wav</string>
 		<key>Sample:268435461</key>
-		<string>/Sounds/Crash-909.aif</string>
+		<string>/Sounds/5.aif</string>
 	</dict>
 	<key>file-secure-references</key>
 	<dict>
@@ -411,7 +411,7 @@
 		<data>Ym9vaywCAAAAAAQQMAAAAIa9apQCnhdc10YaHuSf0waEYaHStfK7INRZ38HxZktoTAEAAAQAAAADAwAAAAgAKAYAAAABAQAAU291bmRzAAANAAAAAQEAAENyYXNoLTkwOS5haWYAAAAIAAAAAQYAABAAAAAgAAAACAAAAAQDAACEWTwAAAAAAAgAAAAEAwAAh1k8AAAAAAAIAAAAAQYAAEgAAABYAAAACAAAAAAEAABBuFoVGAAAABgAAAABAgAAAQAAAAAAAAAPAAAAAAAAAAAAAAAAAAAACAAAAAEJAABmaWxlOi8vLwwAAAABAQAATWFjaW50b3NoIEhECAAAAAQDAAAAAG5frgAAAAgAAAAABAAAQbtA71kAAAAkAAAAAQEAADM2QjJENDBFLTcwODUtM0E0Ny05MTJDLUJEQjc2MzYzMkM3RBgAAAABAgAAgQAAAAEACADvFwAAAQAIAAAAAAAAAAAAAQAAAAEBAAAvAAAAAAAAAAEFAACoAAAA/v///wEAAAAAAAAADQAAAAQQAAA4AAAAAAAAAAUQAABoAAAAAAAAABAQAACIAAAAAAAAAEAQAAB4AAAAAAAAAAIgAAA4AQAAAAAAAAUgAACoAAAAAAAAABAgAAC4AAAAAAAAABEgAADsAAAAAAAAABIgAADMAAAAAAAAABMgAADcAAAAAAAAACAgAAAYAQAAAAAAADAgAABEAQAAAAAAABDQAAAEAAAAAAAAAA==</data>
 	</dict>
 	<key>fine tune</key>
-	<real>0</real>
+	<integer>0</integer>
 	<key>gain</key>
 	<real>0</real>
 	<key>manufacturer</key>

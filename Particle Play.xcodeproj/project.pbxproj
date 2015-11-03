@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2907595A1BCC9670007AA8C4 /* Sequencer.m in Sources */ = {isa = PBXBuildFile; fileRef = 290759591BCC9670007AA8C4 /* Sequencer.m */; };
 		290A28741B937F2900FA736D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 290A28731B937F2900FA736D /* AVFoundation.framework */; };
+		291A0E1F1BE68F74004FEAEC /* UIBezierPath+forEachElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 291A0E1E1BE68F74004FEAEC /* UIBezierPath+forEachElement.m */; };
+		291A0E221BE690C1004FEAEC /* OrbTrackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 291A0E211BE690C1004FEAEC /* OrbTrackView.m */; };
 		291D35781B7E9DC800898F13 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 291D35771B7E9DC800898F13 /* main.m */; };
 		291D357B1B7E9DC800898F13 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 291D357A1B7E9DC800898F13 /* AppDelegate.m */; };
 		291D357E1B7E9DC800898F13 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 291D357D1B7E9DC800898F13 /* MainViewController.m */; };
@@ -16,7 +18,7 @@
 		2928A3701BBC45A300BEE906 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2928A36F1BBC45A300BEE906 /* MainView.m */; };
 		292FC5531BA660790095EB3B /* myFunction.c in Sources */ = {isa = PBXBuildFile; fileRef = 292FC5511BA660790095EB3B /* myFunction.c */; };
 		292FC59B1BA78F690095EB3B /* CustomSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 292FC59A1BA78F690095EB3B /* CustomSlider.m */; };
-		292FC6211BAB3CD20095EB3B /* 808Kick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 292FC6201BAB3CD20095EB3B /* 808Kick.wav */; };
+		292FC6211BAB3CD20095EB3B /* 1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 292FC6201BAB3CD20095EB3B /* 1.wav */; };
 		293A01E11B9E293900E9D75C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293A01E01B9E293900E9D75C /* QuartzCore.framework */; };
 		295B6D851BB996DD00797EB3 /* Dotnation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 295B6D841BB996DD00797EB3 /* Dotnation.ttf */; };
 		295B6D8C1BB9D39B00797EB3 /* Dots and Lines.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 295B6D8B1BB9D18000797EB3 /* Dots and Lines.ttf */; };
@@ -32,7 +34,7 @@
 		297C139C1BCC7E47003F1740 /* SequencerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 297C139B1BCC7E47003F1740 /* SequencerView.m */; };
 		297FE6691B8E7565004E82D3 /* PresetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 297FE6681B8E7565004E82D3 /* PresetsViewController.m */; };
 		298080351B86620600C00FD8 /* OrbView.m in Sources */ = {isa = PBXBuildFile; fileRef = 298080341B86620600C00FD8 /* OrbView.m */; };
-		2995E72B1BD7DFA500853807 /* TransportView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2995E72A1BD7DFA500853807 /* TransportView.m */; };
+		2995E72B1BD7DFA500853807 /* EffectsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2995E72A1BD7DFA500853807 /* EffectsView.m */; };
 		2995E7301BD81D5E00853807 /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 2995E72F1BD81D5E00853807 /* Theme.m */; };
 		2995E7331BD830E600853807 /* SampleSelectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2995E7321BD830E600853807 /* SampleSelectButton.m */; };
 		299B1D141BC827C600CB6DBC /* PlayPauseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 299B1D131BC827C600CB6DBC /* PlayPauseButton.m */; };
@@ -41,10 +43,10 @@
 		29AE8D701BACA6C20056DE60 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29AE8D6F1BACA6C20056DE60 /* Images.xcassets */; };
 		29B3B2991BE1C99C0089D8B1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29B3B2981BE1C99C0089D8B1 /* Launch Screen.storyboard */; };
 		29C96EEE1BD20DA600889810 /* File in Resources */ = {isa = PBXBuildFile; fileRef = 29C96EED1BD20DA600889810 /* File */; };
+		29D49F501BE72C5000C46831 /* TopTransportView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29D49F4F1BE72C5000C46831 /* TopTransportView.m */; };
 		29D7E7251BAB7BAE00C779FE /* 808Bell.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29D7E7241BAB7BAE00C779FE /* 808Bell.wav */; };
 		29D7E7271BAB7BC500C779FE /* 808Hihat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29D7E7261BAB7BC500C779FE /* 808Hihat.wav */; };
 		29D7E7291BAB7BD900C779FE /* 808woodBlock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29D7E7281BAB7BD900C779FE /* 808woodBlock.wav */; };
-		29D7E72B1BAB7BEA00C779FE /* 808Clap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29D7E72A1BAB7BEA00C779FE /* 808Clap.wav */; };
 		29D7E72D1BAB7C0300C779FE /* 808Cym.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29D7E72C1BAB7C0300C779FE /* 808Cym.wav */; };
 		29D7E72F1BAB7C1200C779FE /* 808Tom1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29D7E72E1BAB7C1200C779FE /* 808Tom1.wav */; };
 		29D7E7311BAB7C2800C779FE /* 808Tom2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29D7E7301BAB7C2800C779FE /* 808Tom2.wav */; };
@@ -68,6 +70,10 @@
 		290759581BCC9670007AA8C4 /* Sequencer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sequencer.h; sourceTree = "<group>"; };
 		290759591BCC9670007AA8C4 /* Sequencer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sequencer.m; sourceTree = "<group>"; };
 		290A28731B937F2900FA736D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		291A0E1D1BE68F74004FEAEC /* UIBezierPath+forEachElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+forEachElement.h"; sourceTree = "<group>"; };
+		291A0E1E1BE68F74004FEAEC /* UIBezierPath+forEachElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+forEachElement.m"; sourceTree = "<group>"; };
+		291A0E201BE690C1004FEAEC /* OrbTrackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrbTrackView.h; sourceTree = "<group>"; };
+		291A0E211BE690C1004FEAEC /* OrbTrackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrbTrackView.m; sourceTree = "<group>"; };
 		291D35731B7E9DC800898F13 /* Particle Play.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Particle Play.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		291D35771B7E9DC800898F13 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		291D35791B7E9DC800898F13 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -84,7 +90,7 @@
 		292FC5521BA660790095EB3B /* myFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myFunction.h; sourceTree = "<group>"; };
 		292FC5991BA78F690095EB3B /* CustomSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSlider.h; sourceTree = "<group>"; };
 		292FC59A1BA78F690095EB3B /* CustomSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSlider.m; sourceTree = "<group>"; };
-		292FC6201BAB3CD20095EB3B /* 808Kick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808Kick.wav; sourceTree = "<group>"; };
+		292FC6201BAB3CD20095EB3B /* 1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 1.wav; sourceTree = "<group>"; };
 		293A01E01B9E293900E9D75C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		295B6D841BB996DD00797EB3 /* Dotnation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Dotnation.ttf; sourceTree = "<group>"; };
 		295B6D8B1BB9D18000797EB3 /* Dots and Lines.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dots and Lines.ttf"; sourceTree = "<group>"; };
@@ -110,8 +116,8 @@
 		297FE6681B8E7565004E82D3 /* PresetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresetsViewController.m; sourceTree = "<group>"; };
 		298080331B86620600C00FD8 /* OrbView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrbView.h; sourceTree = "<group>"; };
 		298080341B86620600C00FD8 /* OrbView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrbView.m; sourceTree = "<group>"; };
-		2995E7291BD7DFA500853807 /* TransportView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportView.h; sourceTree = "<group>"; };
-		2995E72A1BD7DFA500853807 /* TransportView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportView.m; sourceTree = "<group>"; };
+		2995E7291BD7DFA500853807 /* EffectsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectsView.h; sourceTree = "<group>"; };
+		2995E72A1BD7DFA500853807 /* EffectsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EffectsView.m; sourceTree = "<group>"; };
 		2995E72E1BD81D5E00853807 /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
 		2995E72F1BD81D5E00853807 /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
 		2995E7311BD830E600853807 /* SampleSelectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleSelectButton.h; sourceTree = "<group>"; };
@@ -125,10 +131,11 @@
 		29AE8D6F1BACA6C20056DE60 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = fieldTheory1/Images.xcassets; sourceTree = "<group>"; };
 		29B3B2981BE1C99C0089D8B1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../Launch Screen.storyboard"; sourceTree = "<group>"; };
 		29C96EED1BD20DA600889810 /* File */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = File; path = fieldTheory1/File; sourceTree = "<group>"; };
+		29D49F4E1BE72C5000C46831 /* TopTransportView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopTransportView.h; sourceTree = "<group>"; };
+		29D49F4F1BE72C5000C46831 /* TopTransportView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopTransportView.m; sourceTree = "<group>"; };
 		29D7E7241BAB7BAE00C779FE /* 808Bell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808Bell.wav; sourceTree = "<group>"; };
 		29D7E7261BAB7BC500C779FE /* 808Hihat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808Hihat.wav; sourceTree = "<group>"; };
 		29D7E7281BAB7BD900C779FE /* 808woodBlock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808woodBlock.wav; sourceTree = "<group>"; };
-		29D7E72A1BAB7BEA00C779FE /* 808Clap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808Clap.wav; sourceTree = "<group>"; };
 		29D7E72C1BAB7C0300C779FE /* 808Cym.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808Cym.wav; sourceTree = "<group>"; };
 		29D7E72E1BAB7C1200C779FE /* 808Tom1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808Tom1.wav; sourceTree = "<group>"; };
 		29D7E7301BAB7C2800C779FE /* 808Tom2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808Tom2.wav; sourceTree = "<group>"; };
@@ -241,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				2995E72C1BD7E18500853807 /* MainView + Orbs */,
+				2995E72D1BD7E1A000853807 /* Controls Views */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -262,13 +270,16 @@
 		2995E72C1BD7E18500853807 /* MainView + Orbs */ = {
 			isa = PBXGroup;
 			children = (
+				29D49F4E1BE72C5000C46831 /* TopTransportView.h */,
+				29D49F4F1BE72C5000C46831 /* TopTransportView.m */,
 				2928A36E1BBC45A300BEE906 /* MainView.h */,
 				2928A36F1BBC45A300BEE906 /* MainView.m */,
+				291A0E201BE690C1004FEAEC /* OrbTrackView.h */,
+				291A0E211BE690C1004FEAEC /* OrbTrackView.m */,
 				298080331B86620600C00FD8 /* OrbView.h */,
 				298080341B86620600C00FD8 /* OrbView.m */,
 				295B74691BDB17DE003B4AE8 /* SpaceView.h */,
 				295B746A1BDB17DE003B4AE8 /* SpaceView.m */,
-				2995E72D1BD7E1A000853807 /* Controls Views */,
 			);
 			name = "MainView + Orbs";
 			sourceTree = "<group>";
@@ -297,8 +308,8 @@
 		29CDF2F01BD5713D00FA54CA /* ControlsSubViews */ = {
 			isa = PBXGroup;
 			children = (
-				2995E7291BD7DFA500853807 /* TransportView.h */,
-				2995E72A1BD7DFA500853807 /* TransportView.m */,
+				2995E7291BD7DFA500853807 /* EffectsView.h */,
+				2995E72A1BD7DFA500853807 /* EffectsView.m */,
 				297C139A1BCC7E47003F1740 /* SequencerView.h */,
 				297C139B1BCC7E47003F1740 /* SequencerView.m */,
 				29CDF2F11BD5715700FA54CA /* Control Elements */,
@@ -326,9 +337,8 @@
 			isa = PBXGroup;
 			children = (
 				2968638E1BB09C5C003AEF88 /* Sounds */,
-				292FC6201BAB3CD20095EB3B /* 808Kick.wav */,
+				292FC6201BAB3CD20095EB3B /* 1.wav */,
 				29D7E7341BAB7C5700C779FE /* 808Snare.wav */,
-				29D7E72A1BAB7BEA00C779FE /* 808Clap.wav */,
 				29D7E7261BAB7BC500C779FE /* 808Hihat.wav */,
 				29D7E7321BAB7C4800C779FE /* 808OpenHihat.wav */,
 				29D7E72C1BAB7C0300C779FE /* 808Cym.wav */,
@@ -362,6 +372,8 @@
 		381A3F061BC5C25F00D0CB58 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				291A0E1D1BE68F74004FEAEC /* UIBezierPath+forEachElement.h */,
+				291A0E1E1BE68F74004FEAEC /* UIBezierPath+forEachElement.m */,
 				381A3F091BC5D80800D0CB58 /* UIColor+ColorAdditions.h */,
 				381A3F0A1BC5D80800D0CB58 /* UIColor+ColorAdditions.m */,
 				296863F31BB38B8B003AEF88 /* UIButton+reset.h */,
@@ -473,10 +485,9 @@
 				2968638F1BB09C5C003AEF88 /* Sounds in Resources */,
 				295B6D8C1BB9D39B00797EB3 /* Dots and Lines.ttf in Resources */,
 				295B6D851BB996DD00797EB3 /* Dotnation.ttf in Resources */,
-				29D7E72B1BAB7BEA00C779FE /* 808Clap.wav in Resources */,
 				29D7E7351BAB7C5700C779FE /* 808Snare.wav in Resources */,
 				29D7E7311BAB7C2800C779FE /* 808Tom2.wav in Resources */,
-				292FC6211BAB3CD20095EB3B /* 808Kick.wav in Resources */,
+				292FC6211BAB3CD20095EB3B /* 1.wav in Resources */,
 				29AE8D701BACA6C20056DE60 /* Images.xcassets in Resources */,
 				29D7E7331BAB7C4800C779FE /* 808OpenHihat.wav in Resources */,
 				29D7E7291BAB7BD900C779FE /* 808woodBlock.wav in Resources */,
@@ -514,10 +525,12 @@
 				29690B431BD0859D007E5265 /* HotCuesView.m in Sources */,
 				29F4B1531B95E6740093D28E /* OrbManager.m in Sources */,
 				381A3F0B1BC5D80800D0CB58 /* UIColor+ColorAdditions.m in Sources */,
+				29D49F501BE72C5000C46831 /* TopTransportView.m in Sources */,
+				291A0E1F1BE68F74004FEAEC /* UIBezierPath+forEachElement.m in Sources */,
 				292FC5531BA660790095EB3B /* myFunction.c in Sources */,
 				299B1D171BC8283D00CB6DBC /* ControlsView.m in Sources */,
 				297FE6691B8E7565004E82D3 /* PresetsViewController.m in Sources */,
-				2995E72B1BD7DFA500853807 /* TransportView.m in Sources */,
+				2995E72B1BD7DFA500853807 /* EffectsView.m in Sources */,
 				2928A36D1BBC3D3300BEE906 /* Sampler.m in Sources */,
 				295B746B1BDB17DE003B4AE8 /* SpaceView.m in Sources */,
 				2907595A1BCC9670007AA8C4 /* Sequencer.m in Sources */,
@@ -525,6 +538,7 @@
 				299EC0E91BDFFF1C0056DC49 /* SuperTimer.m in Sources */,
 				297C139C1BCC7E47003F1740 /* SequencerView.m in Sources */,
 				299B1D141BC827C600CB6DBC /* PlayPauseButton.m in Sources */,
+				291A0E221BE690C1004FEAEC /* OrbTrackView.m in Sources */,
 				295B742C1BD9F93D003B4AE8 /* ExpandButton.m in Sources */,
 				296863F71BB38B8B003AEF88 /* UIButton+reset.m in Sources */,
 				291D35781B7E9DC800898F13 /* main.m in Sources */,

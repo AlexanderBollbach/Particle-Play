@@ -48,8 +48,9 @@
 }
 
 
+-(void)loadOrbWithID:(int)orbID andSequence:(NSArray*)sequence {
 
-- (void)displayOrbInSequencerWith:(NSArray *)sequence {
+     self.orbID = orbID;
      
      float incrementingHeight = self.gridView.bounds.size.height / 4.0;
      float xVal = 0;
@@ -100,22 +101,18 @@
 -(void)animateWithCount:(int)count {
      
      dispatch_queue_t d =  dispatch_get_main_queue();
-     
      dispatch_async(d, ^{
-          [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionAllowUserInteraction  animations:^{
-               SequencerGridButton *someGrid = [self.gridArray objectAtIndex:count];
-               someGrid.layer.borderWidth = 35;
-          } completion:^(BOOL finished) {
-               SequencerGridButton *someGrid = [self.gridArray objectAtIndex:count];
-               someGrid.layer.borderWidth = [Theme sharedTheme].borderWidth;
-          }];
+         __block SequencerGridButton *someGrid = [self.gridArray objectAtIndex:count];
+
+          CABasicAnimation *ani = [CABasicAnimation animationWithKeyPath:@"borderWidth"];
+          ani.duration = 0.08;
+          ani.fromValue = [NSNumber numberWithFloat:[Theme sharedTheme].borderWidth];
+          ani.toValue = [NSNumber numberWithFloat:10];
+          [someGrid.layer addAnimation:ani                                forKey:nil];
      });
 }
 
--(void)loadOrb:(OrbModel*)orb {
-     self.orbID = orb.idNum;
-     [self displayOrbInSequencerWith:orb.sequence];
-}
+
 
 - (void)sectionWasSelected:(SequencerGridButton *)sender {
          sender.selected = !sender.selected;

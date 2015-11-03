@@ -1,4 +1,4 @@
-//
+     //
 //  MainViewController.m
 //  fieldTheory1
 //
@@ -18,11 +18,13 @@
 #import "Sequencer.h"
 #import "ControlsViewController.h"
 #import "Theme.h"
+#import "OrbTrackView.h"
 
 #define MAINVIEWTRANSFORM 0.58
 #define EFFECTDIST 300
 
-@interface MainViewController() <SequencerDelegate, OrbViewDelegate, UICollisionBehaviorDelegate>
+@interface MainViewController()<SequencerDelegate,OrbViewDelegate,UICollisionBehaviorDelegate,TopTransportViewDelegate>
+
 @property (nonatomic, strong) ControlsViewController *controlsViewController;
 @property (nonatomic, strong) PresetsViewController *presetsViewController;
 @property (nonatomic,strong)  NSMutableArray *currentPreset;
@@ -31,6 +33,11 @@
 @property (nonatomic,strong) UILabel *cryptoLabel;
 @property (nonatomic,strong) UILabel *beatLabel;
 @property (nonatomic,strong) UIDynamicAnimator *ani;
+@property (nonatomic,strong) TopTransportView *topTransportView;
+@property (nonatomic,assign) CGFloat heightOfTransportView;
+@property (nonatomic,assign) CGFloat sizeOfControlsBar;
+@property (nonatomic,assign) CGRect mainViewBoundsExpanded;
+
 
 @end
 
@@ -80,178 +87,111 @@
 - (void)viewDidLoad {
      [super viewDidLoad];
   
-     self.mainView = [[MainView alloc] initWithFrame:self.view.bounds];
+     CGFloat topTransportHeight =  [[UIScreen mainScreen] bounds].size.height/8;
+     CGFloat mainWidth = CGRectGetWidth(self.view.bounds);
+     CGFloat mainHeight = CGRectGetHeight(self.view.bounds);
+     
+     self.topTransportView = [[TopTransportView alloc] initWithFrame:CGRectMake(0,
+                                                                                0,
+                                                                                mainWidth,
+                                                                           topTransportHeight)];
+     self.topTransportView.delegate = self;
+     [self.view addSubview:self.topTransportView];
+     
+     // MainView
+     self.mainViewBoundsExpanded = CGRectMake(0,
+                                              topTransportHeight,
+                                              mainWidth,
+                                              mainHeight - topTransportHeight*2 -25);
+     self.mainView = [[MainView alloc] initWithFrame:self.mainViewBoundsExpanded];
      self.mainView.autoresizesSubviews = YES;
      [self.view addSubview:self.mainView];
      self.mainView.backgroundColor = [Theme sharedTheme].mainViewBackgroundColor;
 
-     CGFloat width = self.mainView.frame.size.width;
-     CGFloat height = self.mainView.frame.size.height;
      
-     self.beatLabel = [[UILabel alloc] initWithFrame:CGRectMake(0 + width/30,
-                                                                0,
-                                                                width/5,
-                                                                height/18)];
-     self.beatLabel.textColor = [UIColor redColor];
-     self.beatLabel.backgroundColor = [UIColor clearColor];
-     self.beatLabel.text = @"beat: 1";
-     [self.mainView addSubview:self.beatLabel];
-     
-     self.tempoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0 + width/30 + (width/30)*5,
-                                                                0,
-                                                                width/3,
-                                                                height/18)];
-     self.tempoLabel.textColor = [UIColor redColor];
-     self.tempoLabel.backgroundColor = [UIColor clearColor];
-     self.tempoLabel.text = @"tempo: 1";
-     [self.mainView addSubview:self.tempoLabel];
-     
-     self.cryptoLabel = [[UILabel alloc] initWithFrame:CGRectMake(width - width/3.5,
-                                                                  0,
-                                                                  height/3,
-                                                                  height/9)];
-     self.cryptoLabel.text = @"Cryptomodo";
-     self.cryptoLabel.textColor = [UIColor redColor];
-     [self.mainView addSubview:self.cryptoLabel];
-     self.cryptoLabel.hidden = YES;
-     
-     // hidden cryptomode access ciew
-     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.mainView.frame.size.width, 50)];
-     view.backgroundColor = [UIColor clearColor];
-     [self.mainView addSubview:view];
-     UILongPressGestureRecognizer *lp = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(cryptoMode:)];
-     lp.minimumPressDuration = 1;
-     [view addGestureRecognizer:lp];
+
      
      // orbs
-     [self createPreset];
-     [self loadStockPreset:self.currentPreset];
+     [self loadStockPreset:[self createPreset]];
+
      
-
-
      // controls view setup
      self.controlsViewController = [[ControlsViewController alloc] init];
      self.controlsViewController.mainViewController = self;
      [self.view addSubview:self.controlsViewController.view];
      
+     
+     
      // toggle controls layout
-     CGFloat heightOfTransportView = self.controlsViewController.controlsView.transportView.bounds.size.height;
-     controlsClosedPos = CGRectGetHeight(self.view.bounds) - heightOfTransportView;
+     self.heightOfTransportView = self.controlsViewController.controlsView.effectsView.bounds.size.height;
+     controlsClosedPos = CGRectGetHeight(self.view.bounds) - self.heightOfTransportView;
      controlsOpenPos = CGRectGetHeight(self.view.bounds) - self.controlsViewController.view.frame.size.height;
      CGRect setControlsVCFrame = self.controlsViewController.view.frame;
      setControlsVCFrame.origin.y = controlsClosedPos; 
      self.controlsViewController.view.frame = setControlsVCFrame;
      
+     self.sizeOfControlsBar = CGRectGetHeight(self.mainView.bounds) - controlsClosedPos;
+     
+
      
      
-     // TODO UIKIT DYNAMICS to prevent overlapping orbs
-//     self.ani = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
-//     UICollisionBehavior *col = [[UICollisionBehavior alloc] initWithItems:self.mainView.orbs];
-//     [self.ani addBehavior:col];
-//     [col setCollisionMode:UICollisionBehaviorModeEverything];
-//     [col setCollisionDelegate:self];
-}
-
-
-
--(void)loadStockPreset:(NSArray*)preset {
      
-     [[[OrbManager sharedOrbManager] orbModels] removeAllObjects];
-     self.mainView.reverbOrb = nil;
-     [self.mainView.orbs removeAllObjects];
-     
-     for (UIView *subview in self.mainView.subviews) {
-          if ([subview isKindOfClass:[OrbView class]]) {
-               [subview removeObserver:self forKeyPath:@"center"];
-               [subview removeFromSuperview];
-          }
-     }
-     for (OrbModel *model in preset) {
-          const CGFloat orbSize = model.isEffect ? 100.0f : 80.0f;
-          CGRect bounds = CGRectMake(0.0f, 0.0f, orbSize, orbSize);
-          OrbView *orb = [[OrbView alloc] initWithFrame:bounds];
-          orb.center = CGPointMake(model.center.x, model.center.y);
-          orb.orbModelRef = model;
-          [orb setIcon];
-          orb.isEffect = model.isEffect;
-          orb.delegate = self;
-          [orb addObserver:self forKeyPath:@"center" options:NSKeyValueObservingOptionNew context:nil];
-          [[[OrbManager sharedOrbManager] orbModels] addObject:model];
-          if ([model.name isEqualToString:@"reverb"]) {
-               self.mainView.reverbOrb = orb;
-               orb.backgroundColor = [Theme sharedTheme].orbReverbColor;
-          } else if ([model.name isEqualToString:@"hp"]) {
-               self.mainView.hpOrb = orb;
-               orb.backgroundColor = [Theme sharedTheme].orbHPColor;
-          } else {
-               
-               orb.backgroundColor = [Theme sharedTheme].orbColor;
-               [orb loadSampler];
-               [self.mainView.orbs addObject:orb];
-               
-          }
-          [self.mainView addSubview:orb];
-     }
-     [[Theme sharedTheme] addObserver:self forKeyPath:@"orbColor" options:NSKeyValueObservingOptionNew context:nil];
-     [[Theme sharedTheme] addObserver:self forKeyPath:@"orbHPColor" options:NSKeyValueObservingOptionNew context:nil];
-     [[Theme sharedTheme] addObserver:self forKeyPath:@"orbReverbColor" options:NSKeyValueObservingOptionNew context:nil];
-
-
-}
-
-- (BOOL)isPointTooCloseToOrbs:(CGPoint)point theOrb:(OrbView *)orb {
-     
-//     for (OrbView *anOrb in self.mainView.orbs) {
-//          if (![anOrb.orbModelRef.name isEqualToString:orb.orbModelRef.name]) {
-//               
-//               float distToOrb = sqrt(
-//                                      fabs(
-//                                           pow                   // Distance
-//                                           (anOrb.center.x       // I
-//                                            -                    // S
-//                                            point.x, 2)          // T
-//                                           +                     // A
-//                                           fabs(                 // N
-//                                                pow              // C
-//                                                (anOrb.center.y  // Equation
-//                                                 -               //
-//                                                 point.y, 2)     // To
-//                                                )                // halt
-//                                           )                     //orb
-//                                      );                         // TODO:
-//               CGFloat orbDimeter = CGRectGetWidth(orb.bounds);  // use UIKIT Dynamics
-//               if (distToOrb < orbDimeter) {
-//                    return false;
-//               }
-//          }
-//     }
-     return true;
+   
 }
 
 
 
 #pragma mark seq stuff
 
+- (void)didTick:(NSNotification*)notification {
+     int count = [notification.userInfo[@"count"] intValue];
+     [self didTickWithCount:count];
+     [self didTickOnMainThread:count];
+}
+
 - (void)didTickWithCount:(int)count {
      
      for (OrbView* orb in self.mainView.orbs) {
                if ([[orb.orbModelRef.sequence objectAtIndex:count] boolValue]) {
                     
-                    self.wasBeat = YES;
                     
-                    float hpAmount = interpolate(0, 100, 0, 17000, orb.hpCutoff, 0);
+                    orb.effectAmount = [self distanceFromOrb:orb toOrb:self.mainView.effectsOrb];
+                  //  NSLog(@"effect Amount %f", orb.effectAmount);
+                 //   NSLog(@"hasLP %i", orb.orbModelRef.hasLP);
+                    NSLog(@"effect center: %@", NSStringFromCGPoint(self.mainView.effectsOrb.center));
+//
                     
-                    if ([orb.orbModelRef.name isEqualToString:@"bass"]) {
-                         hpAmount *= 0.05;
-                    }
-                    
+                    [orb.sampler setLowPassCutoff:orb.orbModelRef.hasLP ? orb.effectAmount : 0];
+                    [orb.sampler setHighPassCutoff:orb.orbModelRef.hasHP ? orb.effectAmount : 0];
+                    [orb.sampler setReverbCutoff:orb.orbModelRef.hasRev ? orb.effectAmount : 0];
+                    [orb.sampler setDelayAmount:orb.orbModelRef.hasDL ? orb.effectAmount : 0];
+
                     [orb.sampler sendNoteOnEvent:orb.orbModelRef.midiNote velocity:127];
-                    [orb.sampler sendReverbWetDry:orb.revAmount];
-                    [orb.sampler setHighPassFreqCutoff:hpAmount];
-               } else {
-                    self.wasBeat = NO;
+
                }
           }
+}
+
+
+- (CGFloat)distanceFromOrb:(OrbView*)orb1 toOrb:(OrbView*)orb2 {
+
+   //  CGPoint convertedOrb = [orb1 convertPoint:orb1.center toView:nil];
+   //  CGPoint convertedEffectsOrb = orb2.center;//[orb2 convertPoint:orb2.center toView:nil];
+     
+     
+       CGPoint orb1Con = [[UIApplication sharedApplication].keyWindow convertPoint:orb1.center fromCoordinateSpace:orb1.superview];
+  CGPoint orb2Con = [[UIApplication sharedApplication].keyWindow convertPoint:orb2.center fromCoordinateSpace:orb2.superview];
+     
+      //  NSLog(@"orb from window %@", NSStringFromCGPoint(orbFromWindow));
+
+  //   NSLog(@"orb %@", NSStringFromCGPoint(convertedOrb));
+   //  NSLog(@"master %@", NSStringFromCGPoint(convertedEffectsOrb));
+
+     
+     float distToEffect = sqrt(fabs(pow(orb2Con.x - orb1Con.x, 2)+fabs(pow(orb2Con.y - orb1Con.y, 2))));
+  //   NSLog(@"%f", distToEffect);
+     float effectAmount = interpolate(85, 220, 1, 0, distToEffect, 1);
+     return effectAmount;
 }
 
 - (void)didTickOnMainThread:(int)count {
@@ -273,6 +213,12 @@
                for (OrbView* orb in self.mainView.orbs) {
                     if ([[orb.orbModelRef.sequence objectAtIndex:count] boolValue]) {
                          [orb performAnimation];
+
+                    [UIView animateWithDuration:0.08 animations:^{
+                         self.mainView.spaceView.alpha = 0.4;
+                    } completion:^(BOOL finished) {
+                         self.mainView.spaceView.alpha = 0.1;
+                    }];
                     }
                }
                //cryptoMode
@@ -291,51 +237,56 @@
           });
 }
 
-- (void)didTick:(NSNotification*)notification {
-     int count = [notification.userInfo[@"count"] intValue];
-     [self didTickWithCount:count];
-     [self didTickOnMainThread:count];
-}
+
+
 
 // called from CADisplayLink
 - (void)tick {
-    // [self.mainView setNeedsDisplay];
+     [self.mainView setNeedsDisplay];
 
-          if (self.mainView.isPlaying) {
-               for (OrbView *orb in self.mainView.orbs) {
-                    
-                    CGPoint currentOrb = orb.center;
-                    CGPoint reverb = self.mainView.reverbOrb.center;
-                    CGPoint hp = self.mainView.hpOrb.center;
-                    
-                    float distToRev = sqrt(fabs(pow(reverb.x - currentOrb.x, 2)+fabs(pow(reverb.y - currentOrb.y, 2))));
-                    float distToHP = sqrt(fabs(pow(hp.x - currentOrb.x, 2)+fabs(pow(hp.y - currentOrb.y, 2))));
-                    
-                    float revAmount = interpolate(0, 300, 1, 0, distToRev, 1);
-                    float delAmount = interpolate(0, 300, 1, 0, distToHP, 1);
-                    
-                    orb.revAmount = revAmount * 100;
-                    orb.hpCutoff = delAmount * 100;
-                    
-                    if (distToRev < EFFECTDIST) {
-                         orb.hasReverb = YES;
-                    } else {
-                         orb.hasReverb = NO;
-                         orb.revAmount = 0;
-                    }
-                    if (distToHP < EFFECTDIST) {
-                         orb.hasHP = YES;
-                    } else {
-                         orb.hasHP = NO;
-                         orb.hpCutoff = NO;
-                    }
-               }
-          }
+//          if (self.mainView.isPlaying) {
+//               for (OrbView *orb in self.mainView.orbs) {
+//                    
+//                   
+//
+//                    orb.effectAmount = effectAmount * 100;
+//
+//               }
+//          }
+}
+
+
+
+#pragma mark transport 
+
+
+-(void)sliderChangedWithValue:(int)value {
+     float forPhaseShift = interpolate(0, 800, 0, 5, value, 1);
+     self.mainView.phaseShift = forPhaseShift;
+     float interpolated = interpolate(0, 100, 9, 2, value, 1);
+     [[Sequencer sharedSequencer] setTempoWithInterval:interpolated];
+     uint64_t interval = [[Sequencer sharedSequencer].superTimer getIntervalSamples];
+     self.tempoLabel.text = [NSString stringWithFormat:@"tempo: %i", (int)interval];
      
      
+}
+
+- (void)playedPaused:(BOOL)play_pause {
+     self.mainView.isPlaying = play_pause;
+     [Sequencer sharedSequencer].playing = play_pause;
+     [self.mainView setNeedsDisplay];
+
+     if (!play_pause) {
+          [self.mainView.spaceView.emitterLayer setValue:[NSNumber numberWithFloat:10] forKeyPath:@"emitterCells.test.birthRate"];
+          [self.mainView.spaceView.emitterLayer setValue:[NSNumber numberWithFloat:50] forKeyPath:@"emitterCells.test.velocity"];
+          self.mainView.spaceView.alpha = 0.4;
+     } else {
+          [self.mainView.spaceView.emitterLayer setValue:[NSNumber numberWithFloat:200] forKeyPath:@"emitterCells.test.birthRate"];
+          [self.mainView.spaceView.emitterLayer setValue:[NSNumber numberWithFloat:500] forKeyPath:@"emitterCells.test.velocity"];
+          self.mainView.spaceView.alpha = 0.2;
      }
-
-
+     
+}
 
 #pragma mark KVO
 
@@ -345,41 +296,191 @@
 //     NSLog(@"keypath %@", keyPath);
 //     NSLog(@"context %@", context);
      
-     if ([keyPath isEqualToString:@"mainViewBackgroundColor"]) {
-          UIColor *color = change[@"new"];
-          self.mainView.backgroundColor = color;
-     } else if ([keyPath isEqualToString:@"orbColor"]) {
-          UIColor *color = change[@"new"];
-          for (OrbView *orb in self.mainView.orbs) {
-               orb.backgroundColor = color;
-          }
-     } else if ([keyPath isEqualToString:@"orbHPColor"]) {
-          UIColor *color = change[@"new"];
-          self.mainView.hpOrb.backgroundColor = color;
-     } else if ([keyPath isEqualToString:@"orbReverbColor"]) {
-          UIColor *color = change[@"new"];
-          self.mainView.reverbOrb.backgroundColor = color;
-     } else if ([keyPath isEqualToString:@"borderWidth"]) {
-          CGFloat lineWidth = [change[@"new"] floatValue];
-          self.controlsViewController.controlsView.transportView.playPauseButton.playPauseLayer.borderWidth = lineWidth;
-          for (UIView *view in self.controlsViewController.controlsView.sequencerView.gridView.subviews) {
-               view.layer.borderWidth = lineWidth;
-          }
-          self.controlsViewController.controlsView.transportView.tempoSlider.layer.borderWidth = lineWidth;
-     } else if ([keyPath isEqualToString:@"bordersColor"]) {
-          UIColor *color = change[@"new"];
-          self.controlsViewController.controlsView.transportView.playPauseButton.playPauseLayer.borderColor = color.CGColor;
-     } else if ([keyPath isEqualToString:@"controlsViewBackgroundColor"]) {
-          UIColor *color = change[@"new"];
-          self.controlsViewController.controlsView.backgroundColor = color;
-     }
+//     if ([keyPath isEqualToString:@"mainViewBackgroundColor"]) {
+//          UIColor *color = change[@"new"];
+//          self.mainView.backgroundColor = color;
+//     } else if ([keyPath isEqualToString:@"orbColor"]) {
+//          UIColor *color = change[@"new"];
+//          for (OrbView *orb in self.mainView.orbs) {
+//               orb.backgroundColor = color;
+//          }
+//     } else if ([keyPath isEqualToString:@"effectsOrbColor"]) {
+//          UIColor *color = change[@"new"];
+//          self.mainView.effectsOrb.backgroundColor = color;
+//     } else if ([keyPath isEqualToString:@"borderWidth"]) {
+//          CGFloat lineWidth = [change[@"new"] floatValue];
+//          self.controlsViewController.controlsView.transportView.playPauseButton.playPauseLayer.borderWidth = lineWidth;
+//          for (UIView *view in self.controlsViewController.controlsView.sequencerView.gridView.subviews) {
+//               view.layer.borderWidth = lineWidth;
+//          }
+//          self.controlsViewController.controlsView.transportView.tempoSlider.layer.borderWidth = lineWidth;
+//     } else if ([keyPath isEqualToString:@"bordersColor"]) {
+//          UIColor *color = change[@"new"];
+//          self.controlsViewController.controlsView.transportView.playPauseButton.playPauseLayer.borderColor = color.CGColor;
+//     } else if ([keyPath isEqualToString:@"controlsViewBackgroundColor"]) {
+//          UIColor *color = change[@"new"];
+//          self.controlsViewController.controlsView.backgroundColor = color;
+//     }
 
 }
 
 
-#pragma mark geature handlers
+#pragma mark orb stuff
 
-- (void)createPreset {
+
+-(void)loadStockPreset:(NSArray*)preset {
+     
+     
+     // only needed for true preset loading
+     //     [[[OrbManager sharedOrbManager] orbModels] removeAllObjects];
+     //     self.mainView.reverbOrb = nil;
+     //     [self.mainView.orbs removeAllObjects];
+     //
+     //     for (UIView *subview in self.mainView.subviews) {
+     //          if ([subview isKindOfClass:[OrbView class]]) {
+     //               [subview removeObserver:self forKeyPath:@"center"];
+     //               [subview removeFromSuperview];
+     //          }
+     //     }
+     
+     for (OrbModel *model in preset) {
+          const CGFloat orbSize = model.isEffect ? [[UIScreen mainScreen] bounds].size.width/5 : [[UIScreen mainScreen] bounds].size.width/6;
+          CGRect bounds = CGRectMake(0.0f, 0.0f, orbSize, orbSize);
+          OrbView *orb = [[OrbView alloc] initWithFrame:bounds];
+          orb.center = CGPointMake(model.center.x, model.center.y);
+          orb.orbModelRef = model;
+          orb.isEffect = model.isEffect;
+          orb.delegate = self;
+          [[[OrbManager sharedOrbManager] orbModels] addObject:model];
+          
+        
+          
+          if ([model.name isEqualToString:@"effects"]) {
+               self.mainView.effectsOrb = orb;
+               orb.center = CGPointMake(self.mainView.bounds.size.width/2, self.mainView.bounds.size.height/2);
+
+               orb.backgroundColor = [Theme sharedTheme].effectsOrbColor;
+               [self.mainView addSubview:orb];
+  
+          } else {
+               
+               
+               orb.backgroundColor = [Theme sharedTheme].orbColor;
+               [orb loadSampler];
+               //     [orb addObserver:self forKeyPath:@"center" options:NSKeyValueObservingOptionNew context:nil];
+               [orb setIcon];
+               [self.mainView.orbs addObject:orb];
+               
+               CGFloat midX = CGRectGetWidth(self.mainView.bounds)/2;
+               CGFloat midY = CGRectGetHeight(self.mainView.bounds)/2;
+               CGFloat orbYPosOffset = self.mainView.bounds.size.height/8;
+               CGFloat insetVal = orbYPosOffset / 1;
+               
+               if ([model.name isEqualToString:@"bass"]) {
+                    
+                    OrbTrackView *trackView = [[OrbTrackView alloc]
+                                               initWithFrame:CGRectMake(0,
+                                                                        0,
+                                                                        midX,
+                                                                        midY)
+                                               andHandleView:orb];
+//                    trackView.alpha = 0.8;
+                    trackView.backgroundColor = [UIColor clearColor];
+                    [trackView createPathFromPoint:CGPointMake(0 + insetVal,
+                                                               0 + insetVal)
+                                           toPoint:CGPointMake(trackView.bounds.size.width - insetVal,
+                                                               trackView.bounds.size.height - insetVal)];
+                    [self.mainView addSubview:trackView];
+                    
+                    
+                    
+               } else if ([model.name isEqualToString:@"snare"]) {
+                    
+                    OrbTrackView *trackView = [[OrbTrackView alloc]
+                                               initWithFrame:CGRectMake(midX,
+                                                                        0,
+                                                                        midX,
+                                                                        midY)
+                                               andHandleView:orb];
+                  //  trackView.alpha = 0.2;
+                    trackView.backgroundColor = [UIColor clearColor];
+                    [trackView createPathFromPoint:CGPointMake(trackView.bounds.size.width - insetVal,
+                                                               0 + insetVal)
+                                           toPoint:CGPointMake(0 +  insetVal,
+                                                               trackView.bounds.size.height - insetVal)];
+                    [self.mainView addSubview:trackView];
+                    
+                    
+                    
+               } else if ([model.name isEqualToString:@"hihat"]) {
+                    
+                    
+                    OrbTrackView *trackView = [[OrbTrackView alloc]
+                                               initWithFrame:CGRectMake(0,
+                                                                        midY,
+                                                                        midX,
+                                                                        midY)
+                                               andHandleView:orb];
+                  //  trackView.alpha = 0.2;
+                    trackView.backgroundColor = [UIColor clearColor];
+                    [trackView createPathFromPoint:CGPointMake(0 + insetVal,
+                                                               trackView.bounds.size.height - insetVal)
+                                           toPoint:CGPointMake(trackView.bounds.size.width - insetVal,
+                                                               0 + insetVal)];
+                    [self.mainView addSubview:trackView];
+                    
+                    
+               } else if ([model.name isEqualToString:@"openHihat"]) {
+                    
+                    OrbTrackView *trackView = [[OrbTrackView alloc]
+                                               initWithFrame:CGRectMake(midX,
+                                                                        midY,
+                                                                        midX,
+                                                                        midY)
+                                               andHandleView:orb];
+//                    trackView.alpha = 0.6;
+                    trackView.backgroundColor = [UIColor clearColor];
+                    [trackView createPathFromPoint:CGPointMake(trackView.bounds.size.width -insetVal,
+                                                               trackView.bounds.size.height - insetVal)
+                                           toPoint:CGPointMake(0 + insetVal,
+                                                               0 + insetVal)];
+                    [self.mainView addSubview:trackView];
+               }
+          }
+     }
+}
+
+- (BOOL)isPointTooCloseToOrbs:(CGPoint)point theOrb:(OrbView *)orb {
+     
+     //     for (OrbView *anOrb in self.mainView.orbs) {
+     //          if (![anOrb.orbModelRef.name isEqualToString:orb.orbModelRef.name]) {
+     //
+     //               float distToOrb = sqrt(
+     //                                      fabs(
+     //                                           pow                   // Distance
+     //                                           (anOrb.center.x       // I
+     //                                            -                    // S
+     //                                            point.x, 2)          // T
+     //                                           +                     // A
+     //                                           fabs(                 // N
+     //                                                pow              // C
+     //                                                (anOrb.center.y  // Equation
+     //                                                 -               //
+     //                                                 point.y, 2)     // To
+     //                                                )                // halt
+     //                                           )                     //orb
+     //                                      );                         // TODO:
+     //               CGFloat orbDimeter = CGRectGetWidth(orb.bounds);  // use UIKIT Dynamics
+     //               if (distToOrb < orbDimeter) {
+     //                    return false;
+     //               }
+     //          }
+     //     }
+     return true;
+}
+
+
+- (NSMutableArray*)createPreset {
      self.currentPreset = [NSMutableArray new];
      
      OrbModel *bass = [[OrbModel alloc] init];
@@ -393,6 +494,10 @@
                          @false,@false,@false,@false,
                          @false,@false,@false,@false] mutableCopy];
      [self.currentPreset addObject:bass];
+     bass.hasDL = NO;
+          bass.hasRev = NO;
+          bass.hasHP = NO;
+          bass.hasLP = NO;
      
      OrbModel *snare = [[OrbModel alloc] init];
      snare.name = @"snare";
@@ -400,10 +505,14 @@
      snare.sizeValue = 0.5;
      snare.midiNote = 37;
      snare.center = CGPointMake(100, 150);
-     snare.sequence = [@[@true,@false,@false,@false,
+     snare.sequence = [@[@false,@false,@false,@false,
                           @false,@false,@false,@false,
-                          @true,@false,@false,@false,
+                          @false,@false,@false,@false,
                           @false,@false,@false,@false]mutableCopy];
+     bass.hasDL = NO;
+     bass.hasRev = NO;
+     bass.hasHP = NO;
+     bass.hasLP = NO;
      [self.currentPreset addObject:snare];
      
      OrbModel *hihat = [[OrbModel alloc] init];
@@ -412,35 +521,52 @@
      hihat.idNum = 2;
      hihat.midiNote = 38;
      hihat.center = CGPointMake(270, 150);
-     hihat.sequence = [@[@true,@true,@true,@true,
+     hihat.sequence = [@[@false,@false,@false,@false,
                           @false,@false,@false,@false,
-                          @true,@false,@false,@false,
+                          @false,@false,@false,@false,
                           @false,@false,@false,@false] mutableCopy];
+     bass.hasDL = NO;
+     bass.hasRev = NO;
+     bass.hasHP = NO;
+     bass.hasLP = NO;
      [self.currentPreset addObject:hihat];
+//
      
-     OrbModel* reverb = [[OrbModel alloc]init];
-     reverb.name = @"reverb";
-     reverb.sizeValue = 1;
-     reverb.isEffect = YES;
-     reverb.center = CGPointMake(CGRectGetMidX([[UIScreen mainScreen] bounds]),
+     OrbModel *Ohihat = [[OrbModel alloc] init];
+     Ohihat.name = @"openHihat";
+     Ohihat.sizeValue = 0.6;
+     Ohihat.idNum = 3;
+     Ohihat.midiNote = 39;
+     Ohihat.center = CGPointMake(290, 150);
+     Ohihat.sequence = [@[@false,@false,@false,@false,
+                          @false,@false,@false,@false,
+                          @false,@false,@false,@false,
+                          @false,@false,@false,@false] mutableCopy];
+     bass.hasDL = NO;
+     bass.hasRev = NO;
+     bass.hasHP = NO;
+     bass.hasLP = NO;
+//
+     [self.currentPreset addObject:Ohihat];
+//
+     OrbModel* effectsOrb = [[OrbModel alloc]init];
+     effectsOrb.name = @"effects";
+     effectsOrb.sizeValue = 1;
+     effectsOrb.isEffect = YES;
+     effectsOrb.center = CGPointMake(CGRectGetMidX([[UIScreen mainScreen] bounds]),
                                  CGRectGetMidY([[UIScreen mainScreen] bounds]));
-     reverb.sequence = [@[@false,@false,@false,@false,
+     effectsOrb.sequence = [@[@false,@false,@false,@false,
                            @false,@false,@false,@false,
                            @false,@false,@false,@false,
                            @false,@false,@false,@false]mutableCopy];
-     [self.currentPreset addObject:reverb];
+     bass.hasDL = NO;
+     bass.hasRev = NO;
+     bass.hasHP = NO;
+     bass.hasLP = NO;
+     [self.currentPreset addObject:effectsOrb];
      
-     OrbModel* hp = [[OrbModel alloc]init];
-     hp.name = @"hp";
-     hp.sizeValue = 1;
-     hp.isEffect = YES;
-     hp.center = CGPointMake(CGRectGetMidX([[UIScreen mainScreen] bounds]) + 50,
-                                CGRectGetMidY([[UIScreen mainScreen] bounds]));
-     hp.sequence = [@[@false,@false,@false,@false,
-                          @false,@false,@false,@false,
-                          @false,@false,@false,@false,
-                          @false,@false,@false,@false]mutableCopy];
-     [self.currentPreset addObject:hp];
+     return self.currentPreset;
+
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
@@ -462,78 +588,62 @@
 - (void)orbTappedWithID:(int)ID {
      
      OrbModel *orb = [[OrbManager sharedOrbManager] getOrbWithID:ID];
-     [self.controlsViewController.controlsView.sequencerView loadOrb:orb];
-     [self toggleControls:YES];
-     OrbView *orbView;
-     
      for (OrbView *anOrb in self.mainView.orbs) {
           if (![anOrb.orbModelRef.name isEqualToString:orb.name]) {
                anOrb.layer.borderWidth = 0;
           } else {
-               orbView = anOrb;
+               self.selectedOrb = anOrb;
           }
      }
-     orbView.layer.borderWidth = [Theme sharedTheme].borderWidth + 2;
+     [self.controlsViewController.controlsView.sequencerView loadOrbWithID:orb.idNum
+                                                               andSequence:orb.sequence];
+     [self.controlsViewController.controlsView.effectsView loadOrbWithID:orb.idNum
+                                                                  andRev:self.selectedOrb.orbModelRef.hasRev
+                                                                      hp:self.selectedOrb.orbModelRef.hasHP
+                                                                      lp:self.selectedOrb.orbModelRef.hasLP
+                                                                    dist:self.selectedOrb.orbModelRef.hasDL
+                                                                 orbName:self.selectedOrb.orbModelRef.name];
+      self.selectedOrb.layer.borderWidth = [Theme sharedTheme].borderWidth + 2;
 }
 
 
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-     [self toggleControls:NO];
-}
 
 
 -(void)toggleControls:(BOOL)toggle {
-     
+     [self.view bringSubviewToFront:self.controlsViewController.view];
+
      [UIView animateWithDuration:0.15 animations:^{
-          [self.view bringSubviewToFront:self.controlsViewController.view];
-          CGRect frameControls = self.controlsViewController.view.frame;
+          CGRect controlsViewFrame = self.controlsViewController.view.frame;
           if (toggle) {
-               self.mainView.transform = CGAffineTransformMakeScale(1, MAINVIEWTRANSFORM);
-               for (OrbView *orb in self.mainView.orbs) {
-                    orb.transform = CGAffineTransformMakeScale(1, 2 - MAINVIEWTRANSFORM+0.2);
-               }
-               self.controlsViewController.controlsView.transportView.expandButton.pivot = 1;
-               self.controlsViewController.controlsView.transportView.expandButton.wings = 0;
-               self.controlsViewController.controlsView.transportView.expandButton.imageView.transform = CGAffineTransformMakeRotation(M_PI);
-               frameControls.origin.y = controlsOpenPos;
-               
-               CGRect frameReset = self.mainView.frame;
-               frameReset.origin = CGPointMake(0, 0);
-               self.mainView.frame = frameReset;
-               self.controlsViewController.controlsView.transportView.expandButton.selected = YES;
-               
+               self.controlsViewController.controlsView.effectsView.expandButton.pivot = 1;
+               self.controlsViewController.controlsView.effectsView.expandButton.wings = 0;
+               self.controlsViewController.controlsView.effectsView.expandButton.imageView.transform = CGAffineTransformMakeRotation(M_PI);
+               self.controlsViewController.controlsView.effectsView.expandButton.selected = YES;
+               controlsViewFrame.origin.y = controlsOpenPos;
           } else {
-               self.mainView.transform = CGAffineTransformMakeScale(1, 1);
-               for (OrbView *orb in self.mainView.orbs) {
-                    orb.transform = CGAffineTransformMakeScale(1,1);
-               }
-               self.controlsViewController.controlsView.transportView.expandButton.pivot = 0;
-               self.controlsViewController.controlsView.transportView.expandButton.wings = 1;
-               CGRect frameReset = self.mainView.frame;
-               frameReset.origin = CGPointMake(0, 0);
-               self.mainView.frame = frameReset;
-               self.controlsViewController.controlsView.transportView.expandButton.imageView.transform = CGAffineTransformMakeRotation(2*M_PI);
-               frameControls.origin.y = controlsClosedPos;
-               self.controlsViewController.controlsView.transportView.expandButton.selected = NO;
-               
+               self.controlsViewController.controlsView.effectsView.expandButton.pivot = 0;
+               self.controlsViewController.controlsView.effectsView.expandButton.wings = 1;
+                   self.controlsViewController.controlsView.effectsView.expandButton.imageView.transform = CGAffineTransformMakeRotation(2*M_PI);
+               self.controlsViewController.controlsView.effectsView.expandButton.selected = NO;
+               controlsViewFrame.origin.y = controlsClosedPos;
           }
-          self.controlsViewController.view.frame = frameControls;
+          self.controlsViewController.view.frame = controlsViewFrame;
      }];
 }
 
 
-- (void)cryptoMode:(UILongPressGestureRecognizer*)lp {
-     if (lp.state == UIGestureRecognizerStateBegan) {
-          [[Theme sharedTheme] cycleTheme];
-     }
-     
-     if ([Theme sharedTheme].cryptoMode) {
-          self.cryptoLabel.hidden = NO;
-     } else {
-          self.cryptoLabel.hidden = YES;
-     }
-}
+//- (void)cryptoMode:(UILongPressGestureRecognizer*)lp {
+//     if (lp.state == UIGestureRecognizerStateBegan) {
+//          [[Theme sharedTheme] cycleTheme];
+//     }
+//     
+//     if ([Theme sharedTheme].cryptoMode) {
+//          self.cryptoLabel.hidden = NO;
+//     } else {
+//          self.cryptoLabel.hidden = YES;
+//     }
+//}
 
 - (void)collisionBehavior:(UICollisionBehavior*)behavior beganContactForItem:(id <UIDynamicItem>)item1 withItem:(id <UIDynamicItem>)item2 atPoint:(CGPoint)p;
 {
@@ -543,5 +653,12 @@
 {
      // todo
 }
+
+
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+     //   [self toggleControls:NO];
+}
+
 
 @end
