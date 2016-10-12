@@ -61,7 +61,6 @@
           self.dlButton = [UIButton buttonWithType:UIButtonTypeCustom];
           self.hpButton = [UIButton buttonWithType:UIButtonTypeCustom];
           self.expandButton = [ExpandButton buttonWithType:UIButtonTypeCustom];
-         // self.expandButton.imageEdgeInsets = UIEdgeInsetsMake(5,5,5,5);
           self.revButton = [UIButton buttonWithType:UIButtonTypeCustom];
           self.orbImView = [[UIImageView alloc] initWithFrame:CGRectInset(col1_A, 10, 10)];
 
@@ -139,7 +138,7 @@
 }
 
 
--(void)loadOrbWithID:(int)orbID andRev:(BOOL)rev hp:(BOOL)hp lp:(BOOL)lp dist:(BOOL)dist
+- (void)loadOrbWithID:(int)orbID andRev:(BOOL)rev hp:(BOOL)hp lp:(BOOL)lp dist:(BOOL)dist
              orbName:(NSString*)orbName {
 
      self.orbID = orbID;
@@ -161,7 +160,7 @@
 
 
 
--(void)handleEvent:(id)sender {
+- (void)handleEvent:(id)sender {
 
      if ([sender isKindOfClass:[ExpandButton class]]) {
           ExpandButton *expand = sender;

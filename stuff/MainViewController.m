@@ -8,11 +8,9 @@
 
 #import "MainViewController.h"
 #import "OrbView.h"
-#import "AppDelegate.h"
 #import "OrbModel.h"
 #import "myFunction.h"
 #import "ControlsViewController.h"
-#import "PresetsViewController.h"
 #import "UIColor+ColorAdditions.h"
 #import "Sampler.h"
 #import "Sequencer.h"
@@ -26,7 +24,6 @@
 @interface MainViewController()<SequencerDelegate,OrbViewDelegate,UICollisionBehaviorDelegate,TopTransportViewDelegate>
 
 @property (nonatomic, strong) ControlsViewController *controlsViewController;
-@property (nonatomic, strong) PresetsViewController *presetsViewController;
 @property (nonatomic,strong)  NSMutableArray *currentPreset;
 @property (strong) SuperTimer *superTimer;
 @property (nonatomic,assign) BOOL wasBeat;
@@ -65,22 +62,7 @@
                                                    selector:@selector(didTick:)
                                                        name:@"didTick"
                                                      object:nil];
-          // KVO
-//          [[Theme sharedTheme] addObserver:self forKeyPath:@"mainViewBackgroundColor"
-//                                   options:NSKeyValueObservingOptionNew
-//                                   context:nil];
-//          [[Theme sharedTheme] addObserver:self
-//                                forKeyPath:@"borderWidth"
-//                                   options:NSKeyValueObservingOptionNew
-//                                   context:nil];
-//          [[Theme sharedTheme] addObserver:self
-//                                forKeyPath:@"bordersColor"
-//                                   options:NSKeyValueObservingOptionNew
-//                                   context:nil];
-//          [[Theme sharedTheme] addObserver:self
-//                                forKeyPath:@"controlsViewBackgroundColor"
-//                                   options:NSKeyValueObservingOptionNew
-//                                   context:nil];
+
      }
      return self;
 }
@@ -216,19 +198,7 @@
                     }];
                     }
                }
-               //cryptoMode
-               if ([Theme sharedTheme].cryptoMode) {
-                    if (self.wasBeat) {
-                         [UIView animateWithDuration:0.005 delay:0 options:UIViewAnimationOptionAllowUserInteraction
-                                          animations:^{
-                                               self.mainView.alpha = 0.25;
-                                          }
-                                          completion:^(BOOL finished) {
-                                               self.mainView.alpha = 1;
-                                          }
-                          ];
-                    }
-               }
+  
           });
 }
 
@@ -629,6 +599,7 @@
 
 
 -(void)toggleControls:(BOOL)toggle {
+    
      [self.view bringSubviewToFront:self.controlsViewController.view];
 
      [UIView animateWithDuration:0.15 animations:^{
@@ -651,17 +622,6 @@
 }
 
 
-//- (void)cryptoMode:(UILongPressGestureRecognizer*)lp {
-//     if (lp.state == UIGestureRecognizerStateBegan) {
-//          [[Theme sharedTheme] cycleTheme];
-//     }
-//     
-//     if ([Theme sharedTheme].cryptoMode) {
-//          self.cryptoLabel.hidden = NO;
-//     } else {
-//          self.cryptoLabel.hidden = YES;
-//     }
-//}
 
 - (void)collisionBehavior:(UICollisionBehavior*)behavior beganContactForItem:(id <UIDynamicItem>)item1 withItem:(id <UIDynamicItem>)item2 atPoint:(CGPoint)p;
 {
@@ -674,9 +634,6 @@
 
 
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-     //   [self toggleControls:NO];
-}
 
 
 @end

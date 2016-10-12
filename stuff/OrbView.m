@@ -8,7 +8,6 @@
 
 #import "OrbView.h"
 #import "SeqViewController.h"
-#import "AppDelegate.h"
 #import "OrbModel.h"
 #import "OrbManager.h"
 #import "myFunction.h"

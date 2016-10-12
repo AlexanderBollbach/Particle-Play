@@ -11,8 +11,6 @@
 		290A28741B937F2900FA736D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 290A28731B937F2900FA736D /* AVFoundation.framework */; };
 		291A0E1F1BE68F74004FEAEC /* UIBezierPath+forEachElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 291A0E1E1BE68F74004FEAEC /* UIBezierPath+forEachElement.m */; };
 		291A0E221BE690C1004FEAEC /* OrbTrackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 291A0E211BE690C1004FEAEC /* OrbTrackView.m */; };
-		291D35781B7E9DC800898F13 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 291D35771B7E9DC800898F13 /* main.m */; };
-		291D357B1B7E9DC800898F13 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 291D357A1B7E9DC800898F13 /* AppDelegate.m */; };
 		291D357E1B7E9DC800898F13 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 291D357D1B7E9DC800898F13 /* MainViewController.m */; };
 		2928A36D1BBC3D3300BEE906 /* Sampler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2928A36C1BBC3D3300BEE906 /* Sampler.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2928A3701BBC45A300BEE906 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2928A36F1BBC45A300BEE906 /* MainView.m */; };
@@ -32,13 +30,14 @@
 		29690B431BD0859D007E5265 /* HotCuesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29690B421BD0859D007E5265 /* HotCuesView.m */; };
 		296B003C1BBF5D5A00FA865F /* ControlsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 296B003B1BBF5D5A00FA865F /* ControlsViewController.m */; };
 		297C139C1BCC7E47003F1740 /* SequencerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 297C139B1BCC7E47003F1740 /* SequencerView.m */; };
-		297FE6691B8E7565004E82D3 /* PresetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 297FE6681B8E7565004E82D3 /* PresetsViewController.m */; };
 		298080351B86620600C00FD8 /* OrbView.m in Sources */ = {isa = PBXBuildFile; fileRef = 298080341B86620600C00FD8 /* OrbView.m */; };
 		2995E72B1BD7DFA500853807 /* EffectsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2995E72A1BD7DFA500853807 /* EffectsView.m */; };
 		2995E7301BD81D5E00853807 /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 2995E72F1BD81D5E00853807 /* Theme.m */; };
 		2995E7331BD830E600853807 /* SampleSelectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2995E7321BD830E600853807 /* SampleSelectButton.m */; };
 		299B1D141BC827C600CB6DBC /* PlayPauseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 299B1D131BC827C600CB6DBC /* PlayPauseButton.m */; };
 		299B1D171BC8283D00CB6DBC /* ControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 299B1D161BC8283D00CB6DBC /* ControlsView.m */; };
+		299C9E301DADE99B00A2149D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299C9E2F1DADE99B00A2149D /* AppDelegate.swift */; };
+		299C9E321DADF42F00A2149D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 299C9E311DADF42F00A2149D /* Main.storyboard */; };
 		299EC0E91BDFFF1C0056DC49 /* SuperTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 299EC0E81BDFFF1C0056DC49 /* SuperTimer.m */; };
 		29B3B2991BE1C99C0089D8B1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29B3B2981BE1C99C0089D8B1 /* Launch Screen.storyboard */; };
 		29D49F501BE72C5000C46831 /* TopTransportView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29D49F4F1BE72C5000C46831 /* TopTransportView.m */; };
@@ -73,9 +72,6 @@
 		291A0E201BE690C1004FEAEC /* OrbTrackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrbTrackView.h; sourceTree = "<group>"; };
 		291A0E211BE690C1004FEAEC /* OrbTrackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrbTrackView.m; sourceTree = "<group>"; };
 		291D35731B7E9DC800898F13 /* Particle Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Particle Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		291D35771B7E9DC800898F13 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		291D35791B7E9DC800898F13 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		291D357A1B7E9DC800898F13 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		291D357C1B7E9DC800898F13 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		291D357D1B7E9DC800898F13 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		291D35871B7E9DC800898F13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -110,8 +106,6 @@
 		296B003B1BBF5D5A00FA865F /* ControlsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlsViewController.m; sourceTree = "<group>"; };
 		297C139A1BCC7E47003F1740 /* SequencerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequencerView.h; sourceTree = "<group>"; };
 		297C139B1BCC7E47003F1740 /* SequencerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SequencerView.m; sourceTree = "<group>"; };
-		297FE6671B8E7565004E82D3 /* PresetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresetsViewController.h; sourceTree = "<group>"; };
-		297FE6681B8E7565004E82D3 /* PresetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresetsViewController.m; sourceTree = "<group>"; };
 		298080331B86620600C00FD8 /* OrbView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrbView.h; sourceTree = "<group>"; };
 		298080341B86620600C00FD8 /* OrbView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrbView.m; sourceTree = "<group>"; };
 		2995E7291BD7DFA500853807 /* EffectsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectsView.h; sourceTree = "<group>"; };
@@ -124,6 +118,9 @@
 		299B1D131BC827C600CB6DBC /* PlayPauseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayPauseButton.m; sourceTree = "<group>"; };
 		299B1D151BC8283D00CB6DBC /* ControlsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlsView.h; sourceTree = "<group>"; };
 		299B1D161BC8283D00CB6DBC /* ControlsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlsView.m; sourceTree = "<group>"; };
+		299C9E2E1DADE99B00A2149D /* Particle Player-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Particle Player-Bridging-Header.h"; sourceTree = "<group>"; };
+		299C9E2F1DADE99B00A2149D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		299C9E311DADF42F00A2149D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		299EC0E71BDFFF1C0056DC49 /* SuperTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperTimer.h; sourceTree = "<group>"; };
 		299EC0E81BDFFF1C0056DC49 /* SuperTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperTimer.m; sourceTree = "<group>"; };
 		29B3B2981BE1C99C0089D8B1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -198,13 +195,14 @@
 		291D35751B7E9DC800898F13 /* Stuff */ = {
 			isa = PBXGroup;
 			children = (
-				291D35791B7E9DC800898F13 /* AppDelegate.h */,
-				291D357A1B7E9DC800898F13 /* AppDelegate.m */,
 				381A3F061BC5C25F00D0CB58 /* Categories */,
 				291D35761B7E9DC800898F13 /* Supporting Files */,
 				293E8B051B911390000C9BA0 /* Model */,
 				293E8B041B91137C000C9BA0 /* View */,
 				293E8B011B911362000C9BA0 /* Controller */,
+				299C9E2F1DADE99B00A2149D /* AppDelegate.swift */,
+				299C9E2E1DADE99B00A2149D /* Particle Player-Bridging-Header.h */,
+				299C9E311DADF42F00A2149D /* Main.storyboard */,
 			);
 			name = Stuff;
 			path = stuff;
@@ -220,7 +218,6 @@
 				381A3F071BC5C26E00D0CB58 /* Presets */,
 				381A3F081BC5D6DE00D0CB58 /* Storyboards */,
 				291D35871B7E9DC800898F13 /* Info.plist */,
-				291D35771B7E9DC800898F13 /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -232,8 +229,6 @@
 				291D357D1B7E9DC800898F13 /* MainViewController.m */,
 				296B003A1BBF5D5A00FA865F /* ControlsViewController.h */,
 				296B003B1BBF5D5A00FA865F /* ControlsViewController.m */,
-				297FE6671B8E7565004E82D3 /* PresetsViewController.h */,
-				297FE6681B8E7565004E82D3 /* PresetsViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -442,6 +437,7 @@
 					291D35721B7E9DC800898F13 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 6UUR9483U2;
+						LastSwiftMigration = 0810;
 					};
 					291D358B1B7E9DC800898F13 = {
 						CreatedOnToolsVersion = 7.0;
@@ -480,6 +476,7 @@
 				295B6D851BB996DD00797EB3 /* Dotnation.ttf in Resources */,
 				29D7E7351BAB7C5700C779FE /* 808Snare.wav in Resources */,
 				29D7E7311BAB7C2800C779FE /* 808Tom2.wav in Resources */,
+				299C9E321DADF42F00A2149D /* Main.storyboard in Resources */,
 				292FC6211BAB3CD20095EB3B /* 1.wav in Resources */,
 				29D7E7331BAB7C4800C779FE /* 808OpenHihat.wav in Resources */,
 				29D7E7291BAB7BD900C779FE /* 808woodBlock.wav in Resources */,
@@ -511,7 +508,6 @@
 				291D357E1B7E9DC800898F13 /* MainViewController.m in Sources */,
 				295B74291BD9CEA8003B4AE8 /* SequencerGridButton.m in Sources */,
 				292FC59B1BA78F690095EB3B /* CustomSlider.m in Sources */,
-				291D357B1B7E9DC800898F13 /* AppDelegate.m in Sources */,
 				296B003C1BBF5D5A00FA865F /* ControlsViewController.m in Sources */,
 				2928A3701BBC45A300BEE906 /* MainView.m in Sources */,
 				29690B431BD0859D007E5265 /* HotCuesView.m in Sources */,
@@ -521,8 +517,8 @@
 				291A0E1F1BE68F74004FEAEC /* UIBezierPath+forEachElement.m in Sources */,
 				292FC5531BA660790095EB3B /* myFunction.c in Sources */,
 				299B1D171BC8283D00CB6DBC /* ControlsView.m in Sources */,
-				297FE6691B8E7565004E82D3 /* PresetsViewController.m in Sources */,
 				2995E72B1BD7DFA500853807 /* EffectsView.m in Sources */,
+				299C9E301DADE99B00A2149D /* AppDelegate.swift in Sources */,
 				2928A36D1BBC3D3300BEE906 /* Sampler.m in Sources */,
 				295B746B1BDB17DE003B4AE8 /* SpaceView.m in Sources */,
 				2907595A1BCC9670007AA8C4 /* Sequencer.m in Sources */,
@@ -533,7 +529,6 @@
 				291A0E221BE690C1004FEAEC /* OrbTrackView.m in Sources */,
 				295B742C1BD9F93D003B4AE8 /* ExpandButton.m in Sources */,
 				296863F71BB38B8B003AEF88 /* UIButton+reset.m in Sources */,
-				291D35781B7E9DC800898F13 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -646,6 +641,7 @@
 		291D35A11B7E9DC900898F13 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 6UUR9483U2;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -659,6 +655,9 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alex.particleplayer;
 				PRODUCT_NAME = "Particle Player";
+				SWIFT_OBJC_BRIDGING_HEADER = "stuff/Particle Player-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -667,6 +666,7 @@
 		291D35A21B7E9DC900898F13 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 6UUR9483U2;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -680,6 +680,9 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alex.particleplayer;
 				PRODUCT_NAME = "Particle Player";
+				SWIFT_OBJC_BRIDGING_HEADER = "stuff/Particle Player-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -688,6 +691,7 @@
 		291D35A41B7E9DC900898F13 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = fieldTheory1Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
@@ -701,6 +705,7 @@
 		291D35A51B7E9DC900898F13 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = fieldTheory1Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
