@@ -32,15 +32,10 @@
      self.controlsView.sequencerView.delegate = self;
      self.controlsView.effectsView.delegate = self;
      self.view = self.controlsView;
-     
-     // load initial orb as Kick
-     OrbModel *kickModelOrb = [[OrbManager sharedOrbManager] getOrbWithID:0];
-     [self.controlsView.sequencerView loadOrbWithID:kickModelOrb.idNum andSequence:kickModelOrb.sequence];
-     
 }
 
 - (void)toggle:(BOOL)expanded {
-     [self.mainViewController toggleControls:!expanded];
+     [self.mainViewController toggleControls:expanded];
 }
 - (void)setEffectForOrbWithID:(int)orbID effectTag:(int)effectTag selected:(BOOL)selected {
 

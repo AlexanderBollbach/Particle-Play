@@ -56,17 +56,15 @@
           col1_F.origin.x += col1_A.size.width ;
 
           CGFloat inset = col1_A.size.width / 10;
-          
-   
          
           self.lpButton = [UIButton buttonWithType:UIButtonTypeCustom];
           self.dlButton = [UIButton buttonWithType:UIButtonTypeCustom];
           self.hpButton = [UIButton buttonWithType:UIButtonTypeCustom];
           self.expandButton = [ExpandButton buttonWithType:UIButtonTypeCustom];
+         // self.expandButton.imageEdgeInsets = UIEdgeInsetsMake(5,5,5,5);
           self.revButton = [UIButton buttonWithType:UIButtonTypeCustom];
-          self.orbImView = [[UIImageView alloc] initWithFrame:col1_A];
+          self.orbImView = [[UIImageView alloc] initWithFrame:CGRectInset(col1_A, 10, 10)];
 
-          
           self.revButton.tag = 1;
           self.hpButton.tag = 2;
           self.lpButton.tag = 3;
@@ -77,14 +75,14 @@
           self.hpButton.frame =  CGRectInset(col1_C, inset, inset);
           self.lpButton.frame =  CGRectInset(col1_D, inset, inset);
           self.dlButton.frame =  CGRectInset(col1_E, inset, inset);
-          self.expandButton.frame = CGRectInset(col1_F, 8, 8);
+          self.expandButton.frame = CGRectInset(col1_F, inset, inset);
           
           [self.lpButton addTarget:self
                             action:@selector(handleEvent:)
                   forControlEvents:UIControlEventTouchUpInside];
           [self.dlButton addTarget:self
-                              action:@selector(handleEvent:)
-                    forControlEvents:UIControlEventTouchUpInside];
+                            action:@selector(handleEvent:)
+                  forControlEvents:UIControlEventTouchUpInside];
           [self.hpButton addTarget:self
                             action:@selector(handleEvent:)
                   forControlEvents:UIControlEventTouchUpInside];
@@ -94,21 +92,21 @@
           [self.expandButton addTarget:self
                                 action:@selector(handleEvent:)
                       forControlEvents:UIControlEventTouchUpInside];
-
+          
           self.revButton.backgroundColor = [Theme sharedTheme].mainFillColor;
           self.hpButton.backgroundColor = [Theme sharedTheme].mainFillColor;
           self.dlButton.backgroundColor = [Theme sharedTheme].mainFillColor;
           self.lpButton.backgroundColor = [Theme sharedTheme].mainFillColor;
           self.orbImView.backgroundColor = [UIColor clearColor];
-          self.expandButton.backgroundColor = [UIColor redColor];
+          self.expandButton.backgroundColor = [UIColor clearColor];
 
-          [self.dlButton setTitle:@"delay"
+          [self.dlButton setTitle:@"Delay"
                            forState:UIControlStateNormal];
-          [self.hpButton setTitle:@"hp"
+          [self.hpButton setTitle:@"HP"
                          forState:UIControlStateNormal];
-          [self.revButton setTitle:@"reve"
+          [self.revButton setTitle:@"Rev"
                           forState:UIControlStateNormal];
-          [self.lpButton setTitle:@"lp"
+          [self.lpButton setTitle:@"LP"
                          forState:UIControlStateNormal];
 
           self.dlButton.titleLabel.font = [UIFont systemFontOfSize:10];
@@ -127,8 +125,6 @@
           self.lpButton.layer.borderWidth = 0;
           self.revButton.layer.borderWidth = 0;
           
-          self.orbIm = [UIImage imageNamed:@"bass"];
-          self.orbImView.image = self.orbIm;
 
           [self addSubview:self.hpButton];
           [self addSubview:self.revButton];
@@ -147,7 +143,7 @@
              orbName:(NSString*)orbName {
 
      self.orbID = orbID;
-     self.orbImView.image = [UIImage imageNamed:orbName];
+     self.orbImView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_white",orbName]];
 
      self.revButton.selected = rev;
      self.revButton.layer.borderWidth =  rev ? 5 : 0;
@@ -167,12 +163,6 @@
 
 -(void)handleEvent:(id)sender {
 
-     UIButton *but = sender;
-     but.selected = !but.selected;
-     but.layer.borderWidth = but.selected ? 5 : 0;
-     
-     [self.delegate setEffectForOrbWithID:self.orbID effectTag:(int)but.tag selected:but.selected];
-
      if ([sender isKindOfClass:[ExpandButton class]]) {
           ExpandButton *expand = sender;
 
@@ -180,6 +170,12 @@
           if (self.delegate) {
                [self.delegate toggle:expand.selected];
           }
+     } else {
+          UIButton *but = sender;
+          but.selected = !but.selected;
+          but.layer.borderWidth = but.selected ? 5 : 0;
+          
+          [self.delegate setEffectForOrbWithID:self.orbID effectTag:(int)but.tag selected:but.selected];
      }
 }
 

@@ -23,25 +23,32 @@
           [self loadSynthFromPresetURL:_preset sampler:&_player];
           CheckError (AUGraphStart(_player.graph),"couldn't start graph");
           
-   
+          //set reverb
           AudioUnitSetParameter(_player.reverbUnit,
                                 kAudioUnitScope_Global,
                                 0,
                                 kDelayParam_WetDryMix,
                                 0,
                                 0);
+          
+          
+          // set lowpass
           AudioUnitSetParameter(_player.lpUnit,
                                 kAudioUnitScope_Global,
                                 0,
                                 kLowPassParam_CutoffFrequency,
                                 20000,
                                 0);
-//          AudioUnitSetParameter(_player.hpUnit,
-//                                kAudioUnitScope_Global,
-//                                0,
-//                                kHipassParam_CutoffFrequency,
-//                              20000,
-//                                0);
+          
+          // set highpass
+          AudioUnitSetParameter(_player.hpUnit,
+                                kAudioUnitScope_Global,
+                                0,
+                                kHipassParam_CutoffFrequency,
+                                0,
+                                0);
+          
+          // set delay
           AudioUnitSetParameter(_player.dlUnit,
                                 kAudioUnitScope_Global,
                                 0,
@@ -100,7 +107,7 @@
 }
 
 - (void)setDelayAmount:(AudioUnitParameterValue)value {
-     AudioUnitParameterValue valueInterpolated = interpolate(0, 1, 0, 1, value, 1);
+     AudioUnitParameterValue valueInterpolated = interpolate(0, 1, 0, 100, value, 1);
      //   NSLog(@"%f", valueInterpolated);
      AudioUnitSetParameter(_player.dlUnit,
                            kAudioUnitScope_Global,
@@ -141,14 +148,16 @@
      CheckError(AUGraphAddNode(player->graph,
                                &rvcd,
                                &reverbNode),"AUGraphAddNode[kAudioUnitSubType_Reverb2] failed");
+     
      AudioComponentDescription hpcd = { 0 };
      hpcd.componentManufacturer = kAudioUnitManufacturer_Apple;
      hpcd.componentType = kAudioUnitType_Effect;
-     hpcd.componentSubType = kAudioUnitSubType_Delay;
+     hpcd.componentSubType = kAudioUnitSubType_HighPassFilter;
      AUNode hpNode;
      CheckError(AUGraphAddNode(player->graph,
                                &hpcd,
                                &hpNode),"AUGraphAddNode[kAudioUnitSubType_HighPass] failed");
+     
      AudioComponentDescription lpcd = { 0 };
      lpcd.componentManufacturer = kAudioUnitManufacturer_Apple;
      lpcd.componentType = kAudioUnitType_Effect;
@@ -157,6 +166,7 @@
      CheckError(AUGraphAddNode(player->graph,
                                &lpcd,
                                &lpNode),"AUGraphAddNode[kAudioUnitSubType_LowPass] failed");
+     
      AudioComponentDescription dlcd = { 0 };
      dlcd.componentManufacturer = kAudioUnitManufacturer_Apple;
      dlcd.componentType = kAudioUnitType_Effect;

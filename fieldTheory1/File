@@ -7,3 +7,7 @@ TODO
 
 
 -- take some ui cues from Samplr such as the tempo slider that ustilizes whole screen just as long as you touch began in the tempo view
+
+
+
+- run orbtappedwithID and use 0 in viewdidload

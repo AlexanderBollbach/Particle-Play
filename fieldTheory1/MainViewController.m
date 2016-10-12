@@ -44,6 +44,8 @@
 @implementation MainViewController {
      CGFloat controlsClosedPos;
      CGFloat controlsOpenPos;
+     CGFloat maxOrbDist;
+     CGFloat minOrbDist;
 }
 
 
@@ -53,7 +55,6 @@
      if (self = [super init]) {
 
           // start Seq
-          [Sequencer sharedSequencer];
           
           //update mainView DrawRect
           CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(tick)];
@@ -65,36 +66,44 @@
                                                        name:@"didTick"
                                                      object:nil];
           // KVO
-          [[Theme sharedTheme] addObserver:self forKeyPath:@"mainViewBackgroundColor"
-                                   options:NSKeyValueObservingOptionNew
-                                   context:nil];
-          [[Theme sharedTheme] addObserver:self
-                                forKeyPath:@"borderWidth"
-                                   options:NSKeyValueObservingOptionNew
-                                   context:nil];
-          [[Theme sharedTheme] addObserver:self
-                                forKeyPath:@"bordersColor"
-                                   options:NSKeyValueObservingOptionNew
-                                   context:nil];
-          [[Theme sharedTheme] addObserver:self
-                                forKeyPath:@"controlsViewBackgroundColor"
-                                   options:NSKeyValueObservingOptionNew
-                                   context:nil];
+//          [[Theme sharedTheme] addObserver:self forKeyPath:@"mainViewBackgroundColor"
+//                                   options:NSKeyValueObservingOptionNew
+//                                   context:nil];
+//          [[Theme sharedTheme] addObserver:self
+//                                forKeyPath:@"borderWidth"
+//                                   options:NSKeyValueObservingOptionNew
+//                                   context:nil];
+//          [[Theme sharedTheme] addObserver:self
+//                                forKeyPath:@"bordersColor"
+//                                   options:NSKeyValueObservingOptionNew
+//                                   context:nil];
+//          [[Theme sharedTheme] addObserver:self
+//                                forKeyPath:@"controlsViewBackgroundColor"
+//                                   options:NSKeyValueObservingOptionNew
+//                                   context:nil];
      }
      return self;
 }
 
 - (void)viewDidLoad {
      [super viewDidLoad];
-  
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+     [super viewWillAppear:animated];
+     
      CGFloat topTransportHeight =  [[UIScreen mainScreen] bounds].size.height/8;
      CGFloat mainWidth = CGRectGetWidth(self.view.bounds);
      CGFloat mainHeight = CGRectGetHeight(self.view.bounds);
      
-     self.topTransportView = [[TopTransportView alloc] initWithFrame:CGRectMake(0,
+     CGFloat ttViewXPos = CGRectGetWidth(self.view.bounds)/8;
+     CGFloat ttHeightConstraint = CGRectGetHeight(self.view.bounds)/18;
+     
+     self.topTransportView = [[TopTransportView alloc] initWithFrame:CGRectMake(ttViewXPos,
                                                                                 0,
-                                                                                mainWidth,
-                                                                           topTransportHeight)];
+                                                                                mainWidth - ttViewXPos,
+                                                                                topTransportHeight - ttHeightConstraint)];// changed......
      self.topTransportView.delegate = self;
      [self.view addSubview:self.topTransportView];
      
@@ -107,40 +116,27 @@
      self.mainView.autoresizesSubviews = YES;
      [self.view addSubview:self.mainView];
      self.mainView.backgroundColor = [Theme sharedTheme].mainViewBackgroundColor;
-
-     
-
      
      // orbs
      [self loadStockPreset:[self createPreset]];
-
      
      // controls view setup
      self.controlsViewController = [[ControlsViewController alloc] init];
      self.controlsViewController.mainViewController = self;
      [self.view addSubview:self.controlsViewController.view];
      
-     
-     
      // toggle controls layout
      self.heightOfTransportView = self.controlsViewController.controlsView.effectsView.bounds.size.height;
      controlsClosedPos = CGRectGetHeight(self.view.bounds) - self.heightOfTransportView;
      controlsOpenPos = CGRectGetHeight(self.view.bounds) - self.controlsViewController.view.frame.size.height;
      CGRect setControlsVCFrame = self.controlsViewController.view.frame;
-     setControlsVCFrame.origin.y = controlsClosedPos; 
+     setControlsVCFrame.origin.y = controlsClosedPos;
      self.controlsViewController.view.frame = setControlsVCFrame;
      
      self.sizeOfControlsBar = CGRectGetHeight(self.mainView.bounds) - controlsClosedPos;
      
-
-     
-     
-     
-   
+     [self orbTappedWithID:0];
 }
-
-
-
 #pragma mark seq stuff
 
 - (void)didTick:(NSNotification*)notification {
@@ -153,15 +149,22 @@
      
      for (OrbView* orb in self.mainView.orbs) {
                if ([[orb.orbModelRef.sequence objectAtIndex:count] boolValue]) {
+         
+                    
+                    UIView *mainWid = [UIApplication sharedApplication].keyWindow;
+                    CGPoint orb1Con = [orb.superview
+                                       convertPoint:orb.center
+                                       toCoordinateSpace:mainWid];
+                    CGPoint orb2Con = [self.mainView.effectsOrb.superview
+                                       convertPoint:self.mainView.effectsOrb.center
+                                       toCoordinateSpace:mainWid];
+
+                    CGFloat dist = [self distanceFromPoint:orb1Con toOrb:orb2Con];
+                  
+                    orb.effectAmount = interpolate(minOrbDist,maxOrbDist, 1, 0, dist, 1);
                     
                     
-                    orb.effectAmount = [self distanceFromOrb:orb toOrb:self.mainView.effectsOrb];
-                    if (orb.effectAmount < 0.001) {
-                         orb.effectAmount = 0.0;
-                    }
-                  //  NSLog(@"effect Amount %f", orb.effectAmount);
-                 //   NSLog(@"hasLP %i", orb.orbModelRef.hasLP);
-                  //  NSLog(@"effect center: %@", NSStringFromCGPoint(self.mainView.effectsOrb.center));
+                    NSLog(@"max %f min %f effectAmount %f distToeffect %f", maxOrbDist, minOrbDist, orb.effectAmount,dist);
 
                     
                     [orb.sampler setLowPassCutoff:orb.orbModelRef.hasLP ? orb.effectAmount : 0];
@@ -170,28 +173,20 @@
                     [orb.sampler setDelayAmount:orb.orbModelRef.hasDL ? orb.effectAmount : 0];
 
                     [orb.sampler sendNoteOnEvent:orb.orbModelRef.midiNote velocity:127];
-
                }
           }
 }
 
 
-- (CGFloat)distanceFromOrb:(OrbView*)orb1 toOrb:(OrbView*)orb2 {
 
-   //  CGPoint convertedOrb = [orb1 convertPoint:orb1.center toView:nil];
-   //  CGPoint convertedEffectsOrb = orb2.center;//[orb2 convertPoint:orb2.center toView:nil];
-     
-     
-       CGPoint orb1Con = [[UIApplication sharedApplication].keyWindow convertPoint:orb1.center fromCoordinateSpace:orb1.superview];
-  CGPoint orb2Con = [[UIApplication sharedApplication].keyWindow convertPoint:orb2.center fromCoordinateSpace:orb2.superview];
 
-     
-     float distToEffect = sqrt(fabs(pow(orb2Con.x - orb1Con.x, 2)+fabs(pow(orb2Con.y - orb1Con.y, 2))));
-     float effectAmount = interpolate(59.5, 172.5, 1, 0, distToEffect, 1);
-        NSLog(@"dist %f", distToEffect);
-     NSLog(@"amount %f", effectAmount);
 
-     return effectAmount;
+- (CGFloat)distanceFromPoint:(CGPoint)point1 toOrb:(CGPoint)point2 {
+
+     double side1 = point2.x - point1.x;
+     double side2 = point2.y - point1.y;
+     
+     return hypot(side1, side2);
 }
 
 - (void)didTickOnMainThread:(int)count {
@@ -243,16 +238,6 @@
 // called from CADisplayLink
 - (void)tick {
      [self.mainView setNeedsDisplay];
-
-//          if (self.mainView.isPlaying) {
-//               for (OrbView *orb in self.mainView.orbs) {
-//                    
-//                   
-//
-//                    orb.effectAmount = effectAmount * 100;
-//
-//               }
-//          }
 }
 
 
@@ -267,8 +252,6 @@
      [[Sequencer sharedSequencer] setTempoWithInterval:interpolated];
      uint64_t interval = [[Sequencer sharedSequencer].superTimer getIntervalSamples];
      self.tempoLabel.text = [NSString stringWithFormat:@"tempo: %i", (int)interval];
-     
-     
 }
 
 - (void)playedPaused:(BOOL)play_pause {
@@ -343,6 +326,8 @@
      //          }
      //     }
      
+     
+     
      for (OrbModel *model in preset) {
           const CGFloat orbSize = model.isEffect ? [[UIScreen mainScreen] bounds].size.width/5 : [[UIScreen mainScreen] bounds].size.width/6;
           CGRect bounds = CGRectMake(0.0f, 0.0f, orbSize, orbSize);
@@ -352,9 +337,7 @@
           orb.isEffect = model.isEffect;
           orb.delegate = self;
           [[[OrbManager sharedOrbManager] orbModels] addObject:model];
-          
-        
-          
+    
           if ([model.name isEqualToString:@"effects"]) {
                self.mainView.effectsOrb = orb;
                orb.center = CGPointMake(self.mainView.bounds.size.width/2, self.mainView.bounds.size.height/2);
@@ -363,11 +346,8 @@
                [self.mainView addSubview:orb];
   
           } else {
-               
-               
                orb.backgroundColor = [Theme sharedTheme].orbColor;
                [orb loadSampler];
-               //     [orb addObserver:self forKeyPath:@"center" options:NSKeyValueObservingOptionNew context:nil];
                [orb setIcon];
                [self.mainView.orbs addObject:orb];
                
@@ -375,6 +355,8 @@
                CGFloat midY = CGRectGetHeight(self.mainView.bounds)/2;
                CGFloat orbYPosOffset = self.mainView.bounds.size.height/8;
                CGFloat insetVal = orbYPosOffset / 1;
+               
+              
                
                if ([model.name isEqualToString:@"bass"]) {
                     
@@ -384,16 +366,55 @@
                                                                         midX,
                                                                         midY)
                                                andHandleView:orb];
-//                    trackView.alpha = 0.8;
                     trackView.backgroundColor = [UIColor clearColor];
-                    [trackView createPathFromPoint:CGPointMake(0 + insetVal,
-                                                               0 + insetVal)
-                                           toPoint:CGPointMake(trackView.bounds.size.width - insetVal,
-                                                               trackView.bounds.size.height - insetVal)];
+
+                    CGPoint fromPoint = CGPointMake(0 + insetVal,0 + insetVal);
+                    CGPoint toPoint = CGPointMake(trackView.bounds.size.width - insetVal,
+                                                  trackView.bounds.size.height - insetVal);
+                    [trackView createPathFromPoint:fromPoint
+                                           toPoint:toPoint];
+                    
+                    
+                    
+                    
+                    
+                    // set dynamic max min here.... not ideal?
+                    
+                    
+                    
+                    UIView *mainWindow = [UIApplication sharedApplication].keyWindow;
+                    CGRect r = [[UIScreen mainScreen] bounds];
+                 //   mainWindow = [UIScreen mainScreen] ;
+                    
+                    CGPoint farPos = [orb
+                                            convertPoint:fromPoint
+                                            toCoordinateSpace:mainWindow];
+                    CGPoint nearPos = [orb
+                                             convertPoint:toPoint
+                                             toCoordinateSpace:mainWindow];
+                    CGPoint effectsPos = [self.mainView.effectsOrb
+                                          convertPoint:self.mainView.effectsOrb.center
+                                          fromCoordinateSpace:mainWindow];
+                    
+                    maxOrbDist = [self distanceFromPoint:farPos toOrb:effectsPos];
+                    minOrbDist = [self distanceFromPoint:nearPos toOrb:effectsPos];
+                    
+                    
+                    NSLog(@"max %f, min %f", maxOrbDist,minOrbDist);
+                    
+                    NSLog(@"win width %f, height %f", r.size.width,r.size.height);
+
+                    
+                    float temp = minOrbDist;
+                    minOrbDist = maxOrbDist;
+                    maxOrbDist = temp;
+                    
+                    
+                    
+                    
+                    
                     [self.mainView addSubview:trackView];
-                    
-                    
-                    
+                  
                } else if ([model.name isEqualToString:@"snare"]) {
                     
                     OrbTrackView *trackView = [[OrbTrackView alloc]
@@ -402,16 +423,13 @@
                                                                         midX,
                                                                         midY)
                                                andHandleView:orb];
-                  //  trackView.alpha = 0.2;
                     trackView.backgroundColor = [UIColor clearColor];
                     [trackView createPathFromPoint:CGPointMake(trackView.bounds.size.width - insetVal,
                                                                0 + insetVal)
                                            toPoint:CGPointMake(0 +  insetVal,
                                                                trackView.bounds.size.height - insetVal)];
                     [self.mainView addSubview:trackView];
-                    
-                    
-                    
+               
                } else if ([model.name isEqualToString:@"hihat"]) {
                     
                     
@@ -421,7 +439,6 @@
                                                                         midX,
                                                                         midY)
                                                andHandleView:orb];
-                  //  trackView.alpha = 0.2;
                     trackView.backgroundColor = [UIColor clearColor];
                     [trackView createPathFromPoint:CGPointMake(0 + insetVal,
                                                                trackView.bounds.size.height - insetVal)
@@ -438,7 +455,6 @@
                                                                         midX,
                                                                         midY)
                                                andHandleView:orb];
-//                    trackView.alpha = 0.6;
                     trackView.backgroundColor = [UIColor clearColor];
                     [trackView createPathFromPoint:CGPointMake(trackView.bounds.size.width -insetVal,
                                                                trackView.bounds.size.height - insetVal)
@@ -483,6 +499,7 @@
 - (NSMutableArray*)createPreset {
      self.currentPreset = [NSMutableArray new];
      
+     
      OrbModel *bass = [[OrbModel alloc] init];
      bass.name = @"bass";
      bass.idNum = 0;
@@ -509,10 +526,10 @@
                           @false,@false,@false,@false,
                           @false,@false,@false,@false,
                           @false,@false,@false,@false]mutableCopy];
-     bass.hasDL = NO;
-     bass.hasRev = NO;
-     bass.hasHP = NO;
-     bass.hasLP = NO;
+     snare.hasDL = NO;
+     snare.hasRev = NO;
+     snare.hasHP = NO;
+     snare.hasLP = NO;
      [self.currentPreset addObject:snare];
      
      OrbModel *hihat = [[OrbModel alloc] init];
@@ -525,10 +542,10 @@
                           @false,@false,@false,@false,
                           @false,@false,@false,@false,
                           @false,@false,@false,@false] mutableCopy];
-     bass.hasDL = NO;
-     bass.hasRev = NO;
-     bass.hasHP = NO;
-     bass.hasLP = NO;
+     hihat.hasDL = NO;
+     hihat.hasRev = NO;
+     hihat.hasHP = NO;
+     hihat.hasLP = NO;
      [self.currentPreset addObject:hihat];
 //
      
@@ -542,10 +559,10 @@
                           @false,@false,@false,@false,
                           @false,@false,@false,@false,
                           @false,@false,@false,@false] mutableCopy];
-     bass.hasDL = NO;
-     bass.hasRev = NO;
-     bass.hasHP = NO;
-     bass.hasLP = NO;
+     Ohihat.hasDL = NO;
+     Ohihat.hasRev = NO;
+     Ohihat.hasHP = NO;
+     Ohihat.hasLP = NO;
 //
      [self.currentPreset addObject:Ohihat];
 //
@@ -554,16 +571,17 @@
      effectsOrb.sizeValue = 1;
      effectsOrb.isEffect = YES;
      effectsOrb.center = CGPointMake(CGRectGetMidX([[UIScreen mainScreen] bounds]),
-                                 CGRectGetMidY([[UIScreen mainScreen] bounds]));
+                                     CGRectGetMidY([[UIScreen mainScreen] bounds]));
      effectsOrb.sequence = [@[@false,@false,@false,@false,
-                           @false,@false,@false,@false,
-                           @false,@false,@false,@false,
-                           @false,@false,@false,@false]mutableCopy];
-     bass.hasDL = NO;
-     bass.hasRev = NO;
-     bass.hasHP = NO;
-     bass.hasLP = NO;
+                               @false,@false,@false,@false,
+                               @false,@false,@false,@false,
+                               @false,@false,@false,@false]mutableCopy];
+     effectsOrb.hasDL = NO;
+     effectsOrb.hasRev = NO;
+     effectsOrb.hasHP = NO;
+     effectsOrb.hasLP = NO;
      [self.currentPreset addObject:effectsOrb];
+
      
      return self.currentPreset;
 
@@ -616,15 +634,15 @@
      [UIView animateWithDuration:0.15 animations:^{
           CGRect controlsViewFrame = self.controlsViewController.view.frame;
           if (toggle) {
-               self.controlsViewController.controlsView.effectsView.expandButton.pivot = 1;
-               self.controlsViewController.controlsView.effectsView.expandButton.wings = 0;
-               self.controlsViewController.controlsView.effectsView.expandButton.imageView.transform = CGAffineTransformMakeRotation(M_PI);
+               self.controlsViewController.controlsView.effectsView.expandButton.pivot = 1.5;
+               self.controlsViewController.controlsView.effectsView.expandButton.wings = 0.3;
+
                self.controlsViewController.controlsView.effectsView.expandButton.selected = YES;
                controlsViewFrame.origin.y = controlsOpenPos;
           } else {
-               self.controlsViewController.controlsView.effectsView.expandButton.pivot = 0;
-               self.controlsViewController.controlsView.effectsView.expandButton.wings = 1;
-                   self.controlsViewController.controlsView.effectsView.expandButton.imageView.transform = CGAffineTransformMakeRotation(2*M_PI);
+               self.controlsViewController.controlsView.effectsView.expandButton.pivot = 0.3;
+               self.controlsViewController.controlsView.effectsView.expandButton.wings = 1.5;
+
                self.controlsViewController.controlsView.effectsView.expandButton.selected = NO;
                controlsViewFrame.origin.y = controlsClosedPos;
           }

@@ -100,7 +100,7 @@ static OSStatus renderCallback (void                        *inRefCon,
     float intervalSeconds = (float)intervalSamples/sampleRate;
     
   //  NSLog(@"TIMER INTERVAL (SAMPLES): %llu", intervalSamples);
-    NSLog(@"TIMER INTERVAL (SECONDS): %f", intervalSeconds);
+  //  NSLog(@"TIMER INTERVAL (SECONDS): %f", intervalSeconds);
     
     samplesSinceLastCall = 0;
 }

@@ -24,7 +24,7 @@
 
 -(instancetype)init {
      if (self = [super init]) {
-          [self spawnSequencerWithTempo:5000];
+        //  [self spawnSequencerWithTempo:5000];
      }
      return self;
 }
@@ -41,7 +41,7 @@
 }
 
 -(void)startSequencer {
-    // [self spawnSequencerWithTempo:self.tempo];
+     [self spawnSequencerWithTempo:5000];
 }
 
 - (void)pauseSequencer {
