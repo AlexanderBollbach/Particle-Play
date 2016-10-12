@@ -40,10 +40,7 @@
 		299B1D141BC827C600CB6DBC /* PlayPauseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 299B1D131BC827C600CB6DBC /* PlayPauseButton.m */; };
 		299B1D171BC8283D00CB6DBC /* ControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 299B1D161BC8283D00CB6DBC /* ControlsView.m */; };
 		299EC0E91BDFFF1C0056DC49 /* SuperTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 299EC0E81BDFFF1C0056DC49 /* SuperTimer.m */; };
-		29AA774F1BEA94C700C33018 /* ppIconBig.png in Resources */ = {isa = PBXBuildFile; fileRef = 29AA774E1BEA94C700C33018 /* ppIconBig.png */; };
-		29AE8D701BACA6C20056DE60 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29AE8D6F1BACA6C20056DE60 /* Images.xcassets */; };
 		29B3B2991BE1C99C0089D8B1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29B3B2981BE1C99C0089D8B1 /* Launch Screen.storyboard */; };
-		29C96EEE1BD20DA600889810 /* File in Resources */ = {isa = PBXBuildFile; fileRef = 29C96EED1BD20DA600889810 /* File */; };
 		29D49F501BE72C5000C46831 /* TopTransportView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29D49F4F1BE72C5000C46831 /* TopTransportView.m */; };
 		29D7E7251BAB7BAE00C779FE /* 808Bell.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29D7E7241BAB7BAE00C779FE /* 808Bell.wav */; };
 		29D7E7271BAB7BC500C779FE /* 808Hihat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29D7E7261BAB7BC500C779FE /* 808Hihat.wav */; };
@@ -129,10 +126,7 @@
 		299B1D161BC8283D00CB6DBC /* ControlsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlsView.m; sourceTree = "<group>"; };
 		299EC0E71BDFFF1C0056DC49 /* SuperTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperTimer.h; sourceTree = "<group>"; };
 		299EC0E81BDFFF1C0056DC49 /* SuperTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperTimer.m; sourceTree = "<group>"; };
-		29AA774E1BEA94C700C33018 /* ppIconBig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ppIconBig.png; sourceTree = "<group>"; };
-		29AE8D6F1BACA6C20056DE60 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = fieldTheory1/Images.xcassets; sourceTree = "<group>"; };
-		29B3B2981BE1C99C0089D8B1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../Launch Screen.storyboard"; sourceTree = "<group>"; };
-		29C96EED1BD20DA600889810 /* File */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = File; path = fieldTheory1/File; sourceTree = "<group>"; };
+		29B3B2981BE1C99C0089D8B1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		29D49F4E1BE72C5000C46831 /* TopTransportView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopTransportView.h; sourceTree = "<group>"; };
 		29D49F4F1BE72C5000C46831 /* TopTransportView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopTransportView.m; sourceTree = "<group>"; };
 		29D7E7241BAB7BAE00C779FE /* 808Bell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808Bell.wav; sourceTree = "<group>"; };
@@ -185,10 +179,7 @@
 		291D356A1B7E9DC800898F13 = {
 			isa = PBXGroup;
 			children = (
-				29AE8D6F1BACA6C20056DE60 /* Images.xcassets */,
-				29C96EED1BD20DA600889810 /* File */,
-				29AA774E1BEA94C700C33018 /* ppIconBig.png */,
-				291D35751B7E9DC800898F13 /* Particle Player */,
+				291D35751B7E9DC800898F13 /* Stuff */,
 				291D35741B7E9DC800898F13 /* Products */,
 				29D7E7361BAB7C7300C779FE /* Frameworks */,
 			);
@@ -204,7 +195,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		291D35751B7E9DC800898F13 /* Particle Player */ = {
+		291D35751B7E9DC800898F13 /* Stuff */ = {
 			isa = PBXGroup;
 			children = (
 				291D35791B7E9DC800898F13 /* AppDelegate.h */,
@@ -215,8 +206,8 @@
 				293E8B041B91137C000C9BA0 /* View */,
 				293E8B011B911362000C9BA0 /* Controller */,
 			);
-			name = "Particle Player";
-			path = fieldTheory1;
+			name = Stuff;
+			path = stuff;
 			sourceTree = "<group>";
 		};
 		291D35761B7E9DC800898F13 /* Supporting Files */ = {
@@ -445,7 +436,7 @@
 		291D356B1B7E9DC800898F13 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = alexanderbollbach;
 				TargetAttributes = {
 					291D35721B7E9DC800898F13 = {
@@ -483,16 +474,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29C96EEE1BD20DA600889810 /* File in Resources */,
 				296863911BB09DEE003AEF88 /* SimpleDrums.aupreset in Resources */,
 				2968638F1BB09C5C003AEF88 /* Sounds in Resources */,
 				295B6D8C1BB9D39B00797EB3 /* Dots and Lines.ttf in Resources */,
 				295B6D851BB996DD00797EB3 /* Dotnation.ttf in Resources */,
 				29D7E7351BAB7C5700C779FE /* 808Snare.wav in Resources */,
-				29AA774F1BEA94C700C33018 /* ppIconBig.png in Resources */,
 				29D7E7311BAB7C2800C779FE /* 808Tom2.wav in Resources */,
 				292FC6211BAB3CD20095EB3B /* 1.wav in Resources */,
-				29AE8D701BACA6C20056DE60 /* Images.xcassets in Resources */,
 				29D7E7331BAB7C4800C779FE /* 808OpenHihat.wav in Resources */,
 				29D7E7291BAB7BD900C779FE /* 808woodBlock.wav in Resources */,
 				29D7E72D1BAB7C0300C779FE /* 808Cym.wav in Resources */,
@@ -580,8 +568,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -625,8 +615,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -654,14 +646,14 @@
 		291D35A11B7E9DC900898F13 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 6UUR9483U2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
-				INFOPLIST_FILE = fieldTheory1/Info.plist;
+				INFOPLIST_FILE = stuff/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
@@ -675,14 +667,14 @@
 		291D35A21B7E9DC900898F13 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 6UUR9483U2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
-				INFOPLIST_FILE = fieldTheory1/Info.plist;
+				INFOPLIST_FILE = stuff/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
